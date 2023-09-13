@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "BIOEST 2023-24"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Programa
+      - href: Practica0.qmd
+        text: Práctica 0
+      - href: Practica1.qmd
+        text: Práctica 1
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    link-external-newwindow: true
+
+editor: visual
+
