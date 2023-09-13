@@ -5,9 +5,9 @@ format: gfm
 
 ## Bioestadística. Curso 2023-2024. {style="color: green"}
 
-| Fecha      | Título                                                       |
-|------------|--------------------------------------------------------------|
-| 09-octubre | [Práctica 0: Introducción a `R`](./Practica0.html)           |
+| Fecha      | Título                                                        |
+|------------|---------------------------------------------------------------|
+| 09-octubre | [Práctica 0: Introducción a `R`](./Practica0.html)          |
 | 09-octubre | [Práctica 1: Lectura y manejo de ficheros](./Practica1.html) |
 
 ## Bibliografía {style="color: black"}
