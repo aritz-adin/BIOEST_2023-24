@@ -220,4 +220,4 @@ datos[-c(7,9,15),]
 eda(datos$fat)
 ```
 
-[**Descargar plantilla RMarkdown**](https://github.com/aritz-adin/BIOEST_2023-24/plantillas/Practica1_plantilla.Rmd)
+[**Descargar plantilla RMarkdown**](https://github.com/aritz-adin/BIOEST_2023-24/raw/main/plantillas/Practica1_plantilla.Rmd)
