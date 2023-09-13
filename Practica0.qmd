@@ -178,13 +178,13 @@ typos <- c(2,2,2,3,3,0,3,4,6,4)
 typos
 ```
 
--   Utilizando el vector `typos`, selecciona el 4º elemento del vector
+-   Utilizando el vector `typos`, selecciona el 4º elemento del vector.
 
 ```{r include=FALSE}
 typos[4]
 ```
 
--   Selecciona todos los elmentos del vector `typos` excepto el 2º y el 3º
+-   Selecciona todos los elmentos del vector `typos` excepto el 2º y el 3º.
 
 ```{r include=FALSE}
 typos[-c(2,3)]
@@ -192,13 +192,13 @@ typos[-c(2,3)]
 
 ## 4. Ficheros
 
--   En primer lugar, debemos estar seguros de cuál es nuestro directorio de trabajo
+-   En primer lugar, debemos estar seguros de cuál es nuestro directorio de trabajo.
 
 ```{r eval=FALSE, include=TRUE}
 getwd()
 ```
 
--   Lee el fichero `Bodyfat.txt` en `R` y almacénalo en un objeto llamado `datos`.
+-   Descarga el fichero `Bodyfat.txt` desde MiAulario, léelo en `R` y almacénalo en un objeto llamado `datos`.
 
 ```{r eval=FALSE, include=TRUE}
 datos <- read.table("BodyFat.txt", header=TRUE)
@@ -206,7 +206,7 @@ datos <- read.table("BodyFat.txt", header=TRUE)
 head(datos)
 ```
 
--   Guarda el fichero datos en el archivo `Bodyfat.Rdata`
+-   Guarda el fichero datos en el archivo `Bodyfat.Rdata`.
 
 ```{r eval=FALSE, include=TRUE}
 save(datos, file="BodyFat.Rdata")
