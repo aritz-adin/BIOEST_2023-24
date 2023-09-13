@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Aritz Adin">
 
-<title>BIOEST 2023-24 - Prácticas</title>
+<title>BIOEST 2023-24 - Práctica 2: Estadística descriptiva</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./index.html" rel="" target="">
  <span class="menu-text">Programa</span></a>
   </li>  
   <li class="nav-item">
@@ -94,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Práctica 1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Practica2.html" rel="" target="">
+    <a class="nav-link active" href="./Practica2.html" rel="" target="" aria-current="page">
  <span class="menu-text">Práctica 2</span></a>
   </li>  
 </ul>
@@ -113,8 +114,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bioestadística---bloque-i." id="toc-bioestadística---bloque-i." class="nav-link active" data-scroll-target="#bioestadística---bloque-i.">Bioestadí­stica - Bloque I.</a></li>
-  <li><a href="#bibliografía" id="toc-bibliografía" class="nav-link" data-scroll-target="#bibliografía">Bibliografía</a></li>
+  <li><a href="#descripción" id="toc-descripción" class="nav-link active" data-scroll-target="#descripción">Descripción</a></li>
+  <li><a href="#estadística-descriptiva-unidimensional" id="toc-estadística-descriptiva-unidimensional" class="nav-link" data-scroll-target="#estadística-descriptiva-unidimensional">1. Estadística descriptiva unidimensional</a></li>
+  <li><a href="#tablas-de-doble-entrada" id="toc-tablas-de-doble-entrada" class="nav-link" data-scroll-target="#tablas-de-doble-entrada">2. Tablas de doble entrada</a></li>
+  <li><a href="#covarianza-y-correlación" id="toc-covarianza-y-correlación" class="nav-link" data-scroll-target="#covarianza-y-correlación">3. Covarianza y correlación</a></li>
+  <li><a href="#para-resolver-en-clase" id="toc-para-resolver-en-clase" class="nav-link" data-scroll-target="#para-resolver-en-clase">4. Para resolver en clase</a></li>
+  <li><a href="#para-entregar" id="toc-para-entregar" class="nav-link" data-scroll-target="#para-entregar">5. Para entregar</a></li>
   </ul>
 </nav>
     </div>
@@ -123,14 +128,26 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Programa (curso 2023-24)</h1>
+<h1 class="title">Práctica 2: Estadística descriptiva</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aritz Adin </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23/10/2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -138,44 +155,155 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="bioestadística---bloque-i." class="level2" style="color: green">
-<h2 style="color: green" class="anchored" data-anchor-id="bioestadística---bloque-i.">Bioestadí­stica - Bloque I.</h2>
+<section id="descripción" class="level1">
+<h1>Descripción</h1>
+<p>En esta práctica vamos a trabajar con el fichero de datos <code>diabetes</code>.</p>
+<ul>
+<li><p>El fichero de datos contiene 19 variables medidas sobre 403 pacientes. Estos pacientes forman parte de un estudio con 1046 sujetos diseñado para investigar la prevalencia de la de obesidad, diabetes, y otros factores de riesgo cardiovasculares para Afroamericanos en Virginia, EEUU.</p></li>
+<li><p>Según Dr John Hong, Diabetes Mellitus Tipo II está asociada con la obesidad. El índice cintura-cadera puede ser un predictor en diabetes y enfermedades de corazón.</p></li>
+<li><p>Diabetes Mellitus Tipo II está también asociada con hipertensión y ambos pueden ser parte del <em>“Síndrome X”</em>.</p></li>
+<li><p>Los 403 sujetos del estudio son aquellos a los que se les hizo un seguimiento de diabetes. La hemoglobina glicosilada &gt;7.0 se toma normalmente como diagnóstico positivo de diabetes.</p></li>
+</ul>
+<p>El fichero original puede descargarse de la web: <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets" class="uri">http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets</a></p>
+<p>Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling. <em>Prevalence of coronary heart disease risk factors among rural blacks: A community-based study</em>. Southern Medical Journal 90: 814-820; 1997. <a href="https://europepmc.org/abstract/med/9258308" class="uri">https://europepmc.org/abstract/med/9258308</a></p>
+<p>Estas son las variables que contiene el fichero (se han eliminado alguna del fichero original y se han reemplazado algunos valores perdidos):</p>
 <table class="table">
 <thead>
 <tr class="header">
-<th>Fecha</th>
-<th>Tí­tulo</th>
+<th>Variable</th>
+<th>Descripción</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>09-octubre</td>
-<td><a href="./Practica0.html">Práctica 0: Introducción a <code>R</code></a></td>
+<td>id</td>
+<td>Subject ID</td>
 </tr>
 <tr class="even">
-<td>09-octubre</td>
-<td><a href="./Practica1.html">Práctica 1: Lectura y manejo de ficheros</a></td>
+<td>chol</td>
+<td>Total Cholesterol (mg/dL)</td>
 </tr>
 <tr class="odd">
-<td>23-octubre</td>
-<td><a href="./Practica2.html">Práctica 2: Estadística descriptiva</a></td>
+<td>stab.glu</td>
+<td>Stabilized Glucose (mg/dL)</td>
 </tr>
 <tr class="even">
-<td>31-octubre</td>
-<td><a href="./Practica3.html">Práctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza</a></td>
+<td>hdl</td>
+<td>High Density Lipoprotein (mg/dL)</td>
 </tr>
 <tr class="odd">
-<td>06-noviembre</td>
-<td><a href="./Practica4.html">Práctica 4: Pruebas no-paramétricas</a></td>
+<td>ratio</td>
+<td>Cholesterol/HDL Ratio</td>
+</tr>
+<tr class="even">
+<td>glyhb</td>
+<td>Glycosolated Hemoglobin (%)</td>
+</tr>
+<tr class="odd">
+<td>location</td>
+<td>Buckingham or Louisa</td>
+</tr>
+<tr class="even">
+<td>age</td>
+<td>Age of patient (years)</td>
+</tr>
+<tr class="odd">
+<td>gender</td>
+<td>Male or Female</td>
+</tr>
+<tr class="even">
+<td>height</td>
+<td>Height (inches)</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>Weight (pounds)</td>
+</tr>
+<tr class="even">
+<td>frame</td>
+<td>Body frame size (small, medium, large)</td>
+</tr>
+<tr class="odd">
+<td>bp.1s</td>
+<td>First Systolic Blood Pressure (mmHg)</td>
+</tr>
+<tr class="even">
+<td>bp.1d</td>
+<td>First Diastolic Blood Pressure (mmHg)</td>
+</tr>
+<tr class="odd">
+<td>waist</td>
+<td>Waistline (inches)</td>
+</tr>
+<tr class="even">
+<td>hip</td>
+<td>Hip measurement (inches)</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="bibliografía" class="level2" style="color: black">
-<h2 style="color: black" class="anchored" data-anchor-id="bibliografía">Bibliografía</h2>
-<p>Para la realización de esta práctica, puede consultarse el texto:</p>
-<p>Ugarte, M.D., Militino, A.F., and Arnholt, A.T. (2016). <em>Probability and Statistics with R (Second Edition)</em>. Chapman and Hall.</p>
-<p><img src="img/PASWR2.jpg" class="img-fluid"></p>
+<section id="estadística-descriptiva-unidimensional" class="level1">
+<h1>1. Estadística descriptiva unidimensional</h1>
+<p>1.1. Descarga el fichero <code>diabetes</code> y léelo en R.</p>
+<p>1.2. ¿Cuántas variables tiene el fichero <code>diabetes</code>?</p>
+<p>1.3. ¿De qué tipo es cada variable?</p>
+<p>1.4. ¿Cuántas categorías tiene la variable <code>frame</code>?</p>
+<p>1.5. Obtén una tabla de frecuencias absolutas y relativas para la variable <code>frame</code>.</p>
+<p>1.6. Realiza una representación gráfica adecuada para la variable <code>frame</code>. ¿Qué información obtienes?</p>
+<p>1.7. Calcula la moda de la variable <code>frame</code>. ¿Qué significa?</p>
+<p>1.8. ¿Qué representaciones gráficas te parecen adecuadas para la variable <code>chol</code>?</p>
+<p>1.9. Realiza un histograma y un diagrama de cajas de la variable <code>chol</code>. ¿Qué información obtienes de ellos?</p>
+<p>1.10. A la vista del diagrama de cajas y del histograma de la variable <code>chol</code>, qué puedes decir acerca de su simetría? ¿Qué crees que será mayor, la media o la mediana?</p>
+<p>1.11. Calcula el coeficiente de asimetría, la media y la mediana de la variable <code>chol</code>. ¿Confirma dicho valor lo observado en el histograma y el diagrama de cajas?</p>
+<p>1.12. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>chol</code>. ¿Entre qué valores se encuentra el 25% de las personas con el colesterol más alto? ¿Y el 75% de las personas con el colesterol más bajo? ¿Qué puedes decir acerca de la dispersión de la variable? ¿Dónde hay más dispersión, en el 25% de las personas con mayor colesterol o en el 25% de las personas con colesterol más bajo?</p>
+<p>1.13. Calcula el coeficiente de curtosis de la variable <code>chol</code>. ¿Qué indica?</p>
+<p>1.14. Según el diagrama de cajas, ¿existe alguna observación atípica? ¿Cuál es?</p>
+<p>1.15. ¿Cuántos hombres y cuántas mujeres hay en la muestra?</p>
+<p>1.16. ¿Cuántas personas residen en Buckingham? ¿Cuántas en Louisa?</p>
+<p>1.17. ¿Puedes calcular la media y la mediana de la variable <code>location</code>?</p>
+<p>1.18. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code>.</p>
+<p>1.19. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</p>
+<p>1.20. Calcula la media, mediana, la desviación típica y los cuartiles de la variable <code>chol</code> según las categorías de la variable <code>frame</code>?</p>
+<p>1.21. Realiza un histograma de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</p>
+<p>1.22. Calcula la media, la mediana, los cuartiles y la desviación típica de la variable <code>glyhb</code>. Explica cómo está de dispersa utilizando el histograma, el diagrama de cajas, los cuartiles y la desviación típica.</p>
+<p>1.23. Compara la dispersión de las variables <code>chol</code> y <code>glyhb</code>. ¿Qué variable tiene la desviación típica más alta? ¿Puedes concluir que aquella variable con la desviación típica más alta es la más dispersa? ¿Por qué? ¿Qué medida crees que es la más adecuada?</p>
+<p>1.24. Considera la variable <code>chol</code> por sexo. Selecciona el hombre y la mujer con mayor nivel de colesterol. ¿Cuál de los dos destaca más en comparación a la media de su grupo?</p>
+<p>1.25. Crea una nueva variable denominada <code>ratioWH</code> definida como el cociente de la variable <code>waist</code> y la variable <code>hip</code>.</p>
+<p>1.26. Dibuja un histograma y un diagrama de cajas de la variable <code>ratioWH</code>.</p>
+<p>1.27. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>ratioWH</code>. ¿Entre qué valores se encuentra el 25% de los valores más altos? ¿Y el 75% de los valores más bajos?</p>
+</section>
+<section id="tablas-de-doble-entrada" class="level1">
+<h1>2. Tablas de doble entrada</h1>
+<p>2.1. ¿Cuántos hombres y cuántas mujeres hay en la localización Buckingham? ¿Cuántos en Louisa?</p>
+<p>2.2. ¿Qué porcentaje de personas en la muestra tienen un body frame <em>“small”</em> y además son de Buckingham?</p>
+<p>2.3. Dibuja un diagrama de barras donde representes las frecuencias de la variable <code>location</code> para cada una de las categorías de la variable <code>frame</code>?</p>
+<p>2.4. Forma una tabla de doble entrada cruzando las variables <code>gender</code> y <code>frame</code>. ¿Cuántas mujeres tienen un body frame <em>“medium”</em>?</p>
+<p>2.5. ¿Qué porcentaje de hombres tienen un body frame <em>“large”</em>?</p>
+</section>
+<section id="covarianza-y-correlación" class="level1">
+<h1>3. Covarianza y correlación</h1>
+<p>3.1. Realiza un diagrama de dispersión de las variables <code>weight</code> y <code>waist</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</p>
+<p>3.2. Realiza un diagrama de dispersión de las variables <code>chol</code> y <code>weight</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</p>
+<p>3.3. Selecciona las personas del condado de Buckingham y realiza un diagrama de dispersión de las variables <code>waist</code> y <code>hip</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</p>
+<p>3.4. Selecciona las mujeres con body frame <em>“medium”</em> y realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>age</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</p>
+<p><strong><em>Extra: A fancy way of visualizing correlation a matrix</em></strong></p>
+</section>
+<section id="para-resolver-en-clase" class="level1">
+<h1>4. Para resolver en clase</h1>
+<p>Cruza las variables <code>gender</code> y <code>frame</code> y responde a las siguientes preguntas:</p>
+<p>4.1. ¿Cuántas mujeres tienen body frame “large”?</p>
+<p>4.2. ¿Qué porcentaje de mujeres tienen body frame “large”?</p>
+<p>4.3. ¿Cuál es el porcentaje de hombres con body frame “small”?</p>
+<p>4.4. ¿Qué porcentaje de pacientes con body frame “medium” son hombres?</p>
+</section>
+<section id="para-entregar" class="level1">
+<h1>5. Para entregar</h1>
+<p>Considera la variable <code>bp.1s</code>:</p>
+<p>5.1. Realiza un histograma y un diagrama de cajas. ¿Qué puedes decir acerca de la simetría y la dispersión?</p>
+<p>5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación.</p>
+<p>5.3. Dibuja un histograma y un diagrama de cajas en función de la variable sexo.</p>
+<p>5.4. Realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>bp.1d</code>“. ¿Crees que existe relación lineal entre ellas? Calcula la covarianza y el coeficiente de correlación lineal.</p>
+<p>5.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo?</p>
 
 
 </section>
