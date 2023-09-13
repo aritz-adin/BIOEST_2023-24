@@ -8,7 +8,7 @@
 
 <meta name="author" content="Aritz Adin y Jaione Etxeberria">
 
-<title>BIOEST 2023-24 - Práctica 2: Estadística descriptiva</title>
+<title>BIOEST 2023-24 - Práctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,6 +95,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -129,11 +131,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Práctica 1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Practica2.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./Practica2.html" rel="" target="">
  <span class="menu-text">Práctica 2</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Practica3.html" rel="" target="">
+    <a class="nav-link active" href="./Practica3.html" rel="" target="" aria-current="page">
  <span class="menu-text">Práctica 3</span></a>
   </li>  
 </ul>
@@ -153,10 +155,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#descripción" id="toc-descripción" class="nav-link active" data-scroll-target="#descripción">Descripción</a></li>
-  <li><a href="#estadística-descriptiva-unidimensional" id="toc-estadística-descriptiva-unidimensional" class="nav-link" data-scroll-target="#estadística-descriptiva-unidimensional">1. Estadística descriptiva unidimensional</a></li>
-  <li><a href="#tablas-de-doble-entrada" id="toc-tablas-de-doble-entrada" class="nav-link" data-scroll-target="#tablas-de-doble-entrada">2. Tablas de doble entrada</a></li>
-  <li><a href="#covarianza-y-correlación" id="toc-covarianza-y-correlación" class="nav-link" data-scroll-target="#covarianza-y-correlación">3. Covarianza y correlación</a></li>
-  <li><a href="#para-resolver-en-clase" id="toc-para-resolver-en-clase" class="nav-link" data-scroll-target="#para-resolver-en-clase">4. Para resolver en clase</a></li>
+  <li><a href="#contraste-paramétricos" id="toc-contraste-paramétricos" class="nav-link" data-scroll-target="#contraste-paramétricos">1. Contraste paramétricos</a>
+  <ul class="collapse">
+  <li><a href="#contrasta-al-nivel-de-significación-alpha0.05-si-el-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-superior-a-200mgdl.-justifica-si-puedes-asumir-normalidad." id="toc-contrasta-al-nivel-de-significación-alpha0.05-si-el-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-superior-a-200mgdl.-justifica-si-puedes-asumir-normalidad." class="nav-link" data-scroll-target="#contrasta-al-nivel-de-significación-alpha0.05-si-el-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-superior-a-200mgdl.-justifica-si-puedes-asumir-normalidad.">1.1. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si el nivel medio de colesterol en los hombres del condado de Buckingham es superior a 200mg/dL. Justifica si puedes asumir normalidad.</a></li>
+  <li><a href="#calcula-la-potencia-del-contraste-anterior-si-el-verdadero-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-210.-cuantas-observaciones-necesitarías-en-tu-muestra-para-obtener-una-potencia-de-0.9" id="toc-calcula-la-potencia-del-contraste-anterior-si-el-verdadero-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-210.-cuantas-observaciones-necesitarías-en-tu-muestra-para-obtener-una-potencia-de-0.9" class="nav-link" data-scroll-target="#calcula-la-potencia-del-contraste-anterior-si-el-verdadero-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-210.-cuantas-observaciones-necesitarías-en-tu-muestra-para-obtener-una-potencia-de-0.9">1.2. Calcula la potencia del contraste anterior si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210. ¿Cuantas observaciones necesitarías en tu muestra para obtener una potencia de 0.9?</a></li>
+  <li><a href="#contrasta-al-nivel-de-significación-alpha0.10-si-la-presión-diastólica-media-de-los-hombres-es-distinta-a-la-presión-diastólica-media-de-las-mujeres." id="toc-contrasta-al-nivel-de-significación-alpha0.10-si-la-presión-diastólica-media-de-los-hombres-es-distinta-a-la-presión-diastólica-media-de-las-mujeres." class="nav-link" data-scroll-target="#contrasta-al-nivel-de-significación-alpha0.10-si-la-presión-diastólica-media-de-los-hombres-es-distinta-a-la-presión-diastólica-media-de-las-mujeres.">1.3. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.10\)</span>, si la presión diastólica media de los hombres es distinta a la presión diastólica media de las mujeres.</a></li>
+  <li><a href="#se-dispone-de-dos-aparatos-uno-nuevo-y-otro-antiguo-para-medir-los-niveles-de-glucosa-en-sangre.-los-médicos-sospechan-que-el-nuevo-aparato-proporciona-niveles-de-glucosa-en-sangre-superiores-al-antiguo.-se-dispone-de-una-muestra-con-15-pacientes-diabéticos-a-los-que-se-les-ha-medido-los-niveles-de-glucosa-con-los-dos-aparatos.-las-medidas-se-encuentran-en-el-fichero-glucose-de-la-librería-paswr2." id="toc-se-dispone-de-dos-aparatos-uno-nuevo-y-otro-antiguo-para-medir-los-niveles-de-glucosa-en-sangre.-los-médicos-sospechan-que-el-nuevo-aparato-proporciona-niveles-de-glucosa-en-sangre-superiores-al-antiguo.-se-dispone-de-una-muestra-con-15-pacientes-diabéticos-a-los-que-se-les-ha-medido-los-niveles-de-glucosa-con-los-dos-aparatos.-las-medidas-se-encuentran-en-el-fichero-glucose-de-la-librería-paswr2." class="nav-link" data-scroll-target="#se-dispone-de-dos-aparatos-uno-nuevo-y-otro-antiguo-para-medir-los-niveles-de-glucosa-en-sangre.-los-médicos-sospechan-que-el-nuevo-aparato-proporciona-niveles-de-glucosa-en-sangre-superiores-al-antiguo.-se-dispone-de-una-muestra-con-15-pacientes-diabéticos-a-los-que-se-les-ha-medido-los-niveles-de-glucosa-con-los-dos-aparatos.-las-medidas-se-encuentran-en-el-fichero-glucose-de-la-librería-paswr2.">1.4. Se dispone de dos aparatos, uno nuevo y otro antiguo, para medir los niveles de glucosa en sangre. Los médicos sospechan que el nuevo aparato proporciona niveles de glucosa en sangre superiores al antiguo. Se dispone de una muestra con 15 pacientes diabéticos a los que se les ha medido los niveles de glucosa con los dos aparatos. Las medidas se encuentran en el fichero <code>GLUCOSE</code> de la librería <code>PASWR2</code>.</a></li>
+  </ul></li>
+  <li><a href="#análisis-de-la-varianza" id="toc-análisis-de-la-varianza" class="nav-link" data-scroll-target="#análisis-de-la-varianza">2. Análisis de la varianza</a>
+  <ul class="collapse">
+  <li><a href="#contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres." id="toc-contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres." class="nav-link" data-scroll-target="#contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres.">2.1. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.10\)</span> si el tamaño del cuerpo (<code>frame</code>) influye en la presión diastólica (<code>bp.1d</code>) de las mujeres.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -165,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctica 2: Estadística descriptiva</h1>
+<h1 class="title">Práctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza</h1>
 </div>
 
 
@@ -182,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">23/10/2023</p>
+      <p class="date">31/10/2023</p>
     </div>
   </div>
   
@@ -278,10 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</section>
-<section id="estadística-descriptiva-unidimensional" class="level1">
-<h1>1. Estadística descriptiva unidimensional</h1>
-<p><strong>1.1. Descarga el fichero <code>diabetes</code> y léelo en R.</strong></p>
+<p>En primer lugar, debemos leer el fichero <code>diabetes</code> en R:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>diabetes <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"diabetes.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -302,80 +308,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6   132    86    36  42</code></pre>
 </div>
 </div>
-<p><strong>1.2. ¿Cuántas variables tiene el fichero <code>diabetes</code>?</strong></p>
-<p><strong>1.3. ¿De qué tipo es cada variable?</strong></p>
-<p><strong>1.4. ¿Cuántas categorías tiene la variable <code>frame</code>?</strong></p>
-<p><strong>1.5. Obtén una tabla de frecuencias absolutas y relativas para la variable <code>frame</code>.</strong></p>
-<p><strong>1.6. Realiza una representación gráfica adecuada para la variable <code>frame</code>. ¿Qué información obtienes?</strong></p>
-<p><strong>1.7. Calcula la moda de la variable <code>frame</code>. ¿Qué significa?</strong></p>
-<p><strong>1.8. ¿Qué representaciones gráficas te parecen adecuadas para la variable <code>chol</code>?</strong></p>
-<p><strong>1.9. Realiza un histograma y un diagrama de cajas de la variable <code>chol</code>. ¿Qué información obtienes de ellos?</strong></p>
-<p><strong>1.10. A la vista del diagrama de cajas y del histograma de la variable <code>chol</code>, qué puedes decir acerca de su simetría? ¿Qué crees que será mayor, la media o la mediana?</strong></p>
-<p><strong>1.11. Calcula el coeficiente de asimetría, la media y la mediana de la variable <code>chol</code>. ¿Confirma dicho valor lo observado en el histograma y el diagrama de cajas?</strong></p>
-<p><strong>1.12. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>chol</code>. ¿Entre qué valores se encuentra el 25% de las personas con el colesterol más alto? ¿Y el 75% de las personas con el colesterol más bajo? ¿Qué puedes decir acerca de la dispersión de la variable? ¿Dónde hay más dispersión, en el 25% de las personas con mayor colesterol o en el 25% de las personas con colesterol más bajo?</strong></p>
-<p><strong>1.13. Calcula el coeficiente de curtosis de la variable <code>chol</code>. ¿Qué indica?</strong></p>
-<p><strong>1.14. Según el diagrama de cajas, ¿existe alguna observación atípica? ¿Cuál es?</strong></p>
-<p><strong>1.15. ¿Cuántos hombres y cuántas mujeres hay en la muestra?</strong></p>
-<p><strong>1.16. ¿Cuántas personas residen en Buckingham? ¿Cuántas en Louisa?</strong></p>
-<p><strong>1.17. ¿Puedes calcular la media y la mediana de la variable <code>location</code>?</strong></p>
-<p><strong>1.18. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code>.</strong></p>
-<p><strong>1.19. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</strong></p>
-<p><strong>1.20. Calcula la media, mediana, la desviación típica y los cuartiles de la variable <code>chol</code> según las categorías de la variable <code>frame</code>?</strong></p>
-<p><strong>1.21. Realiza un histograma de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</strong></p>
-<p><strong>1.22. Calcula la media, la mediana, los cuartiles y la desviación típica de la variable <code>glyhb</code>. Explica cómo está de dispersa utilizando el histograma, el diagrama de cajas, los cuartiles y la desviación típica.</strong></p>
-<p><strong>1.23. Compara la dispersión de las variables <code>chol</code> y <code>glyhb</code>. ¿Qué variable tiene la desviación típica más alta? ¿Puedes concluir que aquella variable con la desviación típica más alta es la más dispersa? ¿Por qué? ¿Qué medida crees que es la más adecuada?</strong></p>
-<p><strong>1.24. Considera la variable <code>chol</code> por sexo. Selecciona el hombre y la mujer con mayor nivel de colesterol. ¿Cuál de los dos destaca más en comparación a la media de su grupo?</strong></p>
-<p><strong>1.25. Crea una nueva variable denominada <code>ratioWH</code> definida como el cociente de la variable <code>waist</code> y la variable <code>hip</code>.</strong></p>
-<p><strong>1.26. Dibuja un histograma y un diagrama de cajas de la variable <code>ratioWH</code>.</strong></p>
-<p><strong>1.27. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>ratioWH</code>. ¿Entre qué valores se encuentra el 25% de los valores más altos? ¿Y el 75% de los valores más bajos?</strong></p>
 </section>
-<section id="tablas-de-doble-entrada" class="level1">
-<h1>2. Tablas de doble entrada</h1>
-<p><strong>2.1. ¿Cuántos hombres y cuántas mujeres hay en la localización Buckingham? ¿Cuántos en Louisa?</strong></p>
-<p><strong>2.2. ¿Qué porcentaje de personas en la muestra tienen un body frame <em>“small”</em> y además son de Buckingham?</strong></p>
-<p><strong>2.3. Dibuja un diagrama de barras donde representes las frecuencias de la variable <code>location</code> para cada una de las categorías de la variable <code>frame</code>?</strong></p>
-<p><strong>2.4. Forma una tabla de doble entrada cruzando las variables <code>gender</code> y <code>frame</code>. ¿Cuántas mujeres tienen un body frame <em>“medium”</em>?</strong></p>
-<p><strong>2.5. ¿Qué porcentaje de hombres tienen un body frame <em>“large”</em>?</strong></p>
+<section id="contraste-paramétricos" class="level1">
+<h1>1. Contraste paramétricos</h1>
+<section id="contrasta-al-nivel-de-significación-alpha0.05-si-el-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-superior-a-200mgdl.-justifica-si-puedes-asumir-normalidad." class="level3">
+<h3 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-alpha0.05-si-el-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-superior-a-200mgdl.-justifica-si-puedes-asumir-normalidad.">1.1. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si el nivel medio de colesterol en los hombres del condado de Buckingham es superior a 200mg/dL. Justifica si puedes asumir normalidad.</h3>
 </section>
-<section id="covarianza-y-correlación" class="level1">
-<h1>3. Covarianza y correlación</h1>
-<p><strong>3.1. Realiza un diagrama de dispersión de las variables <code>weight</code> y <code>waist</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.2. Realiza un diagrama de dispersión de las variables <code>chol</code> y <code>weight</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.3. Selecciona las personas del condado de Buckingham y realiza un diagrama de dispersión de las variables <code>waist</code> y <code>hip</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.4. Selecciona las mujeres con body frame <em>“medium”</em> y realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>age</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong><em>EXTRA: A fancy way of visualizing correlation a matrix</em></strong></p>
+<section id="calcula-la-potencia-del-contraste-anterior-si-el-verdadero-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-210.-cuantas-observaciones-necesitarías-en-tu-muestra-para-obtener-una-potencia-de-0.9" class="level3">
+<h3 class="anchored" data-anchor-id="calcula-la-potencia-del-contraste-anterior-si-el-verdadero-nivel-medio-de-colesterol-en-los-hombres-del-condado-de-buckingham-es-210.-cuantas-observaciones-necesitarías-en-tu-muestra-para-obtener-una-potencia-de-0.9">1.2. Calcula la potencia del contraste anterior si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210. ¿Cuantas observaciones necesitarías en tu muestra para obtener una potencia de 0.9?</h3>
+</section>
+<section id="contrasta-al-nivel-de-significación-alpha0.10-si-la-presión-diastólica-media-de-los-hombres-es-distinta-a-la-presión-diastólica-media-de-las-mujeres." class="level3">
+<h3 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-alpha0.10-si-la-presión-diastólica-media-de-los-hombres-es-distinta-a-la-presión-diastólica-media-de-las-mujeres.">1.3. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.10\)</span>, si la presión diastólica media de los hombres es distinta a la presión diastólica media de las mujeres.</h3>
+<ul>
+<li><p>Comprueba que las dos muestras provienen de poblaciones normales.</p></li>
+<li><p>¿Podemos asumir que las varianzas son iguales?</p></li>
+<li><p>Realiza el correspondiente test de medias.</p></li>
+</ul>
+</section>
+<section id="se-dispone-de-dos-aparatos-uno-nuevo-y-otro-antiguo-para-medir-los-niveles-de-glucosa-en-sangre.-los-médicos-sospechan-que-el-nuevo-aparato-proporciona-niveles-de-glucosa-en-sangre-superiores-al-antiguo.-se-dispone-de-una-muestra-con-15-pacientes-diabéticos-a-los-que-se-les-ha-medido-los-niveles-de-glucosa-con-los-dos-aparatos.-las-medidas-se-encuentran-en-el-fichero-glucose-de-la-librería-paswr2." class="level3">
+<h3 class="anchored" data-anchor-id="se-dispone-de-dos-aparatos-uno-nuevo-y-otro-antiguo-para-medir-los-niveles-de-glucosa-en-sangre.-los-médicos-sospechan-que-el-nuevo-aparato-proporciona-niveles-de-glucosa-en-sangre-superiores-al-antiguo.-se-dispone-de-una-muestra-con-15-pacientes-diabéticos-a-los-que-se-les-ha-medido-los-niveles-de-glucosa-con-los-dos-aparatos.-las-medidas-se-encuentran-en-el-fichero-glucose-de-la-librería-paswr2.">1.4. Se dispone de dos aparatos, uno nuevo y otro antiguo, para medir los niveles de glucosa en sangre. Los médicos sospechan que el nuevo aparato proporciona niveles de glucosa en sangre superiores al antiguo. Se dispone de una muestra con 15 pacientes diabéticos a los que se les ha medido los niveles de glucosa con los dos aparatos. Las medidas se encuentran en el fichero <code>GLUCOSE</code> de la librería <code>PASWR2</code>.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>diabetes.X <span class="ot">&lt;-</span> diabetes[,<span class="fu">c</span>(<span class="st">"chol"</span>,<span class="st">"stab.glu"</span>,<span class="st">"hdl"</span>,<span class="st">"glyhb"</span>,<span class="st">"age"</span>,<span class="st">"height"</span>,<span class="st">"weight"</span>,<span class="st">"bp.1s"</span>,<span class="st">"bp.1d"</span>,<span class="st">"waist"</span>,<span class="st">"hip"</span>)]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cor.matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(diabetes.X)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"circle"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Practica2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GLUCOSE, <span class="at">package=</span><span class="st">"PASWR2"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(GLUCOSE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   patient    old    new
+1        1 182.47 195.64
+2        2 175.53 196.31
+3        3 181.71 190.33
+4        4 179.03 192.90
+5        5 177.28 193.24
+6        6 177.49 193.05
+7        7 179.54 193.87
+8        8 185.12 196.39
+9        9 179.04 195.25
+10      10 180.50 194.48
+11      11 182.15 197.33
+12      12 183.55 193.81
+13      13 180.86 198.03
+14      14 180.82 193.31
+15      15 178.88 198.43</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"number"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Practica2_files/figure-html/unnamed-chunk-31-2.png" class="img-fluid" width="672"></p>
 </div>
-</div>
+<ul>
+<li><p>¿Son las muestras independientes?</p></li>
+<li><p>Comprueba si puede asumirse la hipótesis de normalidad.</p></li>
+<li><p>Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si el nuevo aparato proporciona mediciones más altas que el antiguo.</p></li>
+</ul>
 </section>
-<section id="para-resolver-en-clase" class="level1">
-<h1>4. Para resolver en clase</h1>
-<p>Cruza las variables <code>gender</code> y <code>frame</code> y responde a las siguientes preguntas:</p>
-<p>4.1. ¿Cuántas mujeres tienen body frame “large”?</p>
-<p>4.2. ¿Qué porcentaje de mujeres tienen body frame “large”?</p>
-<p>4.3. ¿Cuál es el porcentaje de hombres con body frame “small”?</p>
-<p>4.4. ¿Qué porcentaje de pacientes con body frame “medium” son hombres?</p>
-<!-- # 5. Para entregar -->
-<!-- Considera la variable `bp.1s`: -->
-<!-- 5.1. Realiza un histograma y un diagrama de cajas. ¿Qué puedes decir acerca de la simetría y la dispersión? -->
-<!-- 5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. -->
-<!-- 5.3. Dibuja un histograma y un diagrama de cajas en función de la variable sexo. -->
-<!-- 5.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula la covarianza y el coeficiente de correlación lineal. -->
-<!-- 5.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo? -->
+</section>
+<section id="análisis-de-la-varianza" class="level1">
+<h1>2. Análisis de la varianza</h1>
+<section id="contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres." class="level3">
+<h3 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres.">2.1. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.10\)</span> si el tamaño del cuerpo (<code>frame</code>) influye en la presión diastólica (<code>bp.1d</code>) de las mujeres.</h3>
+<ul>
+<li><p>Crea un nuevo fichero llamado <code>diabetes.female</code> solo con las mujeres.</p></li>
+<li><p>Exploración gráfica: representa los diagrama de caja de la variable <code>bp.1d</code> según la variable <code>frame</code>.</p></li>
+<li><p>Realiza el análisis de varianza con la función <code>aov()</code>.</p></li>
+<li><p>Comprueba si pueden asumirse las hipótesis del modelo.</p></li>
+<li><p>Utiliza un test de Tukey para averiguar entre qué niveles de la variable <code>frame</code> existen diferencias significativas en los niveles medios de la variable <code>bp.1d</code>.</p></li>
+</ul>
+<!-- # 3. Para entregar -->
+<!-- 3.1. Contrasta al nivel de significación $\alpha=0.10$, si la circunferencia de cadera media de los hombres es inferior a la circunferencia de cadera media de las mujeres. -->
+<!-- -   Comprueba si las dos muestras provienen de poblaciones normales. -->
+<!-- -   Realiza el correspondiente test de medias. -->
+<!-- 3.2. Se estudió la eficacia de la sulfinpirazona en prevenir la muerte después de sufrir infarto de miocardio. Para ello se consideraron pacientes que habían sufrido infarto de miocardio. A un grupo se les proporcionó sulfinpirazona y a otro grupo se les suministró placebo. En la siguiente tabla se muestra el número de pacientes de cada grupo que murieron y que superaron el infarto. -->
+<!-- |                 | Death (all causes) | Survivors | -->
+<!-- |-----------------|--------------------|-----------| -->
+<!-- | Sulphinpyrazole | 41                 | 692       | -->
+<!-- | Placebo         | 60                 | 682       | -->
+<!-- Contrasta al nivel de significación $\alpha=0.05$ si la proporción de muertes de pacientes que tomaron sulfinpirazona es inferior a la de pacientes que tomaron un placebo. -->
+<!-- 3.3. Considera el fichero `diabetes`. Crea un nuevo fichero que contenga únicamente a las mujeres del condado de Louisa. -->
+<!-- -   Contrasta al nivel de significación $\alpha=0.05$ si existen diferencias entre los niveles medios de la variable `hdl` según la constitución del cuerpo `frame` en las mujeres del condado de Louisa. -->
+<!-- -   Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas. -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

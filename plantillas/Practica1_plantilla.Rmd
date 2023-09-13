@@ -1,0 +1,53 @@
+---
+title: "Práctica 1"
+author: "Nombre y Apellidos"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)  
+```
+
+## Realiza los siguientes ejercicios
+
+-   Con el fichero `datos`, visualiza en pantalla la variable `fat`.
+
+```{r}
+
+```
+
+-   Selecciona las observaciones de las variable `fat` cuyo valor sea menor que 25 y guárdalas en un objeto llamado `low.fat`.
+
+```{r}
+
+```
+
+-   Utiliza el comando `table` para averiguar cuántos hombres y mujeres hay en el fichero `datos`.
+
+```{r}
+
+```
+
+-   Haz un *summary* del fichero `datos`.
+
+```{r}
+
+```
+
+-   Elimina la variable `fat` del fichero `datos`.
+
+```{r}
+
+```
+
+-   Elimina las observaciones 7, 9 y 15 del fichero `datos`.
+
+```{r}
+
+```
+
+-   Utiliza la función `eda()` del paquete `PASWR2` para realizar un análisis exploratorio de la variable `fat`.
+
+```{r}
+
+```
