@@ -1,11 +1,12 @@
 ---
 title: "Programa"
 format: gfm
+encoding: 'UTF-8'
 ---
 
 ## Bioestadí­stica. Curso 2023-2024. {style="color: green"}
 
-| Fecha        | TÃ­tulo                                                                     |
+| Fecha        | Tí­tulo                                                                     |
 |----------------|--------------------------------------------------------|
 | 09-octubre   | [Práctica 0: Introducción a `R`](./Practica0.html)                         |
 | 09-octubre   | [Práctica 1: Lectura y manejo de ficheros](./Practica1.html)               |
