@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aritz Adin y Jaione Etxeberria">
+<meta name="dcterms.date" content="2023-06-11">
+
+<title>BIOEST 2023-24 - Práctica 4: Pruebas no-paramétricas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">BIOEST 2023-24</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica0.html" rel="" target="">
+ <span class="menu-text">Práctica 0</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica1.html" rel="" target="">
+ <span class="menu-text">Práctica 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica2.html" rel="" target="">
+ <span class="menu-text">Práctica 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica3.html" rel="" target="">
+ <span class="menu-text">Práctica 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Practica4.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Práctica 4</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#descripción" id="toc-descripción" class="nav-link active" data-scroll-target="#descripción">Descripción</a></li>
+  <li><a href="#pruebas-no-paramétricas" id="toc-pruebas-no-paramétricas" class="nav-link" data-scroll-target="#pruebas-no-paramétricas">1. Pruebas no-paramétricas</a>
+  <ul class="collapse">
+  <li><a href="#puede-asumirse-que-la-variable-hdl-en-mujeres-sigue-una-distribución-normal-contrasta-al-nivel-de-significación-alpha0.05-si-la-mediana-de-la-variable-hdl-en-mujeres-es-superior-a-47." id="toc-puede-asumirse-que-la-variable-hdl-en-mujeres-sigue-una-distribución-normal-contrasta-al-nivel-de-significación-alpha0.05-si-la-mediana-de-la-variable-hdl-en-mujeres-es-superior-a-47." class="nav-link" data-scroll-target="#puede-asumirse-que-la-variable-hdl-en-mujeres-sigue-una-distribución-normal-contrasta-al-nivel-de-significación-alpha0.05-si-la-mediana-de-la-variable-hdl-en-mujeres-es-superior-a-47.">1.1. ¿Puede asumirse que la variable <code>hdl</code> en mujeres sigue una distribución normal? Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si la mediana de la variable <code>hdl</code> en mujeres es superior a 47.</a></li>
+  <li><a href="#contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-entre-los-niveles-de-hdl-en-hombres-y-en-mujeres.-comprueba-si-puede-asumirse-normalidad-y-realiza-el-contraste-adecuado." id="toc-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-entre-los-niveles-de-hdl-en-hombres-y-en-mujeres.-comprueba-si-puede-asumirse-normalidad-y-realiza-el-contraste-adecuado." class="nav-link" data-scroll-target="#contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-entre-los-niveles-de-hdl-en-hombres-y-en-mujeres.-comprueba-si-puede-asumirse-normalidad-y-realiza-el-contraste-adecuado.">1.2. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias entre los niveles de <code>hdl</code> en hombres y en mujeres. Comprueba si puede asumirse normalidad y realiza el contraste adecuado.</a></li>
+  <li><a href="#considera-el-fichero-phenyl-de-la-libreria-paswr2.-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-en-los-niveles-medios-de-la-coenzima-q10-en-el-momento-de-comenzar-el-estudio-variable-q10.1-y-al-finalizar-el-estudio-variable-q10.4." id="toc-considera-el-fichero-phenyl-de-la-libreria-paswr2.-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-en-los-niveles-medios-de-la-coenzima-q10-en-el-momento-de-comenzar-el-estudio-variable-q10.1-y-al-finalizar-el-estudio-variable-q10.4." class="nav-link" data-scroll-target="#considera-el-fichero-phenyl-de-la-libreria-paswr2.-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-en-los-niveles-medios-de-la-coenzima-q10-en-el-momento-de-comenzar-el-estudio-variable-q10.1-y-al-finalizar-el-estudio-variable-q10.4.">1.3. Considera el fichero <code>PHENYL</code> de la libreria <code>PASWR2</code>. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias en los niveles medios de la coenzima Q10 en el momento de comenzar el estudio (variable <code>Q10.1</code>) y al finalizar el estudio (variable <code>Q10.4</code>).</a></li>
+  <li><a href="#considera-el-fichero-diabetes.-crea-otro-fichero-llamado-diabetes.mujeres-que-contenga-únicamente-a-las-mujeres-de-la-muestra." id="toc-considera-el-fichero-diabetes.-crea-otro-fichero-llamado-diabetes.mujeres-que-contenga-únicamente-a-las-mujeres-de-la-muestra." class="nav-link" data-scroll-target="#considera-el-fichero-diabetes.-crea-otro-fichero-llamado-diabetes.mujeres-que-contenga-únicamente-a-las-mujeres-de-la-muestra.">1.4 Considera el fichero <code>diabetes</code>. Crea otro fichero llamado <code>diabetes.mujeres</code> que contenga únicamente a las mujeres de la muestra.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Práctica 4: Pruebas no-paramétricas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aritz Adin y Jaione Etxeberria </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">06/11/2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="descripción" class="level1">
+<h1>Descripción</h1>
+<p>En esta práctica vamos a trabajar con el fichero de datos <code>diabetes</code>.</p>
+<ul>
+<li><p>El fichero de datos contiene 19 variables medidas sobre 403 pacientes. Estos pacientes forman parte de un estudio con 1046 sujetos diseñado para investigar la prevalencia de la de obesidad, diabetes, y otros factores de riesgo cardiovasculares para Afroamericanos en Virginia, EEUU.</p></li>
+<li><p>Según Dr John Hong, Diabetes Mellitus Tipo II está asociada con la obesidad. El índice cintura-cadera puede ser un predictor en diabetes y enfermedades de corazón.</p></li>
+<li><p>Diabetes Mellitus Tipo II está también asociada con hipertensión y ambos pueden ser parte del <em>“Síndrome X”</em>.</p></li>
+<li><p>Los 403 sujetos del estudio son aquellos a los que se les hizo un seguimiento de diabetes. La hemoglobina glicosilada &gt;7.0 se toma normalmente como diagnóstico positivo de diabetes.</p></li>
+</ul>
+<p>El fichero original puede descargarse de la web: <a href="http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets" class="uri">http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets</a></p>
+<p>Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling. <em>Prevalence of coronary heart disease risk factors among rural blacks: A community-based study</em>. Southern Medical Journal 90: 814-820; 1997. <a href="https://europepmc.org/abstract/med/9258308" class="uri">https://europepmc.org/abstract/med/9258308</a></p>
+<p>Estas son las variables que contiene el fichero (se han eliminado alguna del fichero original y se han reemplazado algunos valores perdidos):</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>id</td>
+<td>Subject ID</td>
+</tr>
+<tr class="even">
+<td>chol</td>
+<td>Total Cholesterol (mg/dL)</td>
+</tr>
+<tr class="odd">
+<td>stab.glu</td>
+<td>Stabilized Glucose (mg/dL)</td>
+</tr>
+<tr class="even">
+<td>hdl</td>
+<td>High Density Lipoprotein (mg/dL)</td>
+</tr>
+<tr class="odd">
+<td>ratio</td>
+<td>Cholesterol/HDL Ratio</td>
+</tr>
+<tr class="even">
+<td>glyhb</td>
+<td>Glycosolated Hemoglobin (%)</td>
+</tr>
+<tr class="odd">
+<td>location</td>
+<td>Buckingham or Louisa</td>
+</tr>
+<tr class="even">
+<td>age</td>
+<td>Age of patient (years)</td>
+</tr>
+<tr class="odd">
+<td>gender</td>
+<td>Male or Female</td>
+</tr>
+<tr class="even">
+<td>height</td>
+<td>Height (inches)</td>
+</tr>
+<tr class="odd">
+<td>weight</td>
+<td>Weight (pounds)</td>
+</tr>
+<tr class="even">
+<td>frame</td>
+<td>Body frame size (small, medium, large)</td>
+</tr>
+<tr class="odd">
+<td>bp.1s</td>
+<td>First Systolic Blood Pressure (mmHg)</td>
+</tr>
+<tr class="even">
+<td>bp.1d</td>
+<td>First Diastolic Blood Pressure (mmHg)</td>
+</tr>
+<tr class="odd">
+<td>waist</td>
+<td>Waistline (inches)</td>
+</tr>
+<tr class="even">
+<td>hip</td>
+<td>Hip measurement (inches)</td>
+</tr>
+</tbody>
+</table>
+<p>En primer lugar, debemos leer el fichero <code>diabetes</code> en R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>diabetes <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"diabetes.txt"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    id chol stab.glu hdl ratio glyhb   location age gender height weight  frame
+1 1000  203       82  56   3.6  4.31 Buckingham  46 female     62    121 medium
+2 1001  165       97  24   6.9  4.44 Buckingham  29 female     64    218  large
+3 1002  228       92  37   6.2  4.64 Buckingham  58 female     61    256  large
+4 1003   78       93  12   6.5  4.63 Buckingham  67   male     67    119  large
+5 1005  249       90  28   8.9  7.72 Buckingham  64   male     68    183 medium
+6 1008  248       94  69   3.6  4.81 Buckingham  34   male     71    190  large
+  bp.1s bp.1d waist hip
+1   118    59    29  38
+2   112    68    46  48
+3   190    92    49  57
+4   110    50    33  38
+5   138    80    44  41
+6   132    86    36  42</code></pre>
+</div>
+</div>
+</section>
+<section id="pruebas-no-paramétricas" class="level1">
+<h1>1. Pruebas no-paramétricas</h1>
+<section id="puede-asumirse-que-la-variable-hdl-en-mujeres-sigue-una-distribución-normal-contrasta-al-nivel-de-significación-alpha0.05-si-la-mediana-de-la-variable-hdl-en-mujeres-es-superior-a-47." class="level3">
+<h3 class="anchored" data-anchor-id="puede-asumirse-que-la-variable-hdl-en-mujeres-sigue-una-distribución-normal-contrasta-al-nivel-de-significación-alpha0.05-si-la-mediana-de-la-variable-hdl-en-mujeres-es-superior-a-47.">1.1. ¿Puede asumirse que la variable <code>hdl</code> en mujeres sigue una distribución normal? Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si la mediana de la variable <code>hdl</code> en mujeres es superior a 47.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PASWR2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Seleccionamos los datos requeridos ##</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>hdl.female <span class="ot">&lt;-</span> diabetes<span class="sc">$</span>hdl[pos]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Comprobamos la condición de normalidad ##</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(hdl.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 234.000    0.000   14.000   41.000   52.111   47.500   50.825   59.000 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+ 120.000   17.255  297.739    1.128   18.000  106.000    2.443    1.390 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Contraste de hipótesis (alpha=0.05) ##</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: mu=47</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># H1: mu&gt;47</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(hdl.female, <span class="at">mu=</span><span class="dv">47</span>, <span class="at">alternative=</span><span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  hdl.female
+V = 16282, p-value = 0.001492
+alternative hypothesis: true location is greater than 47</code></pre>
+</div>
+</div>
+</section>
+<section id="contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-entre-los-niveles-de-hdl-en-hombres-y-en-mujeres.-comprueba-si-puede-asumirse-normalidad-y-realiza-el-contraste-adecuado." class="level3">
+<h3 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-entre-los-niveles-de-hdl-en-hombres-y-en-mujeres.-comprueba-si-puede-asumirse-normalidad-y-realiza-el-contraste-adecuado.">1.2. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias entre los niveles de <code>hdl</code> en hombres y en mujeres. Comprueba si puede asumirse normalidad y realiza el contraste adecuado.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pos1 <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"male"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>hdl.male <span class="ot">&lt;-</span> diabetes<span class="sc">$</span>hdl[pos1]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>pos2 <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>hdl.female <span class="ot">&lt;-</span> diabetes<span class="sc">$</span>hdl[pos2]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobamos la condición de normalidad</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(hdl.male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 169.000    0.000   12.000   35.000   48.139   44.000   47.173   59.000 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+ 117.000   17.004  289.141    1.308   24.000  105.000    1.001    0.934 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(hdl.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 234.000    0.000   14.000   41.000   52.111   47.500   50.825   59.000 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+ 120.000   17.255  297.739    1.128   18.000  106.000    2.443    1.390 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contraste de hipótesis (alpha=0.05)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: muX-muY=0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># H1: muX-muY!=0</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(hdl.male, hdl.female, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  hdl.male and hdl.female
+W = 16630, p-value = 0.006439
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+</section>
+<section id="considera-el-fichero-phenyl-de-la-libreria-paswr2.-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-en-los-niveles-medios-de-la-coenzima-q10-en-el-momento-de-comenzar-el-estudio-variable-q10.1-y-al-finalizar-el-estudio-variable-q10.4." class="level3">
+<h3 class="anchored" data-anchor-id="considera-el-fichero-phenyl-de-la-libreria-paswr2.-contrasta-al-nivel-de-significación-alpha0.05-si-existen-diferencias-en-los-niveles-medios-de-la-coenzima-q10-en-el-momento-de-comenzar-el-estudio-variable-q10.1-y-al-finalizar-el-estudio-variable-q10.4.">1.3. Considera el fichero <code>PHENYL</code> de la libreria <code>PASWR2</code>. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias en los niveles medios de la coenzima Q10 en el momento de comenzar el estudio (variable <code>Q10.1</code>) y al finalizar el estudio (variable <code>Q10.4</code>).</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PHENYL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Q10.1 Q10.2 Q10.3 Q10.4
+1  0.39  0.56  0.65  0.45
+2  0.33  0.32  0.44  0.37
+3  0.59  0.58  0.38  0.55
+4  0.86  0.51  0.53  0.47
+5  0.33  0.29  0.29  0.28
+6  0.49  0.37  0.33  0.39</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NOTA: Se tratan de muestran emparejadas (mismos individuos)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> PHENYL<span class="sc">$</span>Q10<span class="fl">.4</span><span class="sc">-</span>PHENYL<span class="sc">$</span>Q10<span class="fl">.1</span>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobamos la condición de normalidad</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  46.000    0.000   -0.470   -0.298   -0.122   -0.100   -0.120    0.048 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+   0.220    0.190    0.036    0.028    0.346    0.690   -1.172   -0.305 
+SW p-val 
+   0.022 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contraste de hipótesis (alpha=0.05)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: muD=0</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># H1: muD!=0</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(d, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(d, mu = 0, alternative = "two.sided"): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  d
+V = 223.5, p-value = 0.0005439
+alternative hypothesis: true location is not equal to 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(PHENYL<span class="sc">$</span>Q10<span class="fl">.4</span>, PHENYL<span class="sc">$</span>Q10<span class="fl">.1</span>, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">paired=</span><span class="cn">TRUE</span>, <span class="at">alternative=</span><span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(PHENYL$Q10.4, PHENYL$Q10.1, mu = 0, paired =
+TRUE, : cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  PHENYL$Q10.4 and PHENYL$Q10.1
+V = 223.5, p-value = 0.0005439
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+</section>
+<section id="considera-el-fichero-diabetes.-crea-otro-fichero-llamado-diabetes.mujeres-que-contenga-únicamente-a-las-mujeres-de-la-muestra." class="level3">
+<h3 class="anchored" data-anchor-id="considera-el-fichero-diabetes.-crea-otro-fichero-llamado-diabetes.mujeres-que-contenga-únicamente-a-las-mujeres-de-la-muestra.">1.4 Considera el fichero <code>diabetes</code>. Crea otro fichero llamado <code>diabetes.mujeres</code> que contenga únicamente a las mujeres de la muestra.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>diabetes.female <span class="ot">&lt;-</span> diabetes[pos,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Contrasta al nivel de significación <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias entre los niveles medios de glucosa glicosilada (<code>glyhb</code>) según la constitución del cuerpo (<code>frame</code>) entre las mujeres.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Análisis exploratorio de los datos ##</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(glyhb <span class="sc">~</span> frame, <span class="at">data=</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Análisis de la varianza con la función aov() ##</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>glyhb.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(glyhb<span class="sc">~</span>frame, <span class="at">data=</span>diabetes.female)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glyhb.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+frame         2   40.4  20.207     4.7 0.00998 **
+Residuals   231  993.1   4.299                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Comprobamos las hipótesis del modelo ##</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(glyhb.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica4_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(glyhb.aov)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)             <span class="do">## Normalidad de los errores</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  r
+W = 0.7235, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(glyhb.aov)       <span class="do">## Test de Levene para homogeneidad de varianzas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+       Df F value Pr(&gt;F)
+group   2  1.0362 0.3564
+      231               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Como no se cumplen las hipótesis del modelo, realizamos el test de Kruskal-Wallis</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(glyhb<span class="sc">~</span>frame, <span class="at">data=</span>diabetes.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  glyhb by frame
+Kruskal-Wallis chi-squared = 20.111, df = 2, p-value = 4.295e-05</code></pre>
+</div>
+</div>
+<ul>
+<li>Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal</span>(diabetes.female<span class="sc">$</span>glyhb, diabetes.female<span class="sc">$</span>frame, <span class="at">alpha=</span><span class="fl">0.05</span>, <span class="at">group=</span><span class="cn">FALSE</span>, <span class="at">console=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Study: diabetes.female$glyhb ~ diabetes.female$frame
+Kruskal-Wallis test's
+Ties or no Ties
+
+Critical Value: 20.11077
+Degrees of freedom: 2
+Pvalue Chisq  : 4.295381e-05 
+
+diabetes.female$frame,  means of the ranks
+
+       diabetes.female.glyhb   r
+large              157.07143  42
+medium             114.76423 123
+small               98.28986  69
+
+Post Hoc Analysis
+
+Comparison between treatments mean of the ranks.
+
+               Difference pvalue Signif.       LCL      UCL
+large - medium   42.30720 0.0003     *** 19.424803 65.18960
+large - small    58.78157 0.0000     *** 33.723420 83.83973
+medium - small   16.47437 0.0932       . -2.783587 35.73233</code></pre>
+</div>
+</div>
+<!-- # 2. Para entregar -->
+<!-- ### 2.1 Considera el fichero `diabetes`. Crea otro fichero llamado `diabetes.B` que contenga únicamente a los habitantes del condado de Buckingham. -->
+<!-- - Contrasta al nivel de significación $\alpha=0.05$ si existen diferencias entre los niveles medios de glucosa glicosilada (`glyhb`) según la constitución del cuerpo (`frame`) entre las mujeres. -->
+<!-- - Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas. -->
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -26,7 +26,8 @@ En esta práctica vamos a trabajar con el fichero de datos `diabetes`.
 
 El fichero original puede descargarse de la web: <http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets>
 
-Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling. *Prevalence of coronary heart disease risk factors among rural blacks: A community-based study*. Southern Medical Journal 90: 814-820; 1997. <https://europepmc.org/abstract/med/9258308>
+Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling.
+*Prevalence of coronary heart disease risk factors among rural blacks: A community-based study*. Southern Medical Journal 90: 814-820; 1997. <https://europepmc.org/abstract/med/9258308>
 
 Estas son las variables que contiene el fichero (se han eliminado alguna del fichero original y se han reemplazado algunos valores perdidos):
 
