@@ -30,19 +30,19 @@ head(EPIDURAL)
 
 -   Visualiza los primeros 20 registros del fichero `EPIDURAL` con el comando `head()`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 head(EPIDURAL, n=20)
 ```
 
 -   Calcula cuántos registros y cuantas variables tiene el fichero `EPIDURAL` con el comando `dim()`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 dim(EPIDURAL)
 ```
 
 -   Calcula cuántos registros y cuantas variables tiene el fichero `EPIDURAL` con el comando `str()`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 str(EPIDURAL)
 ```
 
@@ -50,25 +50,25 @@ str(EPIDURAL)
 
 -   Selecciona la variable `doctor` del fichero `EPIDURAL` y visualízala en pantalla.
 
-```{r include=FALSE}
+```{r include=TRUE}
 EPIDURAL$doctor
 ```
 
 -   Selecciona la variable `kg` del fichero `EPIDURAL` y visualízala en pantalla.
 
-```{r include=FALSE}
+```{r include=TRUE}
 EPIDURAL$kg
 ```
 
 -   Selecciona la variable `cm` del fichero `EPIDURAL` y visualízala en pantalla.
 
-```{r include=FALSE}
+```{r include=TRUE}
 EPIDURAL$cm
 ```
 
 -   Crea una nueva variable llamada `ratio` definida como el cociente entre `kg`/`cm`. Añádela al fichero `EPIDURAL`
 
-```{r include=FALSE}
+```{r include=TRUE}
 EPIDURAL$ratio <- EPIDURAL$kg/EPIDURAL$cm
 
 head(EPIDURAL)
@@ -76,46 +76,46 @@ head(EPIDURAL)
 
 -   Selecciona la paciente número 19 del fichero `EPIDURAL`. Visualízala por pantalla y averigua cuánto pesa y cuánto mide.
 
-```{r include=FALSE}
+```{r include=TRUE}
 EPIDURAL[19, ]
 ```
 
 -   Elimina la paciente 1 del fichero `EPIDURAL`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 head(EPIDURAL[-1, ])
 ```
 
 -   Elimina la variable `doctor` del fichero `EPIDURAL`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 head(EPIDURAL[,-1])
 ```
 
 -   ¿Qué individuos tienen valores de la variable `kg` menores que 85 kg?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$kg<85)
 pos
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 170 cm?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$cm>170)
 pos
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 170 cm o menores que 165 cm?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$cm>170 | EPIDURAL$cm<165)
 pos
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 165 cm y menores que 170 cm?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$cm>165 & EPIDURAL$cm<170)
 pos
 ```
