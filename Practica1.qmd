@@ -96,62 +96,59 @@ head(EPIDURAL[,-1])
 
 ```{r include=TRUE}
 pos <- which(EPIDURAL$kg<85)
-pos
+EPIDURAL[pos,]
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 170 cm?
 
 ```{r include=TRUE}
 pos <- which(EPIDURAL$cm>170)
-pos
+EPIDURAL[pos,]
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 170 cm o menores que 165 cm?
 
 ```{r include=TRUE}
 pos <- which(EPIDURAL$cm>170 | EPIDURAL$cm<165)
-pos
+EPIDURAL[pos,]
 ```
 
 -   ¿Qué individuos tienen valores de la variable `cm` mayores que 165 cm y menores que 170 cm?
 
 ```{r include=TRUE}
 pos <- which(EPIDURAL$cm>165 & EPIDURAL$cm<170)
-pos
+EPIDURAL[pos,]
 ```
 
 ### 1.3. Filtrado de individuos y creación de nuevos ficheros
 
 -   Crea un nuevo fichero llamado `EPIDURAL2` con aquellas pacientes que pesan menos de 85 kg. ¿Cuántos registros tiene el fichero `EPIDURAL2`?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$kg<85)
-
 EPIDURAL2 <- EPIDURAL[pos, ]
-head(EPIDURAL2)
 
+head(EPIDURAL2)
 dim(EPIDURAL2)
 ```
 
 -   Crea un nuevo fichero llamado `EPIDURAL3` con aquellas pacientes que miden más de 170 cm. ¿Cuántos registros tiene el fichero `EPIDURAL3`?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$cm>170)
-
 EPIDURAL3 <- EPIDURAL[pos, ]
-head(EPIDURAL3)
 
+head(EPIDURAL3)
 dim(EPIDURAL3)
 ```
 
 -   Crea un nuevo fichero llamado `EPIDURAL4` con aquellas pacientes atendidas por el Doctor A. ¿Cuántos registros tiene el fichero `EPIDURAL4`?
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(EPIDURAL$doctor=="Dr. A")
-
 EPIDURAL4 <- EPIDURAL[pos, ]
-head(EPIDURAL4)
 
+head(EPIDURAL4)
 dim(EPIDURAL4)
 ```
 
@@ -159,14 +156,14 @@ dim(EPIDURAL4)
 
 -   Descarga el fichero `Bodyfat.txt` desde MiAulario, léelo en `R` y almacénalo en un objeto llamado `datos`. Imprímelo por pantalla.
 
-```{r include=FALSE}
+```{r include=TRUE}
 datos <- read.table("BodyFat.txt", header=TRUE)
 datos
 ```
 
 -   Descarga el fichero `Bodyfat.xlsx` desde MiAulario, léelo en `R` y almacénalo en un objeto llamado `datos2`. Imprímelo por pantalla.
 
-```{r include=FALSE}
+```{r include=TRUE}
 library(xlsx)
 
 datos2 <- read.xlsx("Bodyfat.xlsx", sheetIndex="Hoja1")
@@ -177,46 +174,46 @@ datos2
 
 -   Con el fichero `datos`, visualiza en pantalla la variable `fat`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 datos$fat
 ```
 
 -   Selecciona las observaciones de las variable `fat` cuyo valor sea menor que 25 y guárdalas en un objeto llamado `low.fat`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(datos$fat<25)
+low.fat <- datos[pos,"fat"]
 
-low.fat <- datos[pos,]
 low.fat
 ```
 
 -   Utiliza el comando `table` para averiguar cuántos hombres y mujeres hay en el fichero `datos`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 table(datos$sex)
 ```
 
 -   Haz un *summary* del fichero `datos`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 summary(datos)
 ```
 
 -   Elimina la variable `fat` del fichero `datos`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 datos[,-2]
 ```
 
 -   Elimina las observaciones 7, 9 y 15 del fichero `datos`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 datos[-c(7,9,15),]
 ```
 
 -   Utiliza la función `eda()` del paquete `PASWR2` para realizar un análisis exploratorio de la variable `fat`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 eda(datos$fat)
 ```
 
