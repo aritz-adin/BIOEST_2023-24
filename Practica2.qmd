@@ -358,12 +358,12 @@ Cruza las variables `gender` y `frame` y responde a las siguientes preguntas:
 
 <!-- Considera la variable `bp.1s`: -->
 
-<!-- 5.1. Realiza un histograma y un diagrama de cajas. ¿Qué puedes decir acerca de la simetría y la dispersión? -->
+<!-- 5.1. Realiza un histograma y un diagrama de cajas. Interpreta los gráficos obtenidos. ¿Qué puedes decir acerca de la simetría y la dispersión de la variable `bp.1s`? -->
 
-<!-- 5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. -->
+<!-- 5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. Indica sus unidades e interpreta los estadísticos (en aquellos casos que sea posible). -->
 
-<!-- 5.3. Dibuja un histograma y un diagrama de cajas en función de la variable sexo. -->
+<!-- 5.3. Dibuja un histograma y un diagrama de cajas en función de la variable `sexo`. Interpreta los gráficos obtenidos. -->
 
-<!-- 5.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula la covarianza y el coeficiente de correlación lineal. -->
+<!-- 5.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula e interpreta la covarianza y el coeficiente de correlación lineal (indica sus unidades). -->
 
 <!-- 5.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo? -->
