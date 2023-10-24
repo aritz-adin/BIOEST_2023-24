@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#estadística-descriptiva-unidimensional" id="toc-estadística-descriptiva-unidimensional" class="nav-link" data-scroll-target="#estadística-descriptiva-unidimensional">1. Estadística descriptiva unidimensional</a></li>
   <li><a href="#tablas-de-doble-entrada" id="toc-tablas-de-doble-entrada" class="nav-link" data-scroll-target="#tablas-de-doble-entrada">2. Tablas de doble entrada</a></li>
   <li><a href="#covarianza-y-correlación" id="toc-covarianza-y-correlación" class="nav-link" data-scroll-target="#covarianza-y-correlación">3. Covarianza y correlación</a></li>
-  <li><a href="#para-resolver-en-clase" id="toc-para-resolver-en-clase" class="nav-link" data-scroll-target="#para-resolver-en-clase">4. Para resolver en clase</a></li>
+  <li><a href="#para-entregar" id="toc-para-entregar" class="nav-link" data-scroll-target="#para-entregar">4. Para entregar</a></li>
   </ul>
 </nav>
     </div>
@@ -307,77 +307,519 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><strong>1.2. ¿Cuántas variables tiene el fichero <code>diabetes</code>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimensión del fichero de datos </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 403  16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nº de filas (individuos) </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 403</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nº de columnas (variables) </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
 <p><strong>1.3. ¿De qué tipo es cada variable?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   403 obs. of  16 variables:
+ $ id      : int  1000 1001 1002 1003 1005 1008 1011 1015 1016 1022 ...
+ $ chol    : num  203 165 228 78 249 248 195 227 177 263 ...
+ $ stab.glu: int  82 97 92 93 90 94 92 75 87 89 ...
+ $ hdl     : num  56 24 37 12 28 69 41 44 49 40 ...
+ $ ratio   : num  3.6 6.9 6.2 6.5 8.9 ...
+ $ glyhb   : num  4.31 4.44 4.64 4.63 7.72 ...
+ $ location: Factor w/ 2 levels "Buckingham","Louisa": 1 1 1 1 1 1 1 1 1 1 ...
+ $ age     : int  46 29 58 67 64 34 30 37 45 55 ...
+ $ gender  : Factor w/ 2 levels "female","male": 1 1 1 2 2 2 2 2 2 1 ...
+ $ height  : num  62 64 61 67 68 71 69 59 69 63 ...
+ $ weight  : num  121 218 256 119 183 190 191 170 166 202 ...
+ $ frame   : Factor w/ 3 levels "large","medium",..: 2 1 1 1 2 1 2 2 1 3 ...
+ $ bp.1s   : num  118 112 190 110 138 ...
+ $ bp.1d   : num  59 68 92 50 80 ...
+ $ waist   : num  29 46 49 33 44 36 46 34 34 45 ...
+ $ hip     : num  38 48 57 38 41 42 49 39 40 50 ...</code></pre>
+</div>
+</div>
 <p><strong>1.4. ¿Cuántas categorías tiene la variable <code>frame</code>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(diabetes<span class="sc">$</span>frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "large"  "medium" "small" </code></pre>
+</div>
+</div>
+<p><em>NOTA: Las categorías están ordenadas por orden alfabético</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Es posible indicar el orden de las categorías </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diabetes<span class="sc">$</span>frame <span class="ot">&lt;-</span> <span class="fu">factor</span>(diabetes<span class="sc">$</span>frame, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"small"</span>,<span class="st">"medium"</span>,<span class="st">"large"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(diabetes<span class="sc">$</span>frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "small"  "medium" "large" </code></pre>
+</div>
+</div>
 <p><strong>1.5. Obtén una tabla de frecuencias absolutas y relativas para la variable <code>frame</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(diabetes<span class="sc">$</span>frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ small medium  large 
+   104    196    103 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(diabetes<span class="sc">$</span>frame)<span class="sc">/</span><span class="fu">nrow</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    small    medium     large 
+0.2580645 0.4863524 0.2555831 </code></pre>
+</div>
+</div>
 <p><strong>1.6. Realiza una representación gráfica adecuada para la variable <code>frame</code>. ¿Qué información obtienes?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">table</span>(diabetes<span class="sc">$</span>frame)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de barras</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(X, <span class="at">xlab=</span><span class="st">"Frame"</span>, <span class="at">ylab=</span><span class="st">"Frequency"</span>, <span class="at">col=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend=</span><span class="fu">levels</span>(diabetes<span class="sc">$</span>frame), <span class="at">fill=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de sectores</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(X, <span class="at">labels=</span><span class="fu">names</span>(X), <span class="at">col=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend=</span><span class="fu">levels</span>(diabetes<span class="sc">$</span>frame), <span class="at">fill=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.7. Calcula la moda de la variable <code>frame</code>. ¿Qué significa?</strong></p>
 <p><strong>1.8. ¿Qué representaciones gráficas te parecen adecuadas para la variable <code>chol</code>?</strong></p>
 <p><strong>1.9. Realiza un histograma y un diagrama de cajas de la variable <code>chol</code>. ¿Qué información obtienes de ellos?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">pty=</span><span class="st">"s"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(diabetes<span class="sc">$</span>chol, <span class="at">nclass=</span><span class="st">"scott"</span>, <span class="at">col=</span><span class="st">"cyan"</span>, <span class="at">main=</span><span class="st">"Histograma"</span>, <span class="at">xlab=</span><span class="st">"Colesterol"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(diabetes<span class="sc">$</span>chol, <span class="at">col=</span><span class="st">"pink"</span>, <span class="at">main=</span><span class="st">"Diagrama de caja"</span>, <span class="at">xlab=</span><span class="st">"Colesterol"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.10. A la vista del diagrama de cajas y del histograma de la variable <code>chol</code>, qué puedes decir acerca de su simetría? ¿Qué crees que será mayor, la media o la mediana?</strong></p>
 <p><strong>1.11. Calcula el coeficiente de asimetría, la media y la mediana de la variable <code>chol</code>. ¿Confirma dicho valor lo observado en el histograma y el diagrama de cajas?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diabetes<span class="sc">$</span>chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   78.0   179.0   204.0   207.8   230.0   443.0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># También podemos utilizar la función eda() de la librería PASWR2</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PASWR2)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(diabetes<span class="sc">$</span>chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 403.000    0.000   78.000  179.000  207.846  204.000  205.903  230.000 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+ 443.000   44.390 1970.494    2.211   51.000  365.000    2.558    0.924 
+SW p-val 
+   0.000 </code></pre>
+</div>
+</div>
 <p><strong>1.12. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>chol</code>. ¿Entre qué valores se encuentra el 25% de las personas con el colesterol más alto? ¿Y el 75% de las personas con el colesterol más bajo? ¿Qué puedes decir acerca de la dispersión de la variable? ¿Dónde hay más dispersión, en el 25% de las personas con mayor colesterol o en el 25% de las personas con colesterol más bajo?</strong></p>
 <p><strong>1.13. Calcula el coeficiente de curtosis de la variable <code>chol</code>. ¿Qué indica?</strong></p>
 <p><strong>1.14. Según el diagrama de cajas, ¿existe alguna observación atípica? ¿Cuál es?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(diabetes<span class="sc">$</span>chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valores atípicos</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>aux<span class="sc">$</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  78 443 318 347 342 404 307 337 322</code></pre>
+</div>
+</div>
 <p><strong>1.15. ¿Cuántos hombres y cuántas mujeres hay en la muestra?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(diabetes<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+female   male 
+   234    169 </code></pre>
+</div>
+</div>
 <p><strong>1.16. ¿Cuántas personas residen en Buckingham? ¿Cuántas en Louisa?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(diabetes<span class="sc">$</span>location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Buckingham     Louisa 
+       200        203 </code></pre>
+</div>
+</div>
 <p><strong>1.17. ¿Puedes calcular la media y la mediana de la variable <code>location</code>?</strong></p>
 <p><strong>1.18. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(chol<span class="sc">~</span>frame, <span class="at">data=</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.19. Realiza un diagrama de cajas de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(chol<span class="sc">~</span>frame<span class="sc">+</span>gender, <span class="at">data=</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.20. Calcula la media, mediana, la desviación típica y los cuartiles de la variable <code>chol</code> según las categorías de la variable <code>frame</code>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicamos la función summary() para cada categoría de la variable 'frame'</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(diabetes<span class="sc">$</span>chol, diabetes<span class="sc">$</span>frame, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$small
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  118.0   169.5   196.0   197.6   219.2   307.0 
+
+$medium
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  115.0   181.0   206.5   213.2   239.2   443.0 
+
+$large
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   78.0   181.5   206.0   208.0   231.5   347.0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicamos la función sd() para cada categoría de la variable 'frame'</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(diabetes<span class="sc">$</span>chol, diabetes<span class="sc">$</span>frame, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   small   medium    large 
+38.95477 46.87484 43.25211 </code></pre>
+</div>
+</div>
 <p><strong>1.21. Realiza un histograma de la variable <code>chol</code> según las categorías de la variable <code>frame</code> y la variable <code>gender</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">histogram</span>(<span class="sc">~</span> chol <span class="sc">|</span> frame<span class="sc">*</span>gender, <span class="at">xlab=</span><span class="st">"Colesterol"</span>, <span class="at">type=</span><span class="st">"density"</span>, <span class="at">data=</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><em>NOTA: La sintáxis de esta función es muy particular</em></p>
 <p><strong>1.22. Calcula la media, la mediana, los cuartiles y la desviación típica de la variable <code>glyhb</code>. Explica cómo está de dispersa utilizando el histograma, el diagrama de cajas, los cuartiles y la desviación típica.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(diabetes<span class="sc">$</span>glyhb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 403.000    0.000    2.680    4.390    5.590    4.870    5.313    5.590 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  16.110    2.206    4.867    0.110    1.200   13.430    5.252    2.266 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">pty=</span><span class="st">"s"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(diabetes<span class="sc">$</span>glyhb, <span class="at">nclass=</span><span class="st">"scott"</span>, <span class="at">col=</span><span class="st">"cyan"</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(diabetes<span class="sc">$</span>glyhb, <span class="at">col=</span><span class="st">"pink"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.23. Compara la dispersión de las variables <code>chol</code> y <code>glyhb</code>. ¿Qué variable tiene la desviación típica más alta? ¿Puedes concluir que aquella variable con la desviación típica más alta es la más dispersa? ¿Por qué? ¿Qué medida crees que es la más adecuada?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(diabetes<span class="sc">$</span>chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 403.000    0.000   78.000  179.000  207.846  204.000  205.903  230.000 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+ 443.000   44.390 1970.494    2.211   51.000  365.000    2.558    0.924 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(diabetes<span class="sc">$</span>glyhb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 403.000    0.000    2.680    4.390    5.590    4.870    5.313    5.590 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  16.110    2.206    4.867    0.110    1.200   13.430    5.252    2.266 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para compara la dispersión de las variables debemos calcular el coeficiente de variación</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>CV.col <span class="ot">&lt;-</span> <span class="fu">sd</span>(diabetes<span class="sc">$</span>chol)<span class="sc">/</span><span class="fu">mean</span>(diabetes<span class="sc">$</span>chol)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>CV.col</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.213573</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>CV.glyhb <span class="ot">&lt;-</span> <span class="fu">sd</span>(diabetes<span class="sc">$</span>glyhb)<span class="sc">/</span><span class="fu">mean</span>(diabetes<span class="sc">$</span>glyhb)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>CV.glyhb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.394656</code></pre>
+</div>
+</div>
 <p><strong>1.24. Considera la variable <code>chol</code> por sexo. Selecciona el hombre y la mujer con mayor nivel de colesterol. ¿Cuál de los dos destaca más en comparación a la media de su grupo?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definimos un conjunto de datos para los hombres y otro para las mujeres</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"male"</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>diabetes.male <span class="ot">&lt;-</span> diabetes[pos,]</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>diabetes.female <span class="ot">&lt;-</span> diabetes[pos,]</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos los niveles de colesterol máximos </span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">max</span>(diabetes.male<span class="sc">$</span>chol)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">max</span>(diabetes.female<span class="sc">$</span>chol)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tipificamos los valores </span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>x.tipif <span class="ot">&lt;-</span> (x<span class="sc">-</span><span class="fu">mean</span>(diabetes.male<span class="sc">$</span>chol))<span class="sc">/</span><span class="fu">sd</span>(diabetes.male<span class="sc">$</span>chol)</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>x.tipif</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.340132</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>y.tipif <span class="ot">&lt;-</span> (y<span class="sc">-</span><span class="fu">mean</span>(diabetes.female<span class="sc">$</span>chol))<span class="sc">/</span><span class="fu">sd</span>(diabetes.female<span class="sc">$</span>chol)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>y.tipif</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.36182</code></pre>
+</div>
+</div>
+<p>Como <code>x.tipif</code>=4.340 &lt; <code>y.tipif</code>=5.362, el nivel de colesterol de la mujer destaca más respecto a su grupo.</p>
 <p><strong>1.25. Crea una nueva variable denominada <code>ratioWH</code> definida como el cociente de la variable <code>waist</code> y la variable <code>hip</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>diabetes<span class="sc">$</span>ratioWH <span class="ot">&lt;-</span> diabetes<span class="sc">$</span>waist<span class="sc">/</span>diabetes<span class="sc">$</span>hip</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    id chol stab.glu hdl ratio glyhb   location age gender height weight  frame
+1 1000  203       82  56   3.6  4.31 Buckingham  46 female     62    121 medium
+2 1001  165       97  24   6.9  4.44 Buckingham  29 female     64    218  large
+3 1002  228       92  37   6.2  4.64 Buckingham  58 female     61    256  large
+4 1003   78       93  12   6.5  4.63 Buckingham  67   male     67    119  large
+5 1005  249       90  28   8.9  7.72 Buckingham  64   male     68    183 medium
+6 1008  248       94  69   3.6  4.81 Buckingham  34   male     71    190  large
+  bp.1s bp.1d waist hip   ratioWH
+1   118    59    29  38 0.7631579
+2   112    68    46  48 0.9583333
+3   190    92    49  57 0.8596491
+4   110    50    33  38 0.8684211
+5   138    80    44  41 1.0731707
+6   132    86    36  42 0.8571429</code></pre>
+</div>
+</div>
 <p><strong>1.26. Dibuja un histograma y un diagrama de cajas de la variable <code>ratioWH</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">pty=</span><span class="st">"s"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(diabetes<span class="sc">$</span>ratioWH,<span class="at">nclass=</span><span class="st">"scott"</span>,<span class="at">col=</span><span class="st">"cyan"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(diabetes<span class="sc">$</span>ratioWH,<span class="at">col=</span><span class="st">"pink"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>1.27. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable <code>ratioWH</code>. ¿Entre qué valores se encuentra el 25% de los valores más altos? ¿Y el 75% de los valores más bajos?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(diabetes<span class="sc">$</span>ratioWH)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 403.000    0.000    0.682    0.830    0.881    0.881    0.879    0.925 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+   1.143    0.072    0.005    0.004    0.095    0.461    0.644    0.383 
+SW p-val 
+   0.002 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diabetes<span class="sc">$</span>ratioWH)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6818  0.8298  0.8806  0.8809  0.9250  1.1429 </code></pre>
+</div>
+</div>
 </section>
 <section id="tablas-de-doble-entrada" class="level1">
 <h1>2. Tablas de doble entrada</h1>
 <p><strong>2.1. ¿Cuántos hombres y cuántas mujeres hay en la localización Buckingham? ¿Cuántos en Louisa?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(diabetes<span class="sc">$</span>gender,diabetes<span class="sc">$</span>location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Buckingham Louisa
+  female        114    120
+  male           86     83</code></pre>
+</div>
+</div>
 <p><strong>2.2. ¿Qué porcentaje de personas en la muestra tienen un body frame <em>“small”</em> y además son de Buckingham?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">table</span>(diabetes<span class="sc">$</span>frame,diabetes<span class="sc">$</span>location)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Buckingham     Louisa
+  small  0.11910670 0.13895782
+  medium 0.22084367 0.26550868
+  large  0.15632754 0.09925558</code></pre>
+</div>
+</div>
 <p><strong>2.3. Dibuja un diagrama de barras donde representes las frecuencias de la variable <code>location</code> para cada una de las categorías de la variable <code>frame</code>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">table</span>(diabetes<span class="sc">$</span>location,diabetes<span class="sc">$</span>frame)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            
+             small medium large
+  Buckingham    48     89    63
+  Louisa        56    107    40</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(X, <span class="at">col=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>),<span class="at">legend.text=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(X), <span class="at">col=</span><span class="fu">topo.colors</span>(<span class="dv">3</span>),<span class="at">legend.text=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><strong>2.4. Forma una tabla de doble entrada cruzando las variables <code>gender</code> y <code>frame</code>. ¿Cuántas mujeres tienen un body frame <em>“medium”</em>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">table</span>(diabetes<span class="sc">$</span>gender,diabetes<span class="sc">$</span>frame)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         small medium large
+  female    69    123    42
+  male      35     73    61</code></pre>
+</div>
+</div>
 <p><strong>2.5. ¿Qué porcentaje de hombres tienen un body frame <em>“large”</em>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+              small     medium      large
+  female 0.17121588 0.30521092 0.10421836
+  male   0.08684864 0.18114144 0.15136476</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(Y,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+             small    medium     large
+  female 0.2948718 0.5256410 0.1794872
+  male   0.2071006 0.4319527 0.3609467</code></pre>
+</div>
+</div>
 </section>
 <section id="covarianza-y-correlación" class="level1">
 <h1>3. Covarianza y correlación</h1>
 <p><strong>3.1. Realiza un diagrama de dispersión de las variables <code>weight</code> y <code>waist</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.2. Realiza un diagrama de dispersión de las variables <code>chol</code> y <code>weight</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.3. Selecciona las personas del condado de Buckingham y realiza un diagrama de dispersión de las variables <code>waist</code> y <code>hip</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong>3.4. Selecciona las mujeres con body frame <em>“medium”</em> y realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>age</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
-<p><strong><em>EXTRA: A fancy way of visualizing correlation a matrix</em></strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>diabetes.X <span class="ot">&lt;-</span> diabetes[,<span class="fu">c</span>(<span class="st">"chol"</span>,<span class="st">"stab.glu"</span>,<span class="st">"hdl"</span>,<span class="st">"glyhb"</span>,<span class="st">"age"</span>,<span class="st">"height"</span>,<span class="st">"weight"</span>,<span class="st">"bp.1s"</span>,<span class="st">"bp.1d"</span>,<span class="st">"waist"</span>,<span class="st">"hip"</span>)]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cor.matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(diabetes.X)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"circle"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diabetes<span class="sc">$</span>weight,diabetes<span class="sc">$</span>waist)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(waist <span class="sc">~</span> weight, <span class="at">data=</span>diabetes), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(diabetes<span class="sc">$</span>weight,diabetes<span class="sc">$</span>waist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 194.8847</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(diabetes<span class="sc">$</span>weight,diabetes<span class="sc">$</span>waist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8463617</code></pre>
+</div>
+</div>
+<p><strong>3.2. Realiza un diagrama de dispersión de las variables <code>chol</code> y <code>weight</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diabetes<span class="sc">$</span>weight, diabetes<span class="sc">$</span>chol)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(chol <span class="sc">~</span> weight, <span class="at">data=</span>diabetes), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(diabetes<span class="sc">$</span>chol,diabetes<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 118.4692</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(diabetes<span class="sc">$</span>chol,diabetes<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06623929</code></pre>
+</div>
+</div>
+<p><strong>3.3. Selecciona las personas del condado de Buckingham y realiza un diagrama de dispersión de las variables <code>waist</code> y <code>hip</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>location<span class="sc">==</span><span class="st">"Buckingham"</span>)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>diabetes.B <span class="ot">&lt;-</span> diabetes[pos,]</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diabetes.B<span class="sc">$</span>waist,diabetes.B<span class="sc">$</span>hip)</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(hip <span class="sc">~</span> waist, <span class="at">data=</span>diabetes.B), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(diabetes.B<span class="sc">$</span>waist,diabetes.B<span class="sc">$</span>hip)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32.66462</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(diabetes.B<span class="sc">$</span>waist,diabetes.B<span class="sc">$</span>hip)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.854653</code></pre>
+</div>
+</div>
+<p><strong>3.4. Selecciona las mujeres con body frame <em>“medium”</em> y realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>age</code>. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span> <span class="sc">&amp;</span> diabetes<span class="sc">$</span>frame <span class="sc">==</span><span class="st">"medium"</span>)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> diabetes[pos,]</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>age,datos<span class="sc">$</span>bp<span class="fl">.1</span>s)</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(bp<span class="fl">.1</span>s <span class="sc">~</span> age, <span class="at">data=</span>diabetes.B), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"number"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(datos<span class="sc">$</span>bp<span class="fl">.1</span>s,datos<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 237.8738</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(datos<span class="sc">$</span>bp<span class="fl">.1</span>s,datos<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5473436</code></pre>
+</div>
+</div>
+<p><strong><em>EXTRA: A fancy way of visualizing correlation a matrix</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>diabetes.X <span class="ot">&lt;-</span> diabetes[,<span class="fu">c</span>(<span class="st">"chol"</span>,<span class="st">"stab.glu"</span>,<span class="st">"hdl"</span>,<span class="st">"glyhb"</span>,<span class="st">"age"</span>,<span class="st">"height"</span>,<span class="st">"weight"</span>,<span class="st">"bp.1s"</span>,<span class="st">"bp.1d"</span>,<span class="st">"waist"</span>,<span class="st">"hip"</span>)]</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>cor.matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(diabetes.X)</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"circle"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Practica2_files/figure-html/unnamed-chunk-31-2.png" class="img-fluid" width="672"></p>
+<p><img src="Practica2_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor.matrix, <span class="at">method=</span><span class="st">"number"</span>, <span class="at">type=</span><span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica2_files/figure-html/unnamed-chunk-32-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<!-- # 4. Para resolver en clase -->
+<!-- Cruza las variables `gender` y `frame` y responde a las siguientes preguntas: -->
+<!-- 4.1. ¿Cuántas mujeres tienen body frame "large"? -->
+<!-- 4.2. ¿Qué porcentaje de mujeres tienen body frame "large"? -->
+<!-- 4.3. ¿Cuál es el porcentaje de hombres con body frame "small"? -->
+<!-- 4.4. ¿Qué porcentaje de pacientes con body frame "medium" son hombres? -->
 </section>
-<section id="para-resolver-en-clase" class="level1">
-<h1>4. Para resolver en clase</h1>
-<p>Cruza las variables <code>gender</code> y <code>frame</code> y responde a las siguientes preguntas:</p>
-<p>4.1. ¿Cuántas mujeres tienen body frame “large”?</p>
-<p>4.2. ¿Qué porcentaje de mujeres tienen body frame “large”?</p>
-<p>4.3. ¿Cuál es el porcentaje de hombres con body frame “small”?</p>
-<p>4.4. ¿Qué porcentaje de pacientes con body frame “medium” son hombres?</p>
-<!-- # 5. Para entregar -->
-<!-- Considera la variable `bp.1s`: -->
-<!-- 5.1. Realiza un histograma y un diagrama de cajas. ¿Qué puedes decir acerca de la simetría y la dispersión? -->
-<!-- 5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. -->
-<!-- 5.3. Dibuja un histograma y un diagrama de cajas en función de la variable sexo. -->
-<!-- 5.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula la covarianza y el coeficiente de correlación lineal. -->
-<!-- 5.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo? -->
+<section id="para-entregar" class="level1">
+<h1>4. Para entregar</h1>
+<p>Considera la variable <code>bp.1s</code>:</p>
+<p>4.1. Realiza un histograma y un diagrama de cajas. Interpreta los gráficos obtenidos. ¿Qué puedes decir acerca de la simetría y la dispersión de la variable <code>bp.1s</code>?</p>
+<p>4.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. Indica sus unidades e interpreta los estadísticos (en aquellos casos que sea posible).</p>
+<p>4.3. Dibuja un histograma y un diagrama de cajas en función de la variable <code>sexo</code>. Interpreta los gráficos obtenidos.</p>
+<p>4.4. Realiza un diagrama de dispersión de las variables <code>bp.1s</code> y <code>bp.1d</code>“. ¿Crees que existe relación lineal entre ellas? Calcula e interpreta la covarianza y el coeficiente de correlación lineal (indica sus unidades).</p>
+<p>4.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo?</p>
 
 
 </section>

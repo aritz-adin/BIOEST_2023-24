@@ -26,8 +26,7 @@ En esta práctica vamos a trabajar con el fichero de datos `diabetes`.
 
 El fichero original puede descargarse de la web: <http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets>
 
-Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling.
-*Prevalence of coronary heart disease risk factors among rural blacks: A community-based study*. Southern Medical Journal 90: 814-820; 1997. <https://europepmc.org/abstract/med/9258308>
+Para más información ver el paper: Willems JP, Saunders JT, DE Hunt, JB Schorling. *Prevalence of coronary heart disease risk factors among rural blacks: A community-based study*. Southern Medical Journal 90: 814-820; 1997. <https://europepmc.org/abstract/med/9258308>
 
 Estas son las variables que contiene el fichero (se han eliminado alguna del fichero original y se han reemplazado algunos valores perdidos):
 
@@ -61,32 +60,46 @@ head(diabetes)
 
 **1.2. ¿Cuántas variables tiene el fichero `diabetes`?**
 
-```{r include=FALSE}
+```{r include=TRUE}
+# Dimensión del fichero de datos 
 dim(diabetes)
+
+# Nº de filas (individuos) 
+nrow(diabetes)
+
+# Nº de columnas (variables) 
+ncol(diabetes)
 ```
 
 **1.3. ¿De qué tipo es cada variable?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 str(diabetes)
 ```
 
 **1.4. ¿Cuántas categorías tiene la variable `frame`?**
 
-```{r include=FALSE}
+```{r include=TRUE}
+levels(diabetes$frame)
+```
+*NOTA: Las categorías están ordenadas por orden alfabético*
+
+```{r include=TRUE}
+# Es posible indicar el orden de las categorías 
+diabetes$frame <- factor(diabetes$frame, levels=c("small","medium","large"))
 levels(diabetes$frame)
 ```
 
 **1.5. Obtén una tabla de frecuencias absolutas y relativas para la variable `frame`.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 table(diabetes$frame)
 table(diabetes$frame)/nrow(diabetes)
 ```
 
 **1.6. Realiza una representación gráfica adecuada para la variable `frame`. ¿Qué información obtienes?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 X <- table(diabetes$frame)
 
 # Diagrama de barras
@@ -104,7 +117,7 @@ legend("topleft", legend=levels(diabetes$frame), fill=topo.colors(3))
 
 **1.9. Realiza un histograma y un diagrama de cajas de la variable `chol`. ¿Qué información obtienes de ellos?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 par(mfrow=c(1,2),pty="s")
 hist(diabetes$chol, nclass="scott", col="cyan", main="Histograma", xlab="Colesterol")
 boxplot(diabetes$chol, col="pink", main="Diagrama de caja", xlab="Colesterol")
@@ -114,7 +127,7 @@ boxplot(diabetes$chol, col="pink", main="Diagrama de caja", xlab="Colesterol")
 
 **1.11. Calcula el coeficiente de asimetría, la media y la mediana de la variable `chol`. ¿Confirma dicho valor lo observado en el histograma y el diagrama de cajas?**
 
-```{r include=FALSE}
+```{r include=TRUE, message=FALSE}
 summary(diabetes$chol)
 
 # También podemos utilizar la función eda() de la librería PASWR2
@@ -128,21 +141,22 @@ eda(diabetes$chol)
 
 **1.14. Según el diagrama de cajas, ¿existe alguna observación atípica? ¿Cuál es?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 aux <- boxplot(diabetes$chol)
 
+# Valores atípicos
 aux$out
 ```
 
 **1.15. ¿Cuántos hombres y cuántas mujeres hay en la muestra?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 table(diabetes$gender)
 ```
 
 **1.16. ¿Cuántas personas residen en Buckingham? ¿Cuántas en Louisa?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 table(diabetes$location)
 ```
 
@@ -150,34 +164,37 @@ table(diabetes$location)
 
 **1.18. Realiza un diagrama de cajas de la variable `chol` según las categorías de la variable `frame`.**
 
-```{r include=FALSE}
-boxplot(chol~frame, col=cm.colors(3), data=diabetes)
+```{r include=TRUE}
+boxplot(chol~frame, data=diabetes)
 ```
 
 **1.19. Realiza un diagrama de cajas de la variable `chol` según las categorías de la variable `frame` y la variable `gender`.**
 
-```{r include=FALSE}
-boxplot(chol~frame+gender, col=cm.colors(3), data=diabetes)
+```{r include=TRUE}
+boxplot(chol~frame+gender, data=diabetes)
 ```
 
 **1.20. Calcula la media, mediana, la desviación típica y los cuartiles de la variable `chol` según las categorías de la variable `frame`?**
 
-```{r include=FALSE}
+```{r include=TRUE}
+# Aplicamos la función summary() para cada categoría de la variable 'frame'
 tapply(diabetes$chol, diabetes$frame, summary)
+
+# Aplicamos la función sd() para cada categoría de la variable 'frame'
 tapply(diabetes$chol, diabetes$frame, sd)
 ```
 
 **1.21. Realiza un histograma de la variable `chol` según las categorías de la variable `frame` y la variable `gender`.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 library(lattice)
-
 histogram(~ chol | frame*gender, xlab="Colesterol", type="density", data=diabetes)
 ```
+*NOTA: La sintáxis de esta función es muy particular*
 
 **1.22. Calcula la media, la mediana, los cuartiles y la desviación típica de la variable `glyhb`. Explica cómo está de dispersa utilizando el histograma, el diagrama de cajas, los cuartiles y la desviación típica.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 eda(diabetes$glyhb)
 
 par(mfrow=c(1,2),pty="s")
@@ -187,10 +204,11 @@ boxplot(diabetes$glyhb, col="pink")
 
 **1.23. Compara la dispersión de las variables `chol` y `glyhb`. ¿Qué variable tiene la desviación típica más alta? ¿Puedes concluir que aquella variable con la desviación típica más alta es la más dispersa? ¿Por qué? ¿Qué medida crees que es la más adecuada?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 eda(diabetes$chol)
 eda(diabetes$glyhb)
 
+# Para compara la dispersión de las variables debemos calcular el coeficiente de variación
 CV.col <- sd(diabetes$chol)/mean(diabetes$chol)
 CV.col
 
@@ -200,36 +218,37 @@ CV.glyhb
 
 **1.24. Considera la variable `chol` por sexo. Selecciona el hombre y la mujer con mayor nivel de colesterol. ¿Cuál de los dos destaca más en comparación a la media de su grupo?**
 
-```{r include=FALSE}
+```{r include=TRUE}
+# Definimos un conjunto de datos para los hombres y otro para las mujeres
 pos <- which(diabetes$gender=="male")
-chol.male <- diabetes[pos,"chol"]
+diabetes.male <- diabetes[pos,]
 
 pos <- which(diabetes$gender=="female")
-chol.female <- diabetes[pos,"chol"]
+diabetes.female <- diabetes[pos,]
 
-x <- max(chol.male)
-x
-y <- max(chol.female)
-y
+# Calculamos los niveles de colesterol máximos 
+x <- max(diabetes.male$chol)
+y <- max(diabetes.female$chol)
 
-x.tipif <- (x-mean(chol.male))/sd(chol.male)
+# Tipificamos los valores 
+x.tipif <- (x-mean(diabetes.male$chol))/sd(diabetes.male$chol)
 x.tipif
 
-y.tipif <- (y-mean(chol.female))/sd(chol.female)
+y.tipif <- (y-mean(diabetes.female$chol))/sd(diabetes.female$chol)
 y.tipif
 ```
+Como `x.tipif`=4.340 < `y.tipif`=5.362, el nivel de colesterol de la mujer destaca más respecto a su grupo.
 
 **1.25. Crea una nueva variable denominada `ratioWH` definida como el cociente de la variable `waist` y la variable `hip`.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 diabetes$ratioWH <- diabetes$waist/diabetes$hip
-
 head(diabetes)
 ```
 
 **1.26. Dibuja un histograma y un diagrama de cajas de la variable `ratioWH`.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 par(mfrow=c(1,2),pty="s")
 hist(diabetes$ratioWH,nclass="scott",col="cyan")
 boxplot(diabetes$ratioWH,col="pink")
@@ -237,7 +256,7 @@ boxplot(diabetes$ratioWH,col="pink")
 
 **1.27. Calcula el mínimo, el máximo, los cuartiles y la desviación típica de la variable `ratioWH`. ¿Entre qué valores se encuentra el 25% de los valores más altos? ¿Y el 75% de los valores más bajos?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 eda(diabetes$ratioWH)
 summary(diabetes$ratioWH)
 ```
@@ -246,38 +265,38 @@ summary(diabetes$ratioWH)
 
 **2.1. ¿Cuántos hombres y cuántas mujeres hay en la localización Buckingham? ¿Cuántos en Louisa?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 table(diabetes$gender,diabetes$location)
 ```
 
 **2.2. ¿Qué porcentaje de personas en la muestra tienen un body frame *"small"* y además son de Buckingham?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 X <- table(diabetes$frame,diabetes$location)
 prop.table(X)
 ```
 
 **2.3. Dibuja un diagrama de barras donde representes las frecuencias de la variable `location` para cada una de las categorías de la variable `frame`?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 X <- table(diabetes$location,diabetes$frame)
 X
 
-barplot(X, main="Barplot where location is stacked n within levels of frame", col=topo.colors(3),legend.text=TRUE)
+barplot(X, col=topo.colors(3),legend.text=TRUE)
 
-barplot(t(X),main="Barplot where frame is stacked n within levels of location", col=topo.colors(3),legend.text=TRUE)
+barplot(t(X), col=topo.colors(3),legend.text=TRUE)
 ```
 
 **2.4. Forma una tabla de doble entrada cruzando las variables `gender` y `frame`. ¿Cuántas mujeres tienen un body frame *"medium"*?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 Y <- table(diabetes$gender,diabetes$frame)
 Y
 ```
 
 **2.5. ¿Qué porcentaje de hombres tienen un body frame *"large"*?**
 
-```{r include=FALSE}
+```{r include=TRUE}
 prop.table(Y)
 prop.table(Y,1)
 ```
@@ -286,7 +305,7 @@ prop.table(Y,1)
 
 **3.1. Realiza un diagrama de dispersión de las variables `weight` y `waist`. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 plot(diabetes$weight,diabetes$waist)
 abline(lm(waist ~ weight, data=diabetes), col="red")
 
@@ -296,7 +315,7 @@ cor(diabetes$weight,diabetes$waist)
 
 **3.2. Realiza un diagrama de dispersión de las variables `chol` y `weight`. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 plot(diabetes$weight, diabetes$chol)
 abline(lm(chol ~ weight, data=diabetes), col="red")
 
@@ -306,7 +325,7 @@ cor(diabetes$chol,diabetes$weight)
 
 **3.3. Selecciona las personas del condado de Buckingham y realiza un diagrama de dispersión de las variables `waist` y `hip`. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(diabetes$location=="Buckingham")
 diabetes.B <- diabetes[pos,]
 
@@ -319,7 +338,7 @@ cor(diabetes.B$waist,diabetes.B$hip)
 
 **3.4. Selecciona las mujeres con body frame *"medium"* y realiza un diagrama de dispersión de las variables `bp.1s` y `age`. ¿Crees que existe relación lineal entre ambas variables? Calcula la covarianza y el coeficiente de correlación lineal.**
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(diabetes$gender=="female" & diabetes$frame =="medium")
 datos <- diabetes[pos,]
 
@@ -342,28 +361,28 @@ corrplot(cor.matrix, method="circle", type="upper")
 corrplot(cor.matrix, method="number", type="upper")
 ```
 
-# 4. Para resolver en clase
+<!-- # 4. Para resolver en clase -->
 
-Cruza las variables `gender` y `frame` y responde a las siguientes preguntas:
+<!-- Cruza las variables `gender` y `frame` y responde a las siguientes preguntas: -->
 
-4.1. ¿Cuántas mujeres tienen body frame "large"?
+<!-- 4.1. ¿Cuántas mujeres tienen body frame "large"? -->
 
-4.2. ¿Qué porcentaje de mujeres tienen body frame "large"?
+<!-- 4.2. ¿Qué porcentaje de mujeres tienen body frame "large"? -->
 
-4.3. ¿Cuál es el porcentaje de hombres con body frame "small"?
+<!-- 4.3. ¿Cuál es el porcentaje de hombres con body frame "small"? -->
 
-4.4. ¿Qué porcentaje de pacientes con body frame "medium" son hombres?
+<!-- 4.4. ¿Qué porcentaje de pacientes con body frame "medium" son hombres? -->
 
-<!-- # 5. Para entregar -->
+# 4. Para entregar
 
-<!-- Considera la variable `bp.1s`: -->
+Considera la variable `bp.1s`:
 
-<!-- 5.1. Realiza un histograma y un diagrama de cajas. Interpreta los gráficos obtenidos. ¿Qué puedes decir acerca de la simetría y la dispersión de la variable `bp.1s`? -->
+4.1. Realiza un histograma y un diagrama de cajas. Interpreta los gráficos obtenidos. ¿Qué puedes decir acerca de la simetría y la dispersión de la variable `bp.1s`?
 
-<!-- 5.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. Indica sus unidades e interpreta los estadísticos (en aquellos casos que sea posible). -->
+4.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. Indica sus unidades e interpreta los estadísticos (en aquellos casos que sea posible).
 
-<!-- 5.3. Dibuja un histograma y un diagrama de cajas en función de la variable `sexo`. Interpreta los gráficos obtenidos. -->
+4.3. Dibuja un histograma y un diagrama de cajas en función de la variable `sexo`. Interpreta los gráficos obtenidos.
 
-<!-- 5.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula e interpreta la covarianza y el coeficiente de correlación lineal (indica sus unidades). -->
+4.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula e interpreta la covarianza y el coeficiente de correlación lineal (indica sus unidades).
 
-<!-- 5.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo? -->
+4.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo?
