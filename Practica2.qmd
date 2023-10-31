@@ -377,12 +377,60 @@ corrplot(cor.matrix, method="number", type="upper")
 
 Considera la variable `bp.1s`:
 
+```{r, include=FALSE}
+diabetes <- read.table("diabetes.txt", header=TRUE, sep="", dec=".", stringsAsFactors=TRUE)
+head(diabetes)
+```
+
 4.1. Realiza un histograma y un diagrama de cajas. Interpreta los gráficos obtenidos. ¿Qué puedes decir acerca de la simetría y la dispersión de la variable `bp.1s`?
+```{r, include=FALSE}
+par(mfrow=c(1,2))
+hist(diabetes$bp.1s, xlab="", main="Presión sistólica (mmHg)")
+boxplot(diabetes$bp.1s, main="Presión sistólica (mmHg)")
+```
+
 
 4.2. Calcula la media, mediana, cuartiles, desviación típica, coeficientes de asimetría y de curtosis, y los coeficientes de variación. Indica sus unidades e interpreta los estadísticos (en aquellos casos que sea posible).
 
+```{r, include=FALSE}
+PASWR2::eda(diabetes$bp.1s)
+CV <- sd(diabetes$bp.1s)/mean(diabetes$bp.1s)
+CV
+```
+
 4.3. Dibuja un histograma y un diagrama de cajas en función de la variable `sexo`. Interpreta los gráficos obtenidos.
+```{r, include=FALSE}
+library(lattice)
+
+boxplot(diabetes$bp.1s ~ diabetes$gender, ylab="Presión sistólica (mmHg)", xlab="Gender")
+histogram(~ bp.1s | gender, xlab="presión sistólica", type="density", data=diabetes)
+```
 
 4.4. Realiza un diagrama de dispersión de las variables `bp.1s` y `bp.1d`". ¿Crees que existe relación lineal entre ellas? Calcula e interpreta la covarianza y el coeficiente de correlación lineal (indica sus unidades).
+```{r, include=FALSE}
+plot(diabetes$bp.1s, diabetes$bp.1d, xlab="Presión sistólica", ylab="Presión diastólica")
+abline(lm(bp.1d ~ bp.1s, data=diabetes), col="red")
+
+cov(diabetes$bp.1s, diabetes$bp.1d)
+cor(diabetes$bp.1s, diabetes$bp.1d)
+```
 
 4.5. Selecciona el hombre y la mujer con menor presión diastólica. ¿Cuál de los dos destaca más en comparación a la media de su grupo?
+```{r include=FALSE}
+pos <- which(diabetes$gender=="male")
+diabetes.male <- diabetes[pos,]
+
+pos <- which(diabetes$gender=="female")
+diabetes.female <- diabetes[pos,]
+
+# Calculamos los niveles de colesterol mínimos 
+x <- min(diabetes.male$chol)
+y <- min(diabetes.female$chol)
+
+# Tipificamos los valores 
+x.tipif <- (x-mean(diabetes.male$chol))/sd(diabetes.male$chol)
+x.tipif
+
+y.tipif <- (y-mean(diabetes.female$chol))/sd(diabetes.female$chol)
+y.tipif
+```

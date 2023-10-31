@@ -50,9 +50,11 @@ Estas son las variables que contiene el fichero (se han eliminado alguna del fic
 | waist    | Waistline (inches)                     |
 | hip      | Hip measurement (inches)               |
 
-En primer lugar, debemos leer el fichero `diabetes` en R:
+En primer lugar, cargamos la librería `PASWR2` y leemos el fichero `diabetes` en R:
 
-```{r}
+```{r message=FALSE}
+library(PASWR2)
+
 diabetes <- read.table("diabetes.txt", header=TRUE, sep="", dec=".", stringsAsFactors=TRUE)
 head(diabetes)
 ```
@@ -61,8 +63,9 @@ head(diabetes)
 
 ### 1.1. Contrasta al nivel de significación $\alpha=0.05$ si el nivel medio de colesterol en los hombres del condado de Buckingham es superior a 200mg/dL. Justifica si puedes asumir normalidad.
 
-```{r, include=FALSE, message=FALSE}
-library(PASWR2)
+```{r, include=FALSE}
+
+## X="Nivel de colesterol (mg/dL) de los hombres del condado de Buckingham" ##
 
 ## Seleccionamos los datos requeridos ##
 pos <- which(diabetes$gender=="male" & diabetes$location=="Buckingham")
@@ -90,6 +93,9 @@ power.t.test(power=0.9, delta=210-200, sd=sd(chol.manB),
 ### 1.3. Contrasta al nivel de significación $\alpha=0.10$, si la presión diastólica media de los hombres es distinta a la presión diastólica media de las mujeres.
 
 ```{r, include=FALSE}
+## X="Presión diastólica (mmHg) de los hombres" ##
+## Y="Presión diastólica (mmHg) de la mujeres" ##
+
 table(diabetes$gender)
 
 pos1 <- which(diabetes$gender=="male")
@@ -125,14 +131,17 @@ t.test(bp1d.male, bp1d.female, mu=0, alternative="two.sided", conf.level=0.9)
 ### 1.4. Se dispone de dos aparatos, uno nuevo y otro antiguo, para medir los niveles de glucosa en sangre. Los médicos sospechan que el nuevo aparato proporciona niveles de glucosa en sangre superiores al antiguo. Se dispone de una muestra con 15 pacientes diabéticos a los que se les ha medido los niveles de glucosa con los dos aparatos. Las medidas se encuentran en el fichero `GLUCOSE` de la librería `PASWR2`.
 
 ```{r}
-data(GLUCOSE, package="PASWR2")
+data(GLUCOSE)
 print(GLUCOSE)
 ```
 
 -   ¿Son las muestras independientes?
 
 ```{r include=FALSE}
-# Las muestras NO son independientes (mismos individuos)
+## X="Nivel de glucosa (mg/dL) en sangre con el aparato nuevo" ##
+## Y="Nivel de glucosa (mg/dL) en sangre con el aparato viejo" ##
+
+## Las muestras NO son independientes (mismos individuos) ##
 d <- GLUCOSE$new - GLUCOSE$old
 ```
 
@@ -152,6 +161,75 @@ t.test(d, mu=0, alternative="greater")
 # or
 t.test(GLUCOSE$new, GLUCOSE$old, mu=0, paired=TRUE, alternative="greater")
 ```
+
+### 1.5. Contrasta al nivel de significación $\alpha=0.05$ si la proporción de hombres con hemoglobina glicosilada (`glyhb`) por encima del 6% es superior a 0.2.
+
+-   Calcula el número de hombres en la muestra con `glyhb` por encima del 6% y el total de hombre de la muestra.
+
+```{r include=FALSE}
+## X="Número de hombres con hemoglobina glicosilada por encima del 6% ##
+## X ~ Bin(n,p) ##
+
+## Casos favorables ##
+x <- sum(diabetes$gender=="male" & diabetes$glyhb>6)
+
+## Casos totales ##
+n <- sum(diabetes$gender=="male")
+```
+
+- Realiza un test exacto y un test aproximado para la proporción.
+
+```{r include=FALSE}
+## Contraste de hipótesis (alpha=0.05)
+## H0: p=0.2
+## H1: p>0.2
+
+## Test exacto 
+binom.test(x, n, p=0.2, alternative="greater", conf.level=0.95)
+
+## Test aproximado
+prop.test(x, n, p=0.2, alternative="greater", conf.level=0.95)
+```
+
+
+### 1.6. Contrasta al nivel de significación $\alpha=0.05$ si la proporción de hombres con colesterol por debajo de 200mg/dL es superior a la proporción de mujeres con colesterol por debajo de 200mg/dL.
+
+-   Calcula el número de hombres en la muestra con colesterol por debajo de 200mg/dL y el total de hombres de la muestra.
+
+```{r include=FALSE}
+## X="Número de hombres con colesterl por debajo de 200 mg/dL ##
+## X ~ Bin(nX,pX) ##
+
+x <- sum(diabetes$gender=="male" & diabetes$chol<200)
+x
+
+nx <- sum(diabetes$gender=="male")
+nx
+```
+
+-   Calcula el número de mujeres en la muestra con colesterol por debajo de 200mg/dL y el total de hombres de la muestra.
+
+```{r include=FALSE}
+## Y="Número de mujeres con colesterl por debajo de 200 mg/dL ##
+## Y ~ Bin(nY,pY) ##
+
+y <- sum(diabetes$gender=="female" & diabetes$chol<200)
+y
+
+ny <- sum(diabetes$gender=="female")
+ny
+```
+
+- Realiza un test para la diferencia de proporciones.
+
+```{r include=FALSE}
+## Contraste de hipótesis (alpha=0.05)
+## H0: pX-pY=0
+## H1: pX-pY>0
+
+prop.test(c(x,y), c(nx,ny), alternative="greater", conf.level=0.95)
+```
+
 
 # 2. Análisis de la varianza
 
