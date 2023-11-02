@@ -63,127 +63,166 @@ head(diabetes)
 
 ### 1.1. Contrasta al nivel de significación $\alpha=0.05$ si el nivel medio de colesterol en los hombres del condado de Buckingham es superior a 200mg/dL. Justifica si puedes asumir normalidad.
 
-```{r, include=FALSE}
+Defimos la variable $$X=\mbox{"Nivel de colesterol (mg/dL) en los hombres del condado de Buckingham"}$$
 
-## X="Nivel de colesterol (mg/dL) de los hombres del condado de Buckingham" ##
-
-## Seleccionamos los datos requeridos ##
+```{r, include=TRUE}
+## Seleccionamos los datos ##
 pos <- which(diabetes$gender=="male" & diabetes$location=="Buckingham")
 chol.manB <- diabetes$chol[pos]  
 
 ## Comprobamos la condición de normalidad ##
 eda(chol.manB)
+```
 
-## Contraste de hiótesis (alpha=0.05) ##
-# H0: mu=200
-# H1: mu>200
+Realizamos el contraste de hipótesis ($\alpha=0.05$)
+\begin{eqnarray*}
+H_0: \, \mu=200 \\
+H_1: \, \mu>200 \\
+\end{eqnarray*}
+
+```{r, include=TRUE}
 t.test(chol.manB, mu=200, conf.level=0.95, alternative="greater")
 ```
 
-### 1.2. Calcula la potencia del contraste anterior si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210. ¿Cuantas observaciones necesitarías en tu muestra para obtener una potencia de 0.9?
+**Interpretación**: Como el p-valor=0.228$> \alpha=0.05 \Rightarrow$ No rechazar $H_0$.
 
-```{r, include=FALSE}
+Es decir, con un nivel de significación de 5\%, no podemos afirmar que el nivel medio de colesterol en los hombres del condado de Buckingham es superior a 200mg/dL.
+
+
+### 1.2. Calcula la potencia del contraste anterior si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210 mg/dL. ¿Cuantas observaciones necesitarías en tu muestra para obtener una potencia de 0.9?
+
+```{r, include=TRUE}
 power.t.test(n=length(chol.manB), delta=210-200, sd=sd(chol.manB),
              sig.level=0.05, type="one.sample", alternative="two.sided")
+```
 
+**Interpretación**: Si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210 mg/dL, la probabilidad de rechazar la hipótesis nula en el test anterior ($H1: \, \mu>200$) es de 0.538.
+
+```{r, include=TRUE}
 power.t.test(power=0.9, delta=210-200, sd=sd(chol.manB),
              sig.level=0.05, type="one.sample", alternative="two.sided")
 ```
 
+**Interpretación**: Si el verdadero nivel medio de colesterol en los hombres del condado de Buckingham es 210 mg/dL, el tamaño de muestra necesario para obtener una potencia de 0.9 en el test anterior es $n \geq 211$.
+
+
 ### 1.3. Contrasta al nivel de significación $\alpha=0.10$, si la presión diastólica media de los hombres es distinta a la presión diastólica media de las mujeres.
 
-```{r, include=FALSE}
-## X="Presión diastólica (mmHg) de los hombres" ##
-## Y="Presión diastólica (mmHg) de la mujeres" ##
-
-table(diabetes$gender)
-
-pos1 <- which(diabetes$gender=="male")
-bp1d.male <- diabetes$bp.1d[pos1]
-str(bp1d.male)
-
-pos2 <- which(diabetes$gender=="female")
-bp1d.female <-diabetes$bp.1d[pos2]
-str(bp1d.female)
-```
+Definimos las variables 
+$$X=\mbox{"Presión diastólica (mmHg) de los hombres"}$$
+$$Y=\mbox{"Presión diastólica (mmHg) de la mujeres"}$$
 
 -   Comprueba que las dos muestras provienen de poblaciones normales.
 
-```{r, include=FALSE}
+```{r, include=TRUE}
+## Seleccionamos los datos de los hombres ##
+pos1 <- which(diabetes$gender=="male")
+bp1d.male <- diabetes$bp.1d[pos1]
+
 eda(bp1d.male)
+
+
+## Seleccionamos los datos de las mujeres ##
+pos2 <- which(diabetes$gender=="female")
+bp1d.female <-diabetes$bp.1d[pos2]
+
 eda(bp1d.female)
 ```
 
 -   ¿Podemos asumir que las varianzas son iguales?
 
-```{r, include=FALSE}
-boxplot(cbind(bp1d.male,bp1d.male))
+```{r, include=TRUE}
+## Gráfico exploratorio ##
+boxplot(bp.1d ~ gender, data=diabetes)
+
+## Test para la igualdad de varianzas ##
+var.test(bp1d.male, bp1d.female, ratio=1, alternative="two.sided")
 ```
+
+Como p-valor=0.969>0.05, no podemos rechazar la hipótesis nula de igualdad de varianzas.
 
 -   Realiza el correspondiente test de medias.
+\begin{eqnarray*}
+H_0: \, \mu_X-\mu_Y=0 \\
+H_1: \, \mu_X-\mu_Y \neq 0 \\
+\end{eqnarray*}
 
-```{r, include=FALSE}
-# H0: muX-muY=0
-# H1: muX-muY!=0
-t.test(bp1d.male, bp1d.female, mu=0, alternative="two.sided", conf.level=0.9)
+```{r, include=TRUE}
+t.test(bp1d.male, bp1d.female, mu=0, var.equal=TRUE, alternative="two.sided", conf.level=0.9)
 ```
+
+**Interpretación**: Como el p-valor=0.149$> \alpha=0.10 \Rightarrow$ No rechazar $H_0$.
+
+Es decir, con un nivel de significación de 10\%, no podemos afirmar que la presión diastólica media de los hombres sea distinta a la presión diastólica media de las mujeres.
+
 
 ### 1.4. Se dispone de dos aparatos, uno nuevo y otro antiguo, para medir los niveles de glucosa en sangre. Los médicos sospechan que el nuevo aparato proporciona niveles de glucosa en sangre superiores al antiguo. Se dispone de una muestra con 15 pacientes diabéticos a los que se les ha medido los niveles de glucosa con los dos aparatos. Las medidas se encuentran en el fichero `GLUCOSE` de la librería `PASWR2`.
 
 ```{r}
+## Cargamos los datos ##
 data(GLUCOSE)
 print(GLUCOSE)
 ```
 
 -   ¿Son las muestras independientes?
 
-```{r include=FALSE}
-## X="Nivel de glucosa (mg/dL) en sangre con el aparato nuevo" ##
-## Y="Nivel de glucosa (mg/dL) en sangre con el aparato viejo" ##
+Sean
+$$X=\mbox{"Nivel de glucosa (mg/dL) en sangre con el aparato nuevo"}$$
+$$Y=\mbox{"Nivel de glucosa (mg/dL) en sangre con el aparato viejo"}$$
 
+```{r include=TRUE}
 ## Las muestras NO son independientes (mismos individuos) ##
 d <- GLUCOSE$new - GLUCOSE$old
 ```
 
 -   Comprueba si puede asumirse la hipótesis de normalidad.
 
-```{r include=FALSE}
+```{r include=TRUE}
 eda(d)
 ```
 
 -   Contrasta al nivel de significación $\alpha=0.05$ si el nuevo aparato proporciona mediciones más altas que el antiguo.
 
-```{r include=FALSE}
-# H0: muD=0
-# H1: muD>0
+\begin{eqnarray*}
+H_0: \, \mu_D=0 \\
+H_1: \, \mu_D>0 \\
+\end{eqnarray*}
+
+```{r include=TRUE}
 t.test(d, mu=0, alternative="greater")
 
 # or
 t.test(GLUCOSE$new, GLUCOSE$old, mu=0, paired=TRUE, alternative="greater")
 ```
 
+**Interpretación**: Como el p-valor$\approx 0 < \alpha=0.05 \Rightarrow$ Rechazar $H_0$.
+
+Es decir, con un nivel de significación de 5\%, existen evidencias estadísticas para afirmar que el nuevo aparato proporciona mediciones más altas (en media) que el antiguo.
+
+
 ### 1.5. Contrasta al nivel de significación $\alpha=0.05$ si la proporción de hombres con hemoglobina glicosilada (`glyhb`) por encima del 6% es superior a 0.2.
 
 -   Calcula el número de hombres en la muestra con `glyhb` por encima del 6% y el total de hombre de la muestra.
 
-```{r include=FALSE}
-## X="Número de hombres con hemoglobina glicosilada por encima del 6% ##
-## X ~ Bin(n,p) ##
+Definimos la variable $$X=\mbox{"Número de hombres con hemoglobina glicosilada por encima del 6%"} \sim ~ Bin(n,\pi)$$
 
+```{r include=TRUE}
 ## Casos favorables ##
 x <- sum(diabetes$gender=="male" & diabetes$glyhb>6)
+x
 
 ## Casos totales ##
 n <- sum(diabetes$gender=="male")
+n
 ```
 
 - Realiza un test exacto y un test aproximado para la proporción.
+\begin{eqnarray*}
+H_0: \, \pi=0.2 \\
+H_1: \, \pi>0.2 \\
+\end{eqnarray*}
 
-```{r include=FALSE}
-## Contraste de hipótesis (alpha=0.05)
-## H0: p=0.2
-## H1: p>0.2
-
+```{r include=TRUE}
 ## Test exacto 
 binom.test(x, n, p=0.2, alternative="greater", conf.level=0.95)
 
@@ -191,44 +230,54 @@ binom.test(x, n, p=0.2, alternative="greater", conf.level=0.95)
 prop.test(x, n, p=0.2, alternative="greater", conf.level=0.95)
 ```
 
+**Interpretación**: Como el p-valor>$\alpha=0.05 \Rightarrow$ No rechazar $H_0$.
+
+Es decir, con un nivel de significación de 5\%, no podemos afirmar que la proporción de hombres con hemoglobina glicosilada por encima del 6% sea superior a 0.2.
+
 
 ### 1.6. Contrasta al nivel de significación $\alpha=0.05$ si la proporción de hombres con colesterol por debajo de 200mg/dL es superior a la proporción de mujeres con colesterol por debajo de 200mg/dL.
 
 -   Calcula el número de hombres en la muestra con colesterol por debajo de 200mg/dL y el total de hombres de la muestra.
 
-```{r include=FALSE}
-## X="Número de hombres con colesterl por debajo de 200 mg/dL ##
-## X ~ Bin(nX,pX) ##
+Sea $$X=\mbox{"Número de hombres con colesterl por debajo de 200 mg/dL} \sim Bin(n_X,\pi_X)$$
 
+```{r include=TRUE}
+## Casos favorables ##
 x <- sum(diabetes$gender=="male" & diabetes$chol<200)
 x
 
+## Casos totales ##
 nx <- sum(diabetes$gender=="male")
 nx
 ```
 
 -   Calcula el número de mujeres en la muestra con colesterol por debajo de 200mg/dL y el total de hombres de la muestra.
 
-```{r include=FALSE}
-## Y="Número de mujeres con colesterl por debajo de 200 mg/dL ##
-## Y ~ Bin(nY,pY) ##
+Sea $$Y=\mbox{"Número de mujeres con colesterol por debajo de 200 mg/dL} \sim Bin(n_Y,\pi_Y)$$
 
+```{r include=TRUE}
+## Casos favorables ##
 y <- sum(diabetes$gender=="female" & diabetes$chol<200)
 y
 
+## Casos totales ##
 ny <- sum(diabetes$gender=="female")
 ny
 ```
 
 - Realiza un test para la diferencia de proporciones.
+\begin{eqnarray*}
+H_0: \, \pi_X-\pi_Y=0 \\
+H_1: \, \pi_X-\pi_Y \neq 0 \\
+\end{eqnarray*}
 
-```{r include=FALSE}
-## Contraste de hipótesis (alpha=0.05)
-## H0: pX-pY=0
-## H1: pX-pY>0
-
+```{r include=TRUE}
 prop.test(c(x,y), c(nx,ny), alternative="greater", conf.level=0.95)
 ```
+
+**Interpretación**: Como el p-valor$=0.393>\alpha=0.05 \Rightarrow$ No rechazar $H_0$.
+
+Es decir, con un nivel de significación de 5\%, no podemos afirmar que la proporción de hombres con colesterol por debajo de 200mg/dL sea superior a la proporción de mujeres con colesterol por debajo de 200mg/dL.
 
 
 # 2. Análisis de la varianza
@@ -281,25 +330,25 @@ bp.mc
 plot(bp.mc)
 ```
 
-<!-- # 3. Para entregar -->
+# 3. Para entregar
 
-<!-- 3.1. Contrasta al nivel de significación $\alpha=0.10$, si la circunferencia de cadera media de los hombres es inferior a la circunferencia de cadera media de las mujeres. -->
+3.1. Contrasta al nivel de significación $\alpha=0.10$, si la circunferencia de cadera media de los hombres es inferior a la circunferencia de cadera media de las mujeres.
 
-<!-- -   Comprueba si las dos muestras provienen de poblaciones normales. -->
+-   Comprueba si las dos muestras provienen de poblaciones normales.
 
-<!-- -   Realiza el correspondiente test de medias. -->
+-   Realiza el correspondiente test de medias.
 
-<!-- 3.2. Se estudió la eficacia de la sulfinpirazona en prevenir la muerte después de sufrir infarto de miocardio. Para ello se consideraron pacientes que habían sufrido infarto de miocardio. A un grupo se les proporcionó sulfinpirazona y a otro grupo se les suministró placebo. En la siguiente tabla se muestra el número de pacientes de cada grupo que murieron y que superaron el infarto. -->
+3.2. Se estudió la eficacia de la sulfinpirazona en prevenir la muerte después de sufrir infarto de miocardio. Para ello se consideraron pacientes que habían sufrido infarto de miocardio. A un grupo se les proporcionó sulfinpirazona y a otro grupo se les suministró placebo. En la siguiente tabla se muestra el número de pacientes de cada grupo que murieron y que superaron el infarto.
 
-<!-- |                 | Death (all causes) | Survivors | -->
-<!-- |-----------------|--------------------|-----------| -->
-<!-- | Sulphinpyrazole | 41                 | 692       | -->
-<!-- | Placebo         | 60                 | 682       | -->
+|                 | Death (all causes) | Survivors |
+|-----------------|--------------------|-----------|
+| Sulphinpyrazole | 41                 | 692       |
+| Placebo         | 60                 | 682       |
 
-<!-- Contrasta al nivel de significación $\alpha=0.05$ si la proporción de muertes de pacientes que tomaron sulfinpirazona es inferior a la de pacientes que tomaron un placebo. -->
+Contrasta al nivel de significación $\alpha=0.05$ si la proporción de muertes de pacientes que tomaron sulfinpirazona es inferior a la de pacientes que tomaron un placebo.
 
-<!-- 3.3. Considera el fichero `diabetes`. Crea un nuevo fichero que contenga únicamente a las mujeres del condado de Louisa. -->
+3.3. Considera el fichero `diabetes`. Crea un nuevo fichero que contenga únicamente a las mujeres del condado de Louisa.
 
-<!-- -   Contrasta al nivel de significación $\alpha=0.05$ si existen diferencias entre los niveles medios de la variable `hdl` según la constitución del cuerpo `frame` en las mujeres del condado de Louisa. -->
+-   Contrasta al nivel de significación $\alpha=0.05$ si existen diferencias entre los niveles medios de la variable `hdl` según la constitución del cuerpo `frame` en las mujeres del condado de Louisa.
 
-<!-- -   Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas. -->
+-   Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas.
