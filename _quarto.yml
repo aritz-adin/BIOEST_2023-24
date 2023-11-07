@@ -18,6 +18,8 @@ website:
         text: Práctica 3
       - href: Practica4.qmd
         text: Práctica 4
+      - href: PracticaRepasoI.qmd
+        text: Práctica repaso I
 
 format:
   html:

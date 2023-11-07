@@ -1,0 +1,262 @@
+---
+title: "Práctica repaso: Bloque I"
+author: "Aritz Adin y Jaione Etxeberria"
+date: "2023-11-13"
+date-format: "DD/MM/YYYY"
+format:
+  html:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)  
+```
+
+## Descripción
+
+En esta práctica vamos a trabajar con el fichero de datos `ZBS_2021.csv`. Este fichero contiene información sobre algunas Zonas Básicas de Salud de Navarra. En concreto, se dispone de información de las siguientes variables:
+
+| Variable   | Descripción                            |
+|------------|----------------------------------------------------------|
+| ZBS        | Zona Básica de Salud                                     |
+| Region     | Región geográfica                                        |
+| COVID19    | Casos acumulados de COVID-19                             |
+| Diabeticos | Número de diabéticos diagnosticados                      |
+| Pob        | Población total                                          |
+| Pob14      | Población mayor de 14 años                               |
+| Pob90      | Población mayor de 90 años                               |
+| Extranjeros| Población nacida en el extranjero                        |
+| Sexo       | Sexo mayoritario en la ZBS                               |
+| Natalidad  | Tasas de natalidad (nacimientos por cada mil habitantes) |
+| Tasa\_paro | Tasa de desempleo (\%)                                   |
+| Esperanza  | Esperanza de vida (años)                                 |
+| Pobreza    | Riesgo de pobreza                                        |
+| Indice     | Índice de envejecimiento (\%)                            |
+
+
+
+En primer lugar, debemos leer el fichero `ZBS_2021.csv` en R utilizando el asistente
+$$\mbox{Import Dataset -> Front text (base)}$$
+y seleccionando la opción *Strings as factors*.
+
+```{r, include=FALSE, eval=TRUE}
+ZBS_2021 <- read.delim2("ZBS_2021.csv", stringsAsFactors=TRUE, header=TRUE)
+head(ZBS_2021)
+```
+
+## 1. Estadística Descriptiva Univariante
+
+```{r, include=FALSE, message=FALSE}
+## Cargamos los paquetes necesarios ##
+library(PASWR2)
+library(car)
+```
+
+#### 1.1. ¿Cuántas observaciones tiene el fichero?
+```{r, include=FALSE}
+dim(ZBS_2021)
+ncol(ZBS_2021)
+```
+
+#### 1.2. ¿Cuántas variables tiene? ¿De qué tipo es cada una?
+```{r, include=FALSE}
+str(ZBS_2021)
+```
+
+#### 1.3. ¿Cuántas categorías tiene la variable `Region`?
+```{r, include=FALSE}
+levels(ZBS_2021$Region)
+```
+
+#### 1.4. Obtén una tabla de frecuencias absolutas y relativas para la variable `Region`.
+```{r, include=FALSE}
+table(ZBS_2021$Region)
+table(ZBS_2021$Region)/nrow(ZBS_2021)
+```
+
+#### 1.5. Realiza una representación gráfica adecuada para la variable `Region`. Calcula las medidas de tendencia central adecuadas para esta variable.
+```{r, include=FALSE}
+Tabla <- table(ZBS_2021$Region)
+
+par(mfrow=c(1,2), pty="s")
+pie(Tabla, main="Region")
+barplot(Tabla, main="Region")
+```
+
+#### 1.6. Realiza un histograma y un diagrama de cajas de la variable `Diabeticos`. A la vista de estas representaciones gráficas, ¿qué puedes decir acerca de la simetría de esta variable? ¿Qué crees que será mayor, la media o la mediana?
+```{r, include=FALSE}
+par(mfrow=c(1,2), pty="s")
+hist(ZBS_2021$Diabeticos, main="Nº de diabéticos", xlab="")
+boxplot(ZBS_2021$Diabeticos, main="Nº de diabéticos")
+```
+
+#### 1.7. Calcula el coeficiente de asimetría, la media y la mediana de la variable  `Diabeticos`. ¿Confirman dichos valores lo observado en el histograma y el diagrama de cajas?
+```{r, include=FALSE}
+eda(ZBS_2021$Diabeticos)
+```
+
+#### 1.8. Calcula e interpreta el coeficiente de curtosis de la variable `Indice`.
+```{r, include=FALSE}
+eda(ZBS_2021$Indice)
+```
+
+#### 1.9. Compara la dispersión de las variables `Pob14` y `Pob90`.
+```{r, include=FALSE}
+CV.Pob14 <- sd(ZBS_2021$Pob14)/mean(ZBS_2021$Pob14)
+CV.Pob14
+
+CV.Pob90 <- sd(ZBS_2021$Pob90)/mean(ZBS_2021$Pob90)
+CV.Pob90
+```
+
+
+## 2. Estadística Descriptiva Bivariante
+
+#### 2.1. Realiza un diagrama de cajas de la esperanza de vida en función de la variable `Pobreza`. ¿Qué observas?
+```{r, include=FALSE}
+boxplot(ZBS_2021$Esperanza ~ ZBS_2021$Pobreza)
+```
+
+#### 2.2. Calcula y compara los valores del percentil 75 de la esperanza de vida en función de la variable `Pobreza`.
+```{r, include=FALSE}
+tapply(ZBS_2021$Esperanza, ZBS_2021$Pobreza, summary)
+```
+
+#### 2.3. Realiza un diagrama de cajas de la variable `Natalidad` por tipo de región geográfica. Compara la asimetria de la variable en los distintos grupos.
+```{r, include=FALSE}
+boxplot(ZBS_2021$Natalidad ~ ZBS_2021$Region)
+tapply(ZBS_2021$Natalidad, ZBS_2021$Region, eda)
+```
+
+#### 2.4. Selecciona únicamente las zonas básicas de salud situadas en la región del Sur. Compara la tasa de desempleo media en función del sexo mayoritario de la zona.
+```{r, include=FALSE}
+pos <- which(ZBS_2021$Region=="Sur")
+ZBS.Sur <- ZBS_2021[pos,]
+
+tapply(ZBS.Sur$Tasa_paro, ZBS.Sur$Sexo, mean)
+```
+
+#### 2.5. Realiza una tabla de contingencia para las variables `Region` y `Pobreza`.
+```{r, include=FALSE}
+X <- table(ZBS_2021$Region, ZBS_2021$Pobreza)
+X
+```
+
+* ¿Que porcentaje de zonas básicas de salud se encuentran en la región del norte y tienen riesgo alto de pobreza?
+```{r, include=FALSE}
+prop.table(X)
+```
+
+* Entre las zonas básicas de salud del centro, ¿que porcentaje tienen riesgo bajo de pobreza?
+```{r, include=FALSE}
+prop.table(X,1)
+```
+
+* Entre las zonas básicas de con riesgo alto de pobreza, ¿que porcentaje pertecen al sur?
+```{r, include=FALSE}
+prop.table(X,2)
+```
+
+#### 2.6. Realiza un diagrama de dispersión de las variables `Pob` y `Extranjeros`. Calcula e interpreta el coeficiente de correlación lineal entre ambas variables. ¿Crées que sería adecuado utilizar otro tipo de relación no lineal para medir la asociación entre estas variables?
+```{r, include=FALSE}
+plot(ZBS_2021$Pob, ZBS_2021$Extranjeros)
+abline(lm(Extranjeros ~ Pob, data=ZBS_2021), col="red")
+
+cor(ZBS_2021$Pob, ZBS_2021$Extranjeros)
+```
+
+#### 2.7. ¿Existe una relación lineal entre la tasa de natalidad y el índice de envejecimiento de las zonas básicas de salud? Realiza el análisis estadístico adecuado e interpreta los resultados obtenidos.
+```{r, include=FALSE}
+plot(ZBS_2021$Natalidad, ZBS_2021$Indice)
+abline(lm(Indice ~ Natalidad, data=ZBS_2021), col="red")
+
+cov(ZBS_2021$Natalidad, ZBS_2021$Indice)
+cor(ZBS_2021$Natalidad, ZBS_2021$Indice)
+```
+
+
+## 3. Contrastes Paramétricos y No-Paramétricos
+
+#### 3.1. Contrasta al nivel de significación de $\alpha=0.05$ si la esperanza de vida media en las zonas básicas de salud de Navarra es superior 83 años. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?
+```{r, include=FALSE}
+## X="Esperanza de vida en las ZBS de Navarra"
+## H0: mu=83
+## H1: mu>83
+
+eda(ZBS_2021$Esperanza)
+
+t.test(ZBS_2021$Esperanza, mu=83, alternative="greater", conf.level=0.95)
+```
+
+#### 3.2. Contrasta al nivel de significación de $\alpha=0.01$ si la tasa de desempleo media de las zonas básicas de salud situadas en el norte de Navarra es inferior al 8\%. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?
+```{r, include=FALSE}
+## X="Número de peatones fallecidos en el Sudeste Asiático"
+## H0: mu=15
+## H1: mu>15
+
+pos <- which(ZBS_2021$Region=="Norte")
+ZBS.Norte <- ZBS_2021[pos, ]
+
+eda(ZBS.Norte$Tasa_paro)
+
+wilcox.test(ZBS.Norte$Tasa_paro, mu=8, alternative="less", conf.level=0.95)
+```
+
+#### 3.3. Contrasta al nivel de significación de $\alpha=0.05$ si existen diferencias significativas en la esperanza de vida media entre las zonas básicas de salud situadas en el norte y en el sur de Navarra. Realiza el contraste de hipótesis que consideres adecuado.
+```{r, include=FALSE}
+## X="Esperanza de vida de las ZBS del norte de Navarra"
+## Y="Esperanza de vida de las ZBS del sur de Navarra"
+## H0: muX - muY = 0
+## H1: muX - muY != 0
+
+pos <- which(ZBS_2021$Region=="Norte")
+ZBS.Norte <- ZBS_2021[pos, ]
+
+pos <- which(ZBS_2021$Region=="Sur")
+ZBS.Sur <- ZBS_2021[pos, ]
+
+eda(ZBS.Norte$Esperanza)
+eda(ZBS.Sur$Esperanza)
+
+t.test(ZBS.Norte$Esperanza, ZBS.Sur$Esperanza, mu=0, alternative="two.sided", conf.level=0.95)
+```
+
+#### 3.4. Contrasta al nivel de significación de $\alpha=0.05$ si el índice de envejecimiento medio entre las zonas básicas de salud con sexo mayoritario de hombres es al menos 2 puntos superior al índice de envejecimiento de las zonas básicas de salud con sexo mayoritario de mujeres. Realiza el contraste de hipótesis que consideres adecuado.
+```{r, include=FALSE}
+## X="Índice de envejecimiento de las ZBS con sexo mayoritario de hombres"
+## Y="Índice de envejecimiento de las ZBS con sexo mayoritario de mujeres"
+## H0: muX - muY = 0
+## H1: muX - muY != 0
+
+pos <- which(ZBS_2021$Sexo=="Hombres")
+ZBS.Hombres <- ZBS_2021[pos, ]
+
+pos <- which(ZBS_2021$Sexo=="Mujeres")
+ZBS.Mujeres <- ZBS_2021[pos, ]
+
+eda(ZBS.Hombres$Indice)
+eda(ZBS.Mujeres$Indice)
+
+wilcox.test(ZBS.Hombres$Indice, ZBS.Mujeres$Indice, mu=2, alternative="greater", conf.level=0.95)
+```
+
+#### 3.5. Contrasta al nivel de significación de $\alpha=0.05$ si existen diferencias entre los niveles medios del índice de envejecimiento según la región geográfica de las zonas básicas de salud de Navarra. Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas.
+```{r, include=FALSE}
+boxplot(ZBS_2021$Indice ~ ZBS_2021$Region)            #### Gráfico descriptivo
+
+Indice.aov <- aov(Indice ~ Region, data=ZBS_2021)     #### Analisis de varianza
+summary(Indice.aov)
+
+checking.plots(Indice.aov)                            #### Validación con procedimientos graficos de la libreria PASWR 
+
+r <- rstandard(Indice.aov)                            #### Normalidad de los residuos
+shapiro.test(r)
+
+leveneTest(ZBS_2021$Indice ~ ZBS_2021$Region)         #### Test de Levene para homogeneidad de varianzas
+
+kruskal.test(Indice ~ Region, data=ZBS_2021)          #### Test no-paramétrico (Kruskall-Wallis)
+
+library(agricolae)
+kruskal(ZBS_2021$Indice, ZBS_2021$Region, alpha=0.05, group=FALSE, console=TRUE)
+
+```

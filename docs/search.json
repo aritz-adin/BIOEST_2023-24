@@ -102,14 +102,14 @@
     "href": "index.html",
     "title": "Programa",
     "section": "",
-    "text": "Fecha\nTí­tulo\n\n\n\n\n09-octubre\nPráctica 0: Introducción a R\n\n\n09-octubre\nPráctica 1: Lectura y manejo de ficheros\n\n\n23-octubre\nPráctica 2: Estadística descriptiva\n\n\n31-octubre\nPráctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza\n\n\n06-noviembre\nPráctica 4: Pruebas no-paramétricas\n\n\n14-noviembre\nPráctica 5: Regresión lineal\n\n\n27-noviembre\nPráctica 6: Medidas de asociación, Odds Ratio y Riesgos Relativos\n\n\n11-diciembre\nPráctica 7: Regresión logística\n\n\n19-diciembre\nPráctica 8: Análisis de superviviencia"
+    "text": "Fecha\nTítulo\n\n\n\n\n09-octubre\nPráctica 0: Introducción a R\n\n\n09-octubre\nPráctica 1: Lectura y manejo de ficheros\n\n\n23-octubre\nPráctica 2: Estadística descriptiva\n\n\n31-octubre\nPráctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza\n\n\n06-noviembre\nPráctica 4: Pruebas no-paramétricas\n\n\n11-noviembre\nPráctica repaso: Bloque I\n\n\n14-noviembre\nPráctica 5: Regresión lineal\n\n\n27-noviembre\nPráctica 6: Medidas de asociación, Odds Ratio y Riesgos Relativos\n\n\n11-diciembre\nPráctica 7: Regresión logística\n\n\n19-diciembre\nPráctica 8: Análisis de superviviencia"
   },
   {
     "objectID": "index.html#bioestadística-curso-2023-24.",
     "href": "index.html#bioestadística-curso-2023-24.",
     "title": "Programa",
     "section": "",
-    "text": "Fecha\nTí­tulo\n\n\n\n\n09-octubre\nPráctica 0: Introducción a R\n\n\n09-octubre\nPráctica 1: Lectura y manejo de ficheros\n\n\n23-octubre\nPráctica 2: Estadística descriptiva\n\n\n31-octubre\nPráctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza\n\n\n06-noviembre\nPráctica 4: Pruebas no-paramétricas\n\n\n14-noviembre\nPráctica 5: Regresión lineal\n\n\n27-noviembre\nPráctica 6: Medidas de asociación, Odds Ratio y Riesgos Relativos\n\n\n11-diciembre\nPráctica 7: Regresión logística\n\n\n19-diciembre\nPráctica 8: Análisis de superviviencia"
+    "text": "Fecha\nTítulo\n\n\n\n\n09-octubre\nPráctica 0: Introducción a R\n\n\n09-octubre\nPráctica 1: Lectura y manejo de ficheros\n\n\n23-octubre\nPráctica 2: Estadística descriptiva\n\n\n31-octubre\nPráctica 3: Contrastes de hipótesis paramétricos y análisis de la varianza\n\n\n06-noviembre\nPráctica 4: Pruebas no-paramétricas\n\n\n11-noviembre\nPráctica repaso: Bloque I\n\n\n14-noviembre\nPráctica 5: Regresión lineal\n\n\n27-noviembre\nPráctica 6: Medidas de asociación, Odds Ratio y Riesgos Relativos\n\n\n11-diciembre\nPráctica 7: Regresión logística\n\n\n19-diciembre\nPráctica 8: Análisis de superviviencia"
   },
   {
     "objectID": "index.html#bibliografía",
@@ -117,5 +117,40 @@
     "title": "Programa",
     "section": "Bibliografía",
     "text": "Bibliografía\nPara la realización de esta práctica, puede consultarse el texto:\nUgarte, M.D., Militino, A.F., and Arnholt, A.T. (2016). Probability and Statistics with R (Second Edition). Chapman and Hall."
+  },
+  {
+    "objectID": "PracticaRepasoI.html",
+    "href": "PracticaRepasoI.html",
+    "title": "Práctica repaso: Bloque I",
+    "section": "",
+    "text": "En esta práctica vamos a trabajar con el fichero de datos ZBS_2021.csv. Este fichero contiene información sobre algunas Zonas Básicas de Salud de Navarra. En concreto, se dispone de información de las siguientes variables:\n\n\n\n\n\n\n\nVariable\nDescripción\n\n\n\n\nZBS\nZona Básica de Salud\n\n\nRegion\nRegión geográfica\n\n\nCOVID19\nCasos acumulados de COVID-19\n\n\nDiabeticos\nNúmero de diabéticos diagnosticados\n\n\nPob\nPoblación total\n\n\nPob14\nPoblación mayor de 14 años\n\n\nPob90\nPoblación mayor de 90 años\n\n\nExtranjeros\nPoblación nacida en el extranjero\n\n\nSexo\nSexo mayoritario en la ZBS\n\n\nNatalidad\nTasas de natalidad (nacimientos por cada mil habitantes)\n\n\nTasa_paro\nTasa de desempleo (%)\n\n\nEsperanza\nEsperanza de vida (años)\n\n\nPobreza\nRiesgo de pobreza\n\n\nIndice\nÍndice de envejecimiento (%)\n\n\n\nEn primer lugar, debemos leer el fichero ZBS_2021.csv en R utilizando el asistente \\[\\mbox{Import Dataset -&gt; Front text (base)}\\] y seleccionando la opción Strings as factors."
+  },
+  {
+    "objectID": "PracticaRepasoI.html#descripción",
+    "href": "PracticaRepasoI.html#descripción",
+    "title": "Práctica repaso: Bloque I",
+    "section": "",
+    "text": "En esta práctica vamos a trabajar con el fichero de datos ZBS_2021.csv. Este fichero contiene información sobre algunas Zonas Básicas de Salud de Navarra. En concreto, se dispone de información de las siguientes variables:\n\n\n\n\n\n\n\nVariable\nDescripción\n\n\n\n\nZBS\nZona Básica de Salud\n\n\nRegion\nRegión geográfica\n\n\nCOVID19\nCasos acumulados de COVID-19\n\n\nDiabeticos\nNúmero de diabéticos diagnosticados\n\n\nPob\nPoblación total\n\n\nPob14\nPoblación mayor de 14 años\n\n\nPob90\nPoblación mayor de 90 años\n\n\nExtranjeros\nPoblación nacida en el extranjero\n\n\nSexo\nSexo mayoritario en la ZBS\n\n\nNatalidad\nTasas de natalidad (nacimientos por cada mil habitantes)\n\n\nTasa_paro\nTasa de desempleo (%)\n\n\nEsperanza\nEsperanza de vida (años)\n\n\nPobreza\nRiesgo de pobreza\n\n\nIndice\nÍndice de envejecimiento (%)\n\n\n\nEn primer lugar, debemos leer el fichero ZBS_2021.csv en R utilizando el asistente \\[\\mbox{Import Dataset -&gt; Front text (base)}\\] y seleccionando la opción Strings as factors."
+  },
+  {
+    "objectID": "PracticaRepasoI.html#estadística-descriptiva-univariante",
+    "href": "PracticaRepasoI.html#estadística-descriptiva-univariante",
+    "title": "Práctica repaso: Bloque I",
+    "section": "1. Estadística Descriptiva Univariante",
+    "text": "1. Estadística Descriptiva Univariante\n\n1.1. ¿Cuántas observaciones tiene el fichero?\n\n\n1.2. ¿Cuántas variables tiene? ¿De qué tipo es cada una?\n\n\n1.3. ¿Cuántas categorías tiene la variable Region?\n\n\n1.4. Obtén una tabla de frecuencias absolutas y relativas para la variable Region.\n\n\n1.5. Realiza una representación gráfica adecuada para la variable Region. Calcula las medidas de tendencia central adecuadas para esta variable.\n\n\n1.6. Realiza un histograma y un diagrama de cajas de la variable Diabeticos. A la vista de estas representaciones gráficas, ¿qué puedes decir acerca de la simetría de esta variable? ¿Qué crees que será mayor, la media o la mediana?\n\n\n1.7. Calcula el coeficiente de asimetría, la media y la mediana de la variable Diabeticos. ¿Confirman dichos valores lo observado en el histograma y el diagrama de cajas?\n\n\n1.8. Calcula e interpreta el coeficiente de curtosis de la variable Indice.\n\n\n1.9. Compara la dispersión de las variables Pob14 y Pob90."
+  },
+  {
+    "objectID": "PracticaRepasoI.html#estadística-descriptiva-bivariante",
+    "href": "PracticaRepasoI.html#estadística-descriptiva-bivariante",
+    "title": "Práctica repaso: Bloque I",
+    "section": "2. Estadística Descriptiva Bivariante",
+    "text": "2. Estadística Descriptiva Bivariante\n\n2.1. Realiza un diagrama de cajas de la esperanza de vida en función de la variable Pobreza. ¿Qué observas?\n\n\n2.2. Calcula y compara los valores del percentil 75 de la esperanza de vida en función de la variable Pobreza.\n\n\n2.3. Realiza un diagrama de cajas de la variable Natalidad por tipo de región geográfica. Compara la asimetria de la variable en los distintos grupos.\n\n\n2.4. Selecciona únicamente las zonas básicas de salud situadas en la región del Sur. Compara la tasa de desempleo media en función del sexo mayoritario de la zona.\n\n\n2.5. Realiza una tabla de contingencia para las variables Region y Pobreza.\n\n¿Que porcentaje de zonas básicas de salud se encuentran en la región del norte y tienen riesgo alto de pobreza?\nEntre las zonas básicas de salud del centro, ¿que porcentaje tienen riesgo bajo de pobreza?\nEntre las zonas básicas de con riesgo alto de pobreza, ¿que porcentaje pertecen al sur?\n\n\n\n2.6. Realiza un diagrama de dispersión de las variables Pob y Extranjeros. Calcula e interpreta el coeficiente de correlación lineal entre ambas variables. ¿Crées que sería adecuado utilizar otro tipo de relación no lineal para medir la asociación entre estas variables?\n\n\n2.7. ¿Existe una relación lineal entre la tasa de natalidad y el índice de envejecimiento de las zonas básicas de salud? Realiza el análisis estadístico adecuado e interpreta los resultados obtenidos."
+  },
+  {
+    "objectID": "PracticaRepasoI.html#contrastes-paramétricos-y-no-paramétricos",
+    "href": "PracticaRepasoI.html#contrastes-paramétricos-y-no-paramétricos",
+    "title": "Práctica repaso: Bloque I",
+    "section": "3. Contrastes Paramétricos y No-Paramétricos",
+    "text": "3. Contrastes Paramétricos y No-Paramétricos\n\n3.1. Contrasta al nivel de significación de \\(\\alpha=0.05\\) si la esperanza de vida media en las zonas básicas de salud de Navarra es superior 83 años. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?\n\n\n3.2. Contrasta al nivel de significación de \\(\\alpha=0.01\\) si la tasa de desempleo media de las zonas básicas de salud situadas en el norte de Navarra es inferior al 8%. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?\n\n\n3.3. Contrasta al nivel de significación de \\(\\alpha=0.05\\) si existen diferencias significativas en la esperanza de vida media entre las zonas básicas de salud situadas en el norte y en el sur de Navarra. Realiza el contraste de hipótesis que consideres adecuado.\n\n\n3.4. Contrasta al nivel de significación de \\(\\alpha=0.05\\) si el índice de envejecimiento medio entre las zonas básicas de salud con sexo mayoritario de hombres es al menos 2 puntos superior al índice de envejecimiento de las zonas básicas de salud con sexo mayoritario de mujeres. Realiza el contraste de hipótesis que consideres adecuado.\n\n\n3.5. Contrasta al nivel de significación de \\(\\alpha=0.05\\) si existen diferencias entre los niveles medios del índice de envejecimiento según la región geográfica de las zonas básicas de salud de Navarra. Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas."
   }
 ]
