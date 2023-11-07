@@ -1,0 +1,97 @@
+---
+title: "Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud"
+author: "Jaione Etxeberria"
+date: today
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Práctica 5 - Regresión
+
+Descarga el fichero
+
+1.  Emplea el fichero `bloodpress1.txt` para ajustar un modelo de
+    regresión lineal que permita estimar la presión sistólica en
+    **hombres** según la edad.
+
+```{r}
+library(PASWR2)
+datos<-read.table("bloodpres1.txt",header=TRUE)
+datosm<-datos[datos$sex=="M",]          #### crear fichero de datos solo con hombres
+
+plot(datosm$age,datosm$sbp)
+####### Model Fitting
+model.male<-lm(sbp~age,data=datosm)     #### Ajustamos la recta
+```
+
+• Proporciona una explicación para los coeficientes
+
+```{r}
+summary(model.male)
+```
+
+• Representa gráficamente la línea ajustada
+
+```{r}
+plot(datosm$age,datosm$sbp)
+abline(model.male,col=2,lwd=3)
+
+checking.plots(model.male)
+r<-rstandard(model.male)
+shapiro.test(r)
+```
+
+• Obtén la predicción para cinco hombres de 20, 29, 46, 58 y 65 años de
+edad
+
+```{r}
+predicitons<-predict(model.male,newdata=data.frame(age=c(20,29,46,58,65)),se.fit=TRUE,interval="prediction")
+predicitons
+```
+
+2.  Emplea el fichero `bloodpress.txt` para ajustar un modelo de
+    regresión lineal que permita estimar la presión sistólica en
+    **mujeres** según la edad.
+
+```{r}
+datosf<-datos[datos$sex=="F",]          #### crear fichero de datos solo con mujeres
+
+plot(datosf$age,datosf$sbp)
+
+model.female<-lm(sbp~age,data=datosf)     #### Ajustamos la recta
+```
+
+• Proporciona una explicación para los coeficientes
+
+```{r}
+summary(model.female) 
+```
+
+• Representa gráficamente la línea ajustada
+
+```{r}
+plot(datosf$age,datosf$sbp)
+abline(model.female,col=2,lwd=3)
+
+checking.plots(model.female)
+r<-rstandard(model.female)
+shapiro.test(r)
+
+```
+
+• Obtén la predicción para cinco mujeres de 23, 26, 32, 55 y 62 años de
+edad
+
+```{r}
+
+predicitons<-predict(model.female,newdata=data.frame(age=c(23,26,32,55,62)),se.fit=TRUE,interval="prediction")
+predicitons
+```
