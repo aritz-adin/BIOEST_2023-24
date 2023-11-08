@@ -1,13 +1,11 @@
 ---
-title: "Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud"
-author: "Jaione Etxeberria"
-date: today
-output:
-  html_document:
-    df_print: paged
-editor_options:
-  markdown:
-    wrap: 72
+title: "Práctica 5: Regresión lineal"
+author: "Aritz Adin y Jaione Etxeberria"
+date: "2023-11-14"
+date-format: "DD/MM/YYYY"
+format:
+  html:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
