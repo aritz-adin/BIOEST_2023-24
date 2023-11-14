@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -241,82 +275,591 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>En primer lugar, debemos leer el fichero <code>ZBS_2021.csv</code> en R utilizando el asistente <span class="math display">\[\mbox{Import Dataset -&gt; Front text (base)}\]</span> y seleccionando la opción <em>Strings as factors</em>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ZBS_2021 <span class="ot">&lt;-</span> <span class="fu">read.delim2</span>(<span class="st">"ZBS_2021.csv"</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ZBS_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ZBS Region COVID19 Diabeticos  Pob Pob14 Pob90 Extranjeros    Sexo Natalidad
+1   1  Norte    1193        616 9208  7944   114         967 Hombres       8.2
+2   2  Norte    1234        297 6531  5491    91         417 Hombres       9.6
+3   3  Norte    1059        454 8102  6765   112         747 Hombres      10.4
+4   4  Norte     587        213 3948  3315    24         179 Hombres      11.8
+5   5  Norte    1260        412 8360  7067    89         653 Hombres       8.0
+6   6  Norte    1000        404 8289  7071   131         711 Hombres       8.7
+  Tasa_paro Esperanza Pobreza Indice
+1     14.49      82.2    Baja   30.8
+2      7.22      82.9    Baja   36.0
+3      7.43      83.1    Baja   33.1
+4      6.90      81.9    Baja   38.1
+5      5.89      82.0    Baja   34.6
+6      5.15      81.2    Baja   37.1</code></pre>
+</div>
+</div>
 </section>
 <section id="estadística-descriptiva-univariante" class="level2">
 <h2 class="anchored" data-anchor-id="estadística-descriptiva-univariante">1. Estadística Descriptiva Univariante</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cargamos los paquetes necesarios ##</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PASWR2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="cuántas-observaciones-tiene-el-fichero" class="level4">
 <h4 class="anchored" data-anchor-id="cuántas-observaciones-tiene-el-fichero">1.1. ¿Cuántas observaciones tiene el fichero?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ZBS_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 165  14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(ZBS_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+</div>
 </section>
 <section id="cuántas-variables-tiene-de-qué-tipo-es-cada-una" class="level4">
 <h4 class="anchored" data-anchor-id="cuántas-variables-tiene-de-qué-tipo-es-cada-una">1.2. ¿Cuántas variables tiene? ¿De qué tipo es cada una?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ZBS_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   165 obs. of  14 variables:
+ $ ZBS        : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Region     : Factor w/ 3 levels "Centro","Norte",..: 2 2 2 2 2 2 2 1 2 2 ...
+ $ COVID19    : int  1193 1234 1059 587 1260 1000 740 327 216 386 ...
+ $ Diabeticos : int  616 297 454 213 412 404 329 121 88 269 ...
+ $ Pob        : int  9208 6531 8102 3948 8360 8289 5461 2997 1923 4073 ...
+ $ Pob14      : int  7944 5491 6765 3315 7067 7071 4540 2593 1716 3427 ...
+ $ Pob90      : int  114 91 112 24 89 131 53 49 56 73 ...
+ $ Extranjeros: int  967 417 747 179 653 711 446 122 125 389 ...
+ $ Sexo       : Factor w/ 2 levels "Hombres","Mujeres": 1 1 1 1 1 1 1 1 1 1 ...
+ $ Natalidad  : num  8.2 9.6 10.4 11.8 8 8.7 8.3 6.4 3.9 9.9 ...
+ $ Tasa_paro  : num  14.49 7.22 7.43 6.9 5.89 ...
+ $ Esperanza  : num  82.2 82.9 83.1 81.9 82 81.2 81.6 82.4 82 82 ...
+ $ Pobreza    : Factor w/ 2 levels "Alta","Baja": 2 2 2 2 2 2 2 2 2 1 ...
+ $ Indice     : num  30.8 36 33.1 38.1 34.6 37.1 32 35.6 51 30.7 ...</code></pre>
+</div>
+</div>
 </section>
 <section id="cuántas-categorías-tiene-la-variable-region" class="level4">
 <h4 class="anchored" data-anchor-id="cuántas-categorías-tiene-la-variable-region">1.3. ¿Cuántas categorías tiene la variable <code>Region</code>?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ZBS_2021<span class="sc">$</span>Region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Centro" "Norte"  "Sur"   </code></pre>
+</div>
+</div>
 </section>
 <section id="obtén-una-tabla-de-frecuencias-absolutas-y-relativas-para-la-variable-region." class="level4">
 <h4 class="anchored" data-anchor-id="obtén-una-tabla-de-frecuencias-absolutas-y-relativas-para-la-variable-region.">1.4. Obtén una tabla de frecuencias absolutas y relativas para la variable <code>Region</code>.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ZBS_2021<span class="sc">$</span>Region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Centro  Norte    Sur 
+    71     33     61 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ZBS_2021<span class="sc">$</span>Region)<span class="sc">/</span><span class="fu">nrow</span>(ZBS_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Centro    Norte      Sur 
+0.430303 0.200000 0.369697 </code></pre>
+</div>
+</div>
 </section>
 <section id="realiza-una-representación-gráfica-adecuada-para-la-variable-region.-calcula-las-medidas-de-tendencia-central-adecuadas-para-esta-variable." class="level4">
 <h4 class="anchored" data-anchor-id="realiza-una-representación-gráfica-adecuada-para-la-variable-region.-calcula-las-medidas-de-tendencia-central-adecuadas-para-esta-variable.">1.5. Realiza una representación gráfica adecuada para la variable <code>Region</code>. Calcula las medidas de tendencia central adecuadas para esta variable.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(ZBS_2021<span class="sc">$</span>Region)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">pty=</span><span class="st">"s"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(Tabla, <span class="at">main=</span><span class="st">"Region"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(Tabla, <span class="at">main=</span><span class="st">"Region"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="realiza-un-histograma-y-un-diagrama-de-cajas-de-la-variable-diabeticos.-a-la-vista-de-estas-representaciones-gráficas-qué-puedes-decir-acerca-de-la-simetría-de-esta-variable-qué-crees-que-será-mayor-la-media-o-la-mediana" class="level4">
 <h4 class="anchored" data-anchor-id="realiza-un-histograma-y-un-diagrama-de-cajas-de-la-variable-diabeticos.-a-la-vista-de-estas-representaciones-gráficas-qué-puedes-decir-acerca-de-la-simetría-de-esta-variable-qué-crees-que-será-mayor-la-media-o-la-mediana">1.6. Realiza un histograma y un diagrama de cajas de la variable <code>Diabeticos</code>. A la vista de estas representaciones gráficas, ¿qué puedes decir acerca de la simetría de esta variable? ¿Qué crees que será mayor, la media o la mediana?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">pty=</span><span class="st">"s"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ZBS_2021<span class="sc">$</span>Diabeticos, <span class="at">main=</span><span class="st">"Nº de diabéticos"</span>, <span class="at">xlab=</span><span class="st">""</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ZBS_2021<span class="sc">$</span>Diabeticos, <span class="at">main=</span><span class="st">"Nº de diabéticos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="calcula-el-coeficiente-de-asimetría-la-media-y-la-mediana-de-la-variable-diabeticos.-confirman-dichos-valores-lo-observado-en-el-histograma-y-el-diagrama-de-cajas" class="level4">
 <h4 class="anchored" data-anchor-id="calcula-el-coeficiente-de-asimetría-la-media-y-la-mediana-de-la-variable-diabeticos.-confirman-dichos-valores-lo-observado-en-el-histograma-y-el-diagrama-de-cajas">1.7. Calcula el coeficiente de asimetría, la media y la mediana de la variable <code>Diabeticos</code>. ¿Confirman dichos valores lo observado en el histograma y el diagrama de cajas?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS_2021<span class="sc">$</span>Diabeticos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Size (n)    Missing    Minimum     1st Qu       Mean     Median     TrMean 
+   165.000      0.000     33.000    333.000    664.018    686.000    644.604 
+    3rd Qu        Max      Stdev        Var    SE Mean     I.Q.R.      Range 
+   893.000   1917.000    402.128 161707.055     31.306    560.000   1884.000 
+  Kurtosis   Skewness   SW p-val 
+    -0.060      0.540      0.000 </code></pre>
+</div>
+</div>
 </section>
 <section id="calcula-e-interpreta-el-coeficiente-de-curtosis-de-la-variable-indice." class="level4">
 <h4 class="anchored" data-anchor-id="calcula-e-interpreta-el-coeficiente-de-curtosis-de-la-variable-indice.">1.8. Calcula e interpreta el coeficiente de curtosis de la variable <code>Indice</code>.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS_2021<span class="sc">$</span>Indice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 165.000    0.000    9.100   28.700   34.396   33.600   34.208   38.600 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  65.400   11.766  138.431    0.916    9.900   56.300    0.338    0.399 
+SW p-val 
+   0.000 </code></pre>
+</div>
+</div>
 </section>
 <section id="compara-la-dispersión-de-las-variables-pob14-y-pob90." class="level4">
 <h4 class="anchored" data-anchor-id="compara-la-dispersión-de-las-variables-pob14-y-pob90.">1.9. Compara la dispersión de las variables <code>Pob14</code> y <code>Pob90</code>.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>CV.Pob14 <span class="ot">&lt;-</span> <span class="fu">sd</span>(ZBS_2021<span class="sc">$</span>Pob14)<span class="sc">/</span><span class="fu">mean</span>(ZBS_2021<span class="sc">$</span>Pob14)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>CV.Pob14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5576343</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>CV.Pob90 <span class="ot">&lt;-</span> <span class="fu">sd</span>(ZBS_2021<span class="sc">$</span>Pob90)<span class="sc">/</span><span class="fu">mean</span>(ZBS_2021<span class="sc">$</span>Pob90)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>CV.Pob90</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6823854</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="estadística-descriptiva-bivariante" class="level2">
 <h2 class="anchored" data-anchor-id="estadística-descriptiva-bivariante">2. Estadística Descriptiva Bivariante</h2>
 <section id="realiza-un-diagrama-de-cajas-de-la-esperanza-de-vida-en-función-de-la-variable-pobreza.-qué-observas" class="level4">
 <h4 class="anchored" data-anchor-id="realiza-un-diagrama-de-cajas-de-la-esperanza-de-vida-en-función-de-la-variable-pobreza.-qué-observas">2.1. Realiza un diagrama de cajas de la esperanza de vida en función de la variable <code>Pobreza</code>. ¿Qué observas?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ZBS_2021<span class="sc">$</span>Esperanza <span class="sc">~</span> ZBS_2021<span class="sc">$</span>Pobreza)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="calcula-y-compara-los-valores-del-percentil-75-de-la-esperanza-de-vida-en-función-de-la-variable-pobreza." class="level4">
 <h4 class="anchored" data-anchor-id="calcula-y-compara-los-valores-del-percentil-75-de-la-esperanza-de-vida-en-función-de-la-variable-pobreza.">2.2. Calcula y compara los valores del percentil 75 de la esperanza de vida en función de la variable <code>Pobreza</code>.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(ZBS_2021<span class="sc">$</span>Esperanza, ZBS_2021<span class="sc">$</span>Pobreza, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Alta
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  81.10   82.30   82.70   82.79   83.30   84.70 
+
+$Baja
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  80.80   82.80   83.40   83.41   84.12   85.80 </code></pre>
+</div>
+</div>
 </section>
 <section id="realiza-un-diagrama-de-cajas-de-la-variable-natalidad-por-tipo-de-región-geográfica.-compara-la-asimetria-de-la-variable-en-los-distintos-grupos." class="level4">
 <h4 class="anchored" data-anchor-id="realiza-un-diagrama-de-cajas-de-la-variable-natalidad-por-tipo-de-región-geográfica.-compara-la-asimetria-de-la-variable-en-los-distintos-grupos.">2.3. Realiza un diagrama de cajas de la variable <code>Natalidad</code> por tipo de región geográfica. Compara la asimetria de la variable en los distintos grupos.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ZBS_2021<span class="sc">$</span>Natalidad <span class="sc">~</span> ZBS_2021<span class="sc">$</span>Region)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(ZBS_2021<span class="sc">$</span>Natalidad, ZBS_2021<span class="sc">$</span>Region, eda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-14-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Centro
+Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  71.000    0.000    2.500    6.950    8.592    8.500    8.457    9.800 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  17.800    2.763    7.634    0.328    2.850   15.300    3.028    0.954 
+SW p-val 
+   0.000 
+
+$Norte
+Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  33.000    0.000    3.900    7.600    8.318    8.300    8.345    9.800 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  11.900    2.183    4.767    0.380    2.200    8.000   -0.391   -0.522 
+SW p-val 
+   0.032 
+
+$Sur
+Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  61.000    0.000    4.100    7.700    8.226    8.300    8.282    9.700 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  11.400    2.068    4.277    0.265    2.000    7.300   -0.452   -0.604 
+SW p-val 
+   0.000 </code></pre>
+</div>
+</div>
 </section>
 <section id="selecciona-únicamente-las-zonas-básicas-de-salud-situadas-en-la-región-del-sur.-compara-la-tasa-de-desempleo-media-en-función-del-sexo-mayoritario-de-la-zona." class="level4">
 <h4 class="anchored" data-anchor-id="selecciona-únicamente-las-zonas-básicas-de-salud-situadas-en-la-región-del-sur.-compara-la-tasa-de-desempleo-media-en-función-del-sexo-mayoritario-de-la-zona.">2.4. Selecciona únicamente las zonas básicas de salud situadas en la región del Sur. Compara la tasa de desempleo media en función del sexo mayoritario de la zona.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Region<span class="sc">==</span><span class="st">"Sur"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ZBS.Sur <span class="ot">&lt;-</span> ZBS_2021[pos,]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(ZBS.Sur<span class="sc">$</span>Tasa_paro, ZBS.Sur<span class="sc">$</span>Sexo, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Hombres  Mujeres 
+10.80404 11.01071 </code></pre>
+</div>
+</div>
 </section>
 <section id="realiza-una-tabla-de-contingencia-para-las-variables-region-y-pobreza." class="level4">
 <h4 class="anchored" data-anchor-id="realiza-una-tabla-de-contingencia-para-las-variables-region-y-pobreza.">2.5. Realiza una tabla de contingencia para las variables <code>Region</code> y <code>Pobreza</code>.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">table</span>(ZBS_2021<span class="sc">$</span>Region, ZBS_2021<span class="sc">$</span>Pobreza)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Alta Baja
+  Centro   24   47
+  Norte     4   29
+  Sur      37   24</code></pre>
+</div>
+</div>
 <ul>
-<li><p>¿Que porcentaje de zonas básicas de salud se encuentran en la región del norte y tienen riesgo alto de pobreza?</p></li>
-<li><p>Entre las zonas básicas de salud del centro, ¿que porcentaje tienen riesgo bajo de pobreza?</p></li>
-<li><p>Entre las zonas básicas de con riesgo alto de pobreza, ¿que porcentaje pertecen al sur?</p></li>
+<li>¿Que porcentaje de zonas básicas de salud se encuentran en la región del norte y tienen riesgo alto de pobreza?</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+               Alta       Baja
+  Centro 0.14545455 0.28484848
+  Norte  0.02424242 0.17575758
+  Sur    0.22424242 0.14545455</code></pre>
+</div>
+</div>
+<ul>
+<li>Entre las zonas básicas de salud del centro, ¿que porcentaje tienen riesgo bajo de pobreza?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(X,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+              Alta      Baja
+  Centro 0.3380282 0.6619718
+  Norte  0.1212121 0.8787879
+  Sur    0.6065574 0.3934426</code></pre>
+</div>
+</div>
+<ul>
+<li>Entre las zonas básicas de con riesgo alto de pobreza, ¿que porcentaje pertecen al sur?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(X,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+               Alta       Baja
+  Centro 0.36923077 0.47000000
+  Norte  0.06153846 0.29000000
+  Sur    0.56923077 0.24000000</code></pre>
+</div>
+</div>
 </section>
 <section id="realiza-un-diagrama-de-dispersión-de-las-variables-pob-y-extranjeros.-calcula-e-interpreta-el-coeficiente-de-correlación-lineal-entre-ambas-variables.-crées-que-sería-adecuado-utilizar-otro-tipo-de-relación-no-lineal-para-medir-la-asociación-entre-estas-variables" class="level4">
 <h4 class="anchored" data-anchor-id="realiza-un-diagrama-de-dispersión-de-las-variables-pob-y-extranjeros.-calcula-e-interpreta-el-coeficiente-de-correlación-lineal-entre-ambas-variables.-crées-que-sería-adecuado-utilizar-otro-tipo-de-relación-no-lineal-para-medir-la-asociación-entre-estas-variables">2.6. Realiza un diagrama de dispersión de las variables <code>Pob</code> y <code>Extranjeros</code>. Calcula e interpreta el coeficiente de correlación lineal entre ambas variables. ¿Crées que sería adecuado utilizar otro tipo de relación no lineal para medir la asociación entre estas variables?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ZBS_2021<span class="sc">$</span>Pob, ZBS_2021<span class="sc">$</span>Extranjeros)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Extranjeros <span class="sc">~</span> Pob, <span class="at">data=</span>ZBS_2021), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(ZBS_2021<span class="sc">$</span>Pob, ZBS_2021<span class="sc">$</span>Extranjeros)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8907831</code></pre>
+</div>
+</div>
 </section>
 <section id="existe-una-relación-lineal-entre-la-tasa-de-natalidad-y-el-índice-de-envejecimiento-de-las-zonas-básicas-de-salud-realiza-el-análisis-estadístico-adecuado-e-interpreta-los-resultados-obtenidos." class="level4">
 <h4 class="anchored" data-anchor-id="existe-una-relación-lineal-entre-la-tasa-de-natalidad-y-el-índice-de-envejecimiento-de-las-zonas-básicas-de-salud-realiza-el-análisis-estadístico-adecuado-e-interpreta-los-resultados-obtenidos.">2.7. ¿Existe una relación lineal entre la tasa de natalidad y el índice de envejecimiento de las zonas básicas de salud? Realiza el análisis estadístico adecuado e interpreta los resultados obtenidos.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ZBS_2021<span class="sc">$</span>Natalidad, ZBS_2021<span class="sc">$</span>Indice)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Indice <span class="sc">~</span> Natalidad, <span class="at">data=</span>ZBS_2021), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(ZBS_2021<span class="sc">$</span>Natalidad, ZBS_2021<span class="sc">$</span>Indice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -18.18322</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(ZBS_2021<span class="sc">$</span>Natalidad, ZBS_2021<span class="sc">$</span>Indice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6427229</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="contrastes-paramétricos-y-no-paramétricos" class="level2">
 <h2 class="anchored" data-anchor-id="contrastes-paramétricos-y-no-paramétricos">3. Contrastes Paramétricos y No-Paramétricos</h2>
 <section id="contrasta-al-nivel-de-significación-de-alpha0.05-si-la-esperanza-de-vida-media-en-las-zonas-básicas-de-salud-de-navarra-es-superior-83-años.-justifica-si-puedes-asumir-normalidad.-qué-contraste-es-más-adecuado-en-este-caso" class="level4">
 <h4 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-de-alpha0.05-si-la-esperanza-de-vida-media-en-las-zonas-básicas-de-salud-de-navarra-es-superior-83-años.-justifica-si-puedes-asumir-normalidad.-qué-contraste-es-más-adecuado-en-este-caso">3.1. Contrasta al nivel de significación de <span class="math inline">\(\alpha=0.05\)</span> si la esperanza de vida media en las zonas básicas de salud de Navarra es superior 83 años. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## X="Esperanza de vida en las ZBS de Navarra"</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="do">## H0: mu=83</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="do">## H1: mu&gt;83</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS_2021<span class="sc">$</span>Esperanza)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+ 165.000    0.000   80.800   82.400   83.165   83.100   83.157   83.800 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  85.800    0.950    0.902    0.074    1.400    5.000   -0.217    0.147 
+SW p-val 
+   0.806 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ZBS_2021<span class="sc">$</span>Esperanza, <span class="at">mu=</span><span class="dv">83</span>, <span class="at">alternative=</span><span class="st">"greater"</span>, <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  ZBS_2021$Esperanza
+t = 2.2291, df = 164, p-value = 0.01358
+alternative hypothesis: true mean is greater than 83
+95 percent confidence interval:
+ 83.04251      Inf
+sample estimates:
+mean of x 
+ 83.16485 </code></pre>
+</div>
+</div>
 </section>
 <section id="contrasta-al-nivel-de-significación-de-alpha0.01-si-la-tasa-de-desempleo-media-de-las-zonas-básicas-de-salud-situadas-en-el-norte-de-navarra-es-inferior-al-8.-justifica-si-puedes-asumir-normalidad.-qué-contraste-es-más-adecuado-en-este-caso" class="level4">
 <h4 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-de-alpha0.01-si-la-tasa-de-desempleo-media-de-las-zonas-básicas-de-salud-situadas-en-el-norte-de-navarra-es-inferior-al-8.-justifica-si-puedes-asumir-normalidad.-qué-contraste-es-más-adecuado-en-este-caso">3.2. Contrasta al nivel de significación de <span class="math inline">\(\alpha=0.01\)</span> si la tasa de desempleo media de las zonas básicas de salud situadas en el norte de Navarra es inferior al 8%. Justifica si puedes asumir normalidad. ¿Qué contraste es más adecuado en este caso?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## X="Número de peatones fallecidos en el Sudeste Asiático"</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="do">## H0: mu=15</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="do">## H1: mu&gt;15</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Region<span class="sc">==</span><span class="st">"Norte"</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>ZBS.Norte <span class="ot">&lt;-</span> ZBS_2021[pos, ]</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS.Norte<span class="sc">$</span>Tasa_paro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  33.000    0.000    5.150    5.950    7.953    7.200    7.828    7.710 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  14.650    2.966    8.796    0.516    1.760    9.500    0.283    1.348 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(ZBS.Norte<span class="sc">$</span>Tasa_paro, <span class="at">mu=</span><span class="dv">8</span>, <span class="at">alternative=</span><span class="st">"less"</span>, <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(ZBS.Norte$Tasa_paro, mu = 8, alternative =
+"less", : cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  ZBS.Norte$Tasa_paro
+V = 183, p-value = 0.04153
+alternative hypothesis: true location is less than 8</code></pre>
+</div>
+</div>
 </section>
 <section id="contrasta-al-nivel-de-significación-de-alpha0.05-si-existen-diferencias-significativas-en-la-esperanza-de-vida-media-entre-las-zonas-básicas-de-salud-situadas-en-el-norte-y-en-el-sur-de-navarra.-realiza-el-contraste-de-hipótesis-que-consideres-adecuado." class="level4">
 <h4 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-de-alpha0.05-si-existen-diferencias-significativas-en-la-esperanza-de-vida-media-entre-las-zonas-básicas-de-salud-situadas-en-el-norte-y-en-el-sur-de-navarra.-realiza-el-contraste-de-hipótesis-que-consideres-adecuado.">3.3. Contrasta al nivel de significación de <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias significativas en la esperanza de vida media entre las zonas básicas de salud situadas en el norte y en el sur de Navarra. Realiza el contraste de hipótesis que consideres adecuado.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## X="Esperanza de vida de las ZBS del norte de Navarra"</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Y="Esperanza de vida de las ZBS del sur de Navarra"</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="do">## H0: muX - muY = 0</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="do">## H1: muX - muY != 0</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Region<span class="sc">==</span><span class="st">"Norte"</span>)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>ZBS.Norte <span class="ot">&lt;-</span> ZBS_2021[pos, ]</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Region<span class="sc">==</span><span class="st">"Sur"</span>)</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>ZBS.Sur <span class="ot">&lt;-</span> ZBS_2021[pos, ]</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS.Norte<span class="sc">$</span>Esperanza)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  33.000    0.000   81.200   82.200   82.861   82.900   82.852   83.400 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  84.800    0.895    0.801    0.156    1.200    3.600   -0.748    0.294 
+SW p-val 
+   0.652 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS.Sur<span class="sc">$</span>Esperanza)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  61.000    0.000   81.100   82.600   83.213   83.300   83.229   83.700 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  84.800    0.829    0.686    0.106    1.100    3.700   -0.299   -0.244 
+SW p-val 
+   0.645 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ZBS.Norte<span class="sc">$</span>Esperanza, ZBS.Sur<span class="sc">$</span>Esperanza, <span class="at">mu=</span><span class="dv">0</span>, <span class="at">alternative=</span><span class="st">"two.sided"</span>, <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  ZBS.Norte$Esperanza and ZBS.Sur$Esperanza
+t = -1.87, df = 61.494, p-value = 0.06624
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.7293811  0.0243637
+sample estimates:
+mean of x mean of y 
+ 82.86061  83.21311 </code></pre>
+</div>
+</div>
 </section>
 <section id="contrasta-al-nivel-de-significación-de-alpha0.05-si-el-índice-de-envejecimiento-medio-entre-las-zonas-básicas-de-salud-con-sexo-mayoritario-de-hombres-es-al-menos-2-puntos-superior-al-índice-de-envejecimiento-de-las-zonas-básicas-de-salud-con-sexo-mayoritario-de-mujeres.-realiza-el-contraste-de-hipótesis-que-consideres-adecuado." class="level4">
 <h4 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-de-alpha0.05-si-el-índice-de-envejecimiento-medio-entre-las-zonas-básicas-de-salud-con-sexo-mayoritario-de-hombres-es-al-menos-2-puntos-superior-al-índice-de-envejecimiento-de-las-zonas-básicas-de-salud-con-sexo-mayoritario-de-mujeres.-realiza-el-contraste-de-hipótesis-que-consideres-adecuado.">3.4. Contrasta al nivel de significación de <span class="math inline">\(\alpha=0.05\)</span> si el índice de envejecimiento medio entre las zonas básicas de salud con sexo mayoritario de hombres es al menos 2 puntos superior al índice de envejecimiento de las zonas básicas de salud con sexo mayoritario de mujeres. Realiza el contraste de hipótesis que consideres adecuado.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## X="Índice de envejecimiento de las ZBS con sexo mayoritario de hombres"</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Y="Índice de envejecimiento de las ZBS con sexo mayoritario de mujeres"</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="do">## H0: muX - muY = 0</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="do">## H1: muX - muY != 0</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Sexo<span class="sc">==</span><span class="st">"Hombres"</span>)</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>ZBS.Hombres <span class="ot">&lt;-</span> ZBS_2021[pos, ]</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(ZBS_2021<span class="sc">$</span>Sexo<span class="sc">==</span><span class="st">"Mujeres"</span>)</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>ZBS.Mujeres <span class="ot">&lt;-</span> ZBS_2021[pos, ]</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS.Hombres<span class="sc">$</span>Indice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  98.000    0.000   18.100   30.900   36.491   35.200   36.096   39.675 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  65.400   11.123  123.726    1.124    8.775   47.300    0.355    0.617 
+SW p-val 
+   0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eda</span>(ZBS.Mujeres<span class="sc">$</span>Indice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size (n)  Missing  Minimum   1st Qu     Mean   Median   TrMean   3rd Qu 
+  67.000    0.000    9.100   24.800   31.331   31.500   31.103   34.900 
+     Max    Stdev      Var  SE Mean   I.Q.R.    Range Kurtosis Skewness 
+  58.600   12.087  146.091    1.477   10.100   49.500    0.097    0.324 
+SW p-val 
+   0.004 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(ZBS.Hombres<span class="sc">$</span>Indice, ZBS.Mujeres<span class="sc">$</span>Indice, <span class="at">mu=</span><span class="dv">2</span>, <span class="at">alternative=</span><span class="st">"greater"</span>, <span class="at">conf.level=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  ZBS.Hombres$Indice and ZBS.Mujeres$Indice
+W = 3865, p-value = 0.02683
+alternative hypothesis: true location shift is greater than 2</code></pre>
+</div>
+</div>
 </section>
 <section id="contrasta-al-nivel-de-significación-de-alpha0.05-si-existen-diferencias-entre-los-niveles-medios-del-índice-de-envejecimiento-según-la-región-geográfica-de-las-zonas-básicas-de-salud-de-navarra.-si-has-detectado-diferencias-averigua-entre-qué-grupos-existen-diferencias-estadísticamente-significativas." class="level4">
 <h4 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-de-alpha0.05-si-existen-diferencias-entre-los-niveles-medios-del-índice-de-envejecimiento-según-la-región-geográfica-de-las-zonas-básicas-de-salud-de-navarra.-si-has-detectado-diferencias-averigua-entre-qué-grupos-existen-diferencias-estadísticamente-significativas.">3.5. Contrasta al nivel de significación de <span class="math inline">\(\alpha=0.05\)</span> si existen diferencias entre los niveles medios del índice de envejecimiento según la región geográfica de las zonas básicas de salud de Navarra. Si has detectado diferencias, averigua entre qué grupos existen diferencias estadísticamente significativas.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ZBS_2021<span class="sc">$</span>Indice <span class="sc">~</span> ZBS_2021<span class="sc">$</span>Region)            <span class="do">#### Gráfico descriptivo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>Indice.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Indice <span class="sc">~</span> Region, <span class="at">data=</span>ZBS_2021)     <span class="do">#### Analisis de varianza</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Indice.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Region        2   3462  1730.9   14.57 1.51e-06 ***
+Residuals   162  19241   118.8                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(Indice.aov)                            <span class="do">#### Validación con procedimientos graficos de la libreria PASWR </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PracticaRepasoI_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(Indice.aov)                            <span class="do">#### Normalidad de los residuos</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  r
+W = 0.93851, p-value = 1.507e-06</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(ZBS_2021<span class="sc">$</span>Indice <span class="sc">~</span> ZBS_2021<span class="sc">$</span>Region)         <span class="do">#### Test de Levene para homogeneidad de varianzas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+       Df F value  Pr(&gt;F)  
+group   2  3.4837 0.03301 *
+      162                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(Indice <span class="sc">~</span> Region, <span class="at">data=</span>ZBS_2021)          <span class="do">#### Test no-paramétrico (Kruskall-Wallis)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  Indice by Region
+Kruskal-Wallis chi-squared = 27.887, df = 2, p-value = 8.8e-07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal</span>(ZBS_2021<span class="sc">$</span>Indice, ZBS_2021<span class="sc">$</span>Region, <span class="at">alpha=</span><span class="fl">0.05</span>, <span class="at">group=</span><span class="cn">FALSE</span>, <span class="at">console=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Study: ZBS_2021$Indice ~ ZBS_2021$Region
+Kruskal-Wallis test's
+Ties or no Ties
+
+Critical Value: 27.88671
+Degrees of freedom: 2
+Pvalue Chisq  : 8.799885e-07 
+
+ZBS_2021$Region,  means of the ranks
+
+       ZBS_2021.Indice  r
+Centro        60.73239 71
+Norte        105.84848 33
+Sur           96.55738 61
+
+Post Hoc Analysis
+
+Comparison between treatments mean of the ranks.
+
+               Difference pvalue Signif.        LCL       UCL
+Centro - Norte -45.116090 0.0000     *** -63.334508 -26.89767
+Centro - Sur   -35.824983 0.0000     *** -50.921369 -20.72860
+Norte - Sur      9.291108 0.3276          -9.395142  27.97736</code></pre>
+</div>
+</div>
 
 
 </section>

@@ -142,6 +142,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./Practica4.html" rel="" target="">
  <span class="menu-text">Práctica 4</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./PracticaRepasoI.html" rel="" target="">
+ <span class="menu-text">Práctica repaso I</span></a>
+  </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
 </div>
@@ -712,12 +716,105 @@ sample estimates:
 <section id="contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres." class="level3">
 <h3 class="anchored" data-anchor-id="contrasta-al-nivel-de-significación-alpha0.10-si-el-tamaño-del-cuerpo-frame-influye-en-la-presión-diastólica-bp.1d-de-las-mujeres.">2.1. Contrasta al nivel de significación <span class="math inline">\(\alpha=0.10\)</span> si el tamaño del cuerpo (<code>frame</code>) influye en la presión diastólica (<code>bp.1d</code>) de las mujeres.</h3>
 <ul>
-<li><p>Crea un nuevo fichero llamado <code>diabetes.female</code> solo con las mujeres.</p></li>
-<li><p>Exploración gráfica: representa los diagrama de caja de la variable <code>bp.1d</code> según la variable <code>frame</code>.</p></li>
-<li><p>Realiza el análisis de varianza con la función <code>aov()</code>.</p></li>
-<li><p>Comprueba si pueden asumirse las hipótesis del modelo.</p></li>
-<li><p>Utiliza un test de Tukey para averiguar entre qué niveles de la variable <code>frame</code> existen diferencias significativas en los niveles medios de la variable <code>bp.1d</code>.</p></li>
+<li>Crea un nuevo fichero llamado <code>diabetes.female</code> solo con las mujeres.</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">which</span>(diabetes<span class="sc">$</span>gender<span class="sc">==</span><span class="st">"female"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>diabetes.female <span class="ot">&lt;-</span> diabetes[pos,]</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diabetes.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     id chol stab.glu hdl ratio glyhb   location age gender height weight
+1  1000  203       82  56   3.6  4.31 Buckingham  46 female     62    121
+2  1001  165       97  24   6.9  4.44 Buckingham  29 female     64    218
+3  1002  228       92  37   6.2  4.64 Buckingham  58 female     61    256
+10 1022  263       89  40   6.6  5.78 Buckingham  55 female     63    202
+11 1024  242       82  54   4.5  4.77     Louisa  60 female     65    156
+12 1029  215      128  34   6.3  4.97     Louisa  38 female     58    195
+    frame bp.1s bp.1d waist hip
+1  medium   118    59    29  38
+2   large   112    68    46  48
+3   large   190    92    49  57
+10  small   108    72    45  50
+11 medium   130    90    39  45
+12 medium   102    68    42  50</code></pre>
+</div>
+</div>
+<ul>
+<li>Exploración gráfica: representa los diagrama de caja de la variable <code>bp.1d</code> según la variable <code>frame</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bp<span class="fl">.1</span>d <span class="sc">~</span> frame, <span class="at">data=</span>diabetes.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica3_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Realiza el análisis de varianza con la función <code>aov()</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>bp.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(bp<span class="fl">.1</span>d <span class="sc">~</span> frame, <span class="at">data=</span>diabetes.female)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bp.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+frame         2    921   460.7   2.572 0.0786 .
+Residuals   231  41376   179.1                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ul>
+<li>Comprueba si pueden asumirse las hipótesis del modelo.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(bp.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Normalidad de los errores</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(bp.aov)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  r
+W = 0.98986, p-value = 0.1008</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Test de Levene para homogeneidad de varianzas</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(bp.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+       Df F value Pr(&gt;F)
+group   2  1.8214 0.1641
+      231               </code></pre>
+</div>
+</div>
+<ul>
+<li>Utiliza un test de Tukey para averiguar entre qué niveles de la variable <code>frame</code> existen diferencias significativas en los niveles medios de la variable <code>bp.1d</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>bp.mc <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(bp.aov, <span class="at">conf.level=</span><span class="fl">0.9</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>bp.mc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    90% family-wise confidence level
+
+Fit: aov(formula = bp.1d ~ frame, data = diabetes.female)
+
+$frame
+                  diff       lwr        upr     p adj
+medium-large  2.121373 -2.811945  7.0546917 0.6491061
+small-large  -2.423910 -7.826310  2.9784887 0.6247892
+small-medium -4.545284 -8.697193 -0.3933743 0.0639277</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Graficos de intervalos de confianza del test de Tukey</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bp.mc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 </section>
 <section id="para-entregar" class="level1">

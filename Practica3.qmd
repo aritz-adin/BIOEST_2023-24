@@ -286,7 +286,7 @@ Es decir, con un nivel de significación de 5\%, no podemos afirmar que la propo
 
 -   Crea un nuevo fichero llamado `diabetes.female` solo con las mujeres.
 
-```{r include=FALSE}
+```{r include=TRUE}
 pos <- which(diabetes$gender=="female")
 diabetes.female <- diabetes[pos,]
 
@@ -295,20 +295,20 @@ head(diabetes.female)
 
 -   Exploración gráfica: representa los diagrama de caja de la variable `bp.1d` según la variable `frame`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 boxplot(bp.1d ~ frame, data=diabetes.female)
 ```
 
 -   Realiza el análisis de varianza con la función `aov()`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 bp.aov <- aov(bp.1d ~ frame, data=diabetes.female)
 summary(bp.aov)
 ```
 
 -   Comprueba si pueden asumirse las hipótesis del modelo.
 
-```{r include=FALSE, message=FALSE}
+```{r include=TRUE, message=FALSE}
 checking.plots(bp.aov)
 
 ## Normalidad de los errores
@@ -322,7 +322,7 @@ leveneTest(bp.aov)
 
 -   Utiliza un test de Tukey para averiguar entre qué niveles de la variable `frame` existen diferencias significativas en los niveles medios de la variable `bp.1d`.
 
-```{r include=FALSE}
+```{r include=TRUE}
 bp.mc <- TukeyHSD(bp.aov, conf.level=0.9)
 bp.mc
 
