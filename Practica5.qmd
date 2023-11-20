@@ -1,20 +1,20 @@
 ---
-title: "Práctica 5: Regresión lineal"
-author: "Aritz Adin y Jaione Etxeberria"
-date: "2023-11-14"
-date-format: "DD/MM/YYYY"
-format:
-  html:
-    toc: true
+title: "Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud"
+author: "Jaione Etxeberria y Aritz Adin"
+date: "14 Noviembre 2023"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Práctica 5 - Regresión
-
-Descarga el fichero
 
 1.  Emplea el fichero `bloodpress1.txt` para ajustar un modelo de
     regresión lineal que permita estimar la presión sistólica en
@@ -23,11 +23,12 @@ Descarga el fichero
 ```{r}
 library(PASWR2)
 datos<-read.table("bloodpres1.txt",header=TRUE)
-datosm<-datos[datos$sex=="M",]          #### crear fichero de datos solo con hombres
+datos.male<-datos[datos$sex=="M",]          
+plot(datos.male$age,datos.male$sbp)
 
-plot(datosm$age,datosm$sbp)
-####### Model Fitting
-model.male<-lm(sbp~age,data=datosm)     #### Ajustamos la recta
+model.male<-lm(sbp~age,data=datos.male)     #### Ajustamos la recta
+
+
 ```
 
 • Proporciona una explicación para los coeficientes
@@ -39,7 +40,7 @@ summary(model.male)
 • Representa gráficamente la línea ajustada
 
 ```{r}
-plot(datosm$age,datosm$sbp)
+plot(datos.male$age,datos.male$sbp)
 abline(model.male,col=2,lwd=3)
 
 checking.plots(model.male)
@@ -53,18 +54,17 @@ edad
 ```{r}
 predicitons<-predict(model.male,newdata=data.frame(age=c(20,29,46,58,65)),se.fit=TRUE,interval="prediction")
 predicitons
+
 ```
 
-2.  Emplea el fichero `bloodpress.txt` para ajustar un modelo de
+2.  Emplea el fichero `bloodpress1.txt` para ajustar un modelo de
     regresión lineal que permita estimar la presión sistólica en
     **mujeres** según la edad.
 
 ```{r}
-datosf<-datos[datos$sex=="F",]          #### crear fichero de datos solo con mujeres
-
-plot(datosf$age,datosf$sbp)
-
-model.female<-lm(sbp~age,data=datosf)     #### Ajustamos la recta
+datos.female<-datos[datos$sex=="F",]  
+plot(datos.female$age,datos.female$sbp)
+model.female<-lm(sbp~age,data=datos.female)     #### Ajustamos la recta
 ```
 
 • Proporciona una explicación para los coeficientes
@@ -76,7 +76,7 @@ summary(model.female)
 • Representa gráficamente la línea ajustada
 
 ```{r}
-plot(datosf$age,datosf$sbp)
+plot(datos.female$age,datos.female$sbp)
 abline(model.female,col=2,lwd=3)
 
 checking.plots(model.female)

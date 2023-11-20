@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Aritz Adin y Jaione Etxeberria">
+<meta name="author" content="Jaione Etxeberria y Aritz Adin">
+<meta name="dcterms.date" content="2023-11-14">
 
-<title>BIOEST 2023-24 - Práctica 5: Regresión lineal</title>
+<title>BIOEST 2023-24 - Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -173,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Práctica 5: Regresión lineal</h1>
+<h1 class="title">Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud</h1>
 </div>
 
 
@@ -183,14 +184,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Aritz Adin y Jaione Etxeberria </p>
+             <p>Jaione Etxeberria y Aritz Adin </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">14/11/2023</p>
+      <p class="date">November 14, 2023</p>
     </div>
   </div>
   
@@ -200,14 +201,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="práctica-5---regresión" class="level2">
 <h2 class="anchored" data-anchor-id="práctica-5---regresión">Práctica 5 - Regresión</h2>
-<p>Descarga el fichero</p>
 <ol type="1">
 <li>Emplea el fichero <code>bloodpress1.txt</code> para ajustar un modelo de regresión lineal que permita estimar la presión sistólica en <strong>hombres</strong> según la edad.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PASWR2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PASWR2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'PASWR2' was built under R version 4.2.3</code></pre>
 </div>
@@ -220,23 +223,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"bloodpres1.txt"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>datosm<span class="ot">&lt;-</span>datos[datos<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"M"</span>,]          <span class="do">#### crear fichero de datos solo con hombres</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datosm<span class="sc">$</span>age,datosm<span class="sc">$</span>sbp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>datos<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"bloodpres1.txt"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datos.male<span class="ot">&lt;-</span>datos[datos<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"M"</span>,]          </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos.male<span class="sc">$</span>age,datos.male<span class="sc">$</span>sbp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">####### Model Fitting</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model.male<span class="ot">&lt;-</span><span class="fu">lm</span>(sbp<span class="sc">~</span>age,<span class="at">data=</span>datosm)     <span class="do">#### Ajustamos la recta</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model.male<span class="ot">&lt;-</span><span class="fu">lm</span>(sbp<span class="sc">~</span>age,<span class="at">data=</span>datos.male)     <span class="do">#### Ajustamos la recta</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>• Proporciona una explicación para los coeficientes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = sbp ~ age, data = datosm)
+lm(formula = sbp ~ age, data = datos.male)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -256,17 +257,17 @@ F-statistic: 110.9 on 1 and 38 DF,  p-value: 7.985e-13</code></pre>
 </div>
 <p>• Representa gráficamente la línea ajustada</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datosm<span class="sc">$</span>age,datosm<span class="sc">$</span>sbp)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model.male,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos.male<span class="sc">$</span>age,datos.male<span class="sc">$</span>sbp)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model.male,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(model.male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(model.male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="fu">rstandard</span>(model.male)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="fu">rstandard</span>(model.male)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -277,8 +278,8 @@ W = 0.93985, p-value = 0.03418</code></pre>
 </div>
 <p>• Obtén la predicción para cinco hombres de 20, 29, 46, 58 y 65 años de edad</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>predicitons<span class="ot">&lt;-</span><span class="fu">predict</span>(model.male,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">29</span>,<span class="dv">46</span>,<span class="dv">58</span>,<span class="dv">65</span>)),<span class="at">se.fit=</span><span class="cn">TRUE</span>,<span class="at">interval=</span><span class="st">"prediction"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>predicitons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>predicitons<span class="ot">&lt;-</span><span class="fu">predict</span>(model.male,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">29</span>,<span class="dv">46</span>,<span class="dv">58</span>,<span class="dv">65</span>)),<span class="at">se.fit=</span><span class="cn">TRUE</span>,<span class="at">interval=</span><span class="st">"prediction"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>predicitons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$fit
        fit      lwr      upr
@@ -300,24 +301,23 @@ $residual.scale
 </div>
 </div>
 <ol start="2" type="1">
-<li>Emplea el fichero <code>bloodpress.txt</code> para ajustar un modelo de regresión lineal que permita estimar la presión sistólica en <strong>mujeres</strong> según la edad.</li>
+<li>Emplea el fichero <code>bloodpress1.txt</code> para ajustar un modelo de regresión lineal que permita estimar la presión sistólica en <strong>mujeres</strong> según la edad.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>datosf<span class="ot">&lt;-</span>datos[datos<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"F"</span>,]          <span class="do">#### crear fichero de datos solo con mujeres</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datosf<span class="sc">$</span>age,datosf<span class="sc">$</span>sbp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos.female<span class="ot">&lt;-</span>datos[datos<span class="sc">$</span>sex<span class="sc">==</span><span class="st">"F"</span>,]  </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos.female<span class="sc">$</span>age,datos.female<span class="sc">$</span>sbp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model.female<span class="ot">&lt;-</span><span class="fu">lm</span>(sbp<span class="sc">~</span>age,<span class="at">data=</span>datosf)     <span class="do">#### Ajustamos la recta</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model.female<span class="ot">&lt;-</span><span class="fu">lm</span>(sbp<span class="sc">~</span>age,<span class="at">data=</span>datos.female)     <span class="do">#### Ajustamos la recta</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>• Proporciona una explicación para los coeficientes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.female) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.female) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = sbp ~ age, data = datosf)
+lm(formula = sbp ~ age, data = datos.female)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -337,17 +337,17 @@ F-statistic: 66.81 on 1 and 27 DF,  p-value: 8.876e-09</code></pre>
 </div>
 <p>• Representa gráficamente la línea ajustada</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datosf<span class="sc">$</span>age,datosf<span class="sc">$</span>sbp)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model.female,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos.female<span class="sc">$</span>age,datos.female<span class="sc">$</span>sbp)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model.female,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(model.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checking.plots</span>(model.female)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Practica5_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="fu">rstandard</span>(model.female)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>r<span class="ot">&lt;-</span><span class="fu">rstandard</span>(model.female)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -358,8 +358,8 @@ W = 0.96328, p-value = 0.3948</code></pre>
 </div>
 <p>• Obtén la predicción para cinco mujeres de 23, 26, 32, 55 y 62 años de edad</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>predicitons<span class="ot">&lt;-</span><span class="fu">predict</span>(model.female,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>,<span class="dv">32</span>,<span class="dv">55</span>,<span class="dv">62</span>)),<span class="at">se.fit=</span><span class="cn">TRUE</span>,<span class="at">interval=</span><span class="st">"prediction"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>predicitons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>predicitons<span class="ot">&lt;-</span><span class="fu">predict</span>(model.female,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>,<span class="dv">32</span>,<span class="dv">55</span>,<span class="dv">62</span>)),<span class="at">se.fit=</span><span class="cn">TRUE</span>,<span class="at">interval=</span><span class="st">"prediction"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>predicitons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$fit
        fit      lwr      upr
