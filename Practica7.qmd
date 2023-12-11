@@ -1,0 +1,224 @@
+---
+title: "Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud"
+author: "Jaione Etxeberria y Aritz Adin"
+date: "Curso 2023-2024"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Práctica 7 - Regresión Logística
+
+1.  Para estudiar la posible relación entre el número de satélites
+    (cangrejos macho a su alrededor) y la anchura del caparazón de los
+    cangrejos hembra tipo herradura, se realizó un experimento con 8
+    cangrejos hembra a los que se midió:
+
+-   La anchura de los caparazones (x), medida en cm.
+
+-   El número total de cangrejos macho que se utilizaron en el
+    experimento para cada hembra (n)
+
+-   El número de satélites o cangrejos macho que se situaron alrededor
+    de cada hembra.
+
+El objetivo es modelizar la proporción de satélites en función de la
+anchura del caparazón, para averiguar si el número de satélites depende
+de la anchura del caparazón.
+
+Los datos se recogen en la siguiente tabla:
+
+| **Anchura**(x) | Satélites | **Total (n)** |
+|:--------------:|:---------:|:-------------:|
+|     23.25      |     5     |      14       |
+|     23.75      |     4     |      14       |
+|     24.75      |    17     |      28       |
+|     25.75      |    21     |      39       |
+|     26.75      |    15     |      22       |
+|     27.75      |    20     |      24       |
+|     28.75      |    15     |      18       |
+|     29.25      |    14     |      14       |
+
+Introduce los datos en R en un `data.frame` con el nombre `cangrejos` y
+define una nueva variable llamada `prop` que indique la proporción de
+satélites para cada anchura.
+
+```{r}
+#### Creamos el conjunto de datos
+ anchura<-c(23.25,23.75,24.75,25.75,26.75,27.75,28.75,29.25)
+ satelites<-c(5,4,17,21,15,20,15,14)
+ total<-c(14,14,28,39,22,24,18,14)
+ prop<-satelites/total
+ cangrejos<-data.frame(anchura,satelites,total,prop)
+ cangrejos
+```
+
+1.  **Ajusta el modelo probabilístico lineal**
+
+$$\pi(x)=\alpha + \beta x$$
+
+donde la `y` corresponde a la variable `prop` y la `x` corresponde a la
+anchura del caparazón del cangrejo.
+
+```{r}
+### Ajuste del modelo
+cangrejos.lm<-lm(prop~anchura,weights=total,data=cangrejos)
+summary(cangrejos.lm) 
+```
+
+Responde a las siguientes preguntas
+
+-   ¿Cuáles son las estimaciones de los coeficientes? ¿son
+    estadísticamente significativos?
+
+$\alpha$ =-2.00206 es estadísticamente significativo, dado que su
+p-valor es pequeño
+
+$\beta$ =0.10081 es estadísticamente significativo, dado que su p-valor
+es también pequeño
+
+-   ¿Cuál es el coeficiente de determinación y cuál es su significado?
+
+$R^2$= 0.8818. Significa que el 88,18% de la variabilidad total es
+explicada por el modelo de regresión
+
+¿El modelo ajustado es estadísticamente significativo?
+
+```{r}
+anova(cangrejos.lm)
+```
+
+Sí, el modelo es estadísticamente significativo. La función `anova()`
+presenta el análisis de la varianza con la descomposición de la
+variabilidad total en sus fuentes de variación y nos indica que la
+variable `anchura` es estadísticamente significativa
+
+-   ¿Cuáles son las predicciones de la proporción de satélites para cada
+    valor de la anchura observada?
+
+```{r}
+### Predicciones 
+round(fitted(cangrejos.lm),3)    ### predicciones de proporciones redondeadas a 3 decimales
+fitted(cangrejos.lm)*total       ## predicciones del número  esperado de cangrejos
+data.frame(cangrejos,pred.prop=fitted(cangrejos.lm),pred.total.sat=fitted(cangrejos.lm)*total)
+```
+
+-   Cuál es el número esperado de satélites por hembra?
+
+```{r}
+ mean(fitted(cangrejos.lm)*total)
+```
+
+El número esperado o medio de satélites por hembra es de 13.875.
+
+-   Representa gráficamente las proporciones observadas y las
+    predicciones lineales de las proporciones de satélites por cada
+    anchura del caparazón
+
+```{r}
+plot(cangrejos$anchura, cangrejos$prop)     #### representación gráfica
+abline(cangrejos.lm, col=3,lwd=2)           ### recta de regrésión
+
+```
+
+\newpage
+
+2.  **Ajusta el modelo logístico**
+
+$$
+\mbox{logit}\, [\pi(x)]=\mbox{log}\,
+\left(\frac{\pi(x)}{1-\pi(x)}\right)= \beta_0 + \beta_1 x
+$$
+
+donde la $\pi$ corresponde a la proporción de satélites por anchura de
+caparazón, y `x` corresponde a la anchura del cangrejo
+
+```{r}
+## Ajuste del modelo logístico 
+cangrejos.glm <-glm(prop~anchura,family=binomial, weights=total,data=cangrejos)       
+summary(cangrejos.glm)
+
+```
+
+-   ¿Cuáles son las estimaciones de los coeficientes? ¿son
+    estadísticamente significativos?
+
+```{r}
+confint(cangrejos.glm)
+anova(cangrejos.glm,test="Chi")
+```
+
+Sí, tanto el intercept $\alpha$ como el $\beta$ son estadísticamente
+significativos
+
+-   ¿Cuál es la tasa incremental de cambio a los 26 cms? ¿Qué significa?
+
+```{r}
+source("tasa.incremental.R")
+
+tasa.incremental(cangrejos.glm,26,27,3)
+
+## manual
+
+pigorro26<-predict(cangrejos.glm,data.frame(anchura=26),type="response")
+beta<-coef(cangrejos.glm)[2]
+tasa26<-beta*pigorro26*(1-pigorro26)
+tasa26
+```
+
+Interpretación: Esto significa que cuando la anchura del caparazón
+aumenta de 26 a 27 cm, la proporción de satélites por hembra aumenta
+0.001223.
+
+-   ¿Cuál es la tasa incremental de cambio de probabilidad de que se
+    acerquen cangrejos macho y la tasa de crecimiento en los odds para
+    pasar de 23 a 24, de 24 a 25, de 25 a 26 y de 26 a 27 cm en la
+    anchura del caparazón? ¿Qué significan?
+
+```{r}
+tasa.incremental(cangrejos.glm,23,24,decimales=4)
+tasa.incremental(cangrejos.glm,24,25,decimales=4)
+tasa.incremental(cangrejos.glm,25,26,decimales=4)
+tasa.incremental(cangrejos.glm,26,27,decimales=4)
+```
+
+Interpretación (seguid el ejemplo anterior)
+
+-   ¿Cuánto crece el odds estimado por cada cm de aumento del caparazón?
+
+```{r}
+exp(beta)
+```
+
+Interpretación: Por cada incremento de una unidad (un cm) en la anchura
+del caparazón el odds estimado crece odds crece un 65%
+
+-   ¿Cuáles son las predicciones de la proporción de satélites para cada
+    valor de la anchura observada?
+
+```{r}
+fitted(cangrejos.glm) #### proporciones pronosticadas por el modelo de regresión logística
+fitted(cangrejos.glm)*total #### número esperado medio de satélites por el modelo de regresión logística
+
+data.frame(cangrejos,pred.prop=fitted(cangrejos.glm),pred.total.sat=fitted(cangrejos.glm)*total)
+
+```
+
+-   Representa gráficamente las proporciones observadas y las
+    predicciones lineales y logísticas de las proporciones de satélites
+    por cada anchura del caparazón
+
+```{r}
+plot(anchura, prop)
+lines(anchura, fitted(cangrejos.lm), col=5,lwd=3)
+lines(anchura, fitted(cangrejos.glm), col=4,lwd=3)
+legend(23.5,0.9,c("logit","lineal"),col=c(5,4),lwd=c(3,3))
+```
