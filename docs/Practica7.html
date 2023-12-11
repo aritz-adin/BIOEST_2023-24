@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jaione Etxeberria y Aritz Adin">
+
+<title>BIOEST 2023-24 - Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">BIOEST 2023-24</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica0.html" rel="" target="">
+ <span class="menu-text">Práctica 0</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica1.html" rel="" target="">
+ <span class="menu-text">Práctica 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica2.html" rel="" target="">
+ <span class="menu-text">Práctica 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica3.html" rel="" target="">
+ <span class="menu-text">Práctica 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica4.html" rel="" target="">
+ <span class="menu-text">Práctica 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./PracticaRepasoI.html" rel="" target="">
+ <span class="menu-text">Práctica repaso I</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica5.html" rel="" target="">
+ <span class="menu-text">Práctica 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica6.html" rel="" target="">
+ <span class="menu-text">Práctica 6</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Practica6.html" rel="" target="">
+ <span class="menu-text">Práctica 6</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#práctica-7---regresión-logística" id="toc-práctica-7---regresión-logística" class="nav-link active" data-scroll-target="#práctica-7---regresión-logística">Práctica 7 - Regresión Logística</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jaione Etxeberria y Aritz Adin </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="práctica-7---regresión-logística" class="level2">
+<h2 class="anchored" data-anchor-id="práctica-7---regresión-logística">Práctica 7 - Regresión Logística</h2>
+<ol type="1">
+<li>Para estudiar la posible relación entre el número de satélites (cangrejos macho a su alrededor) y la anchura del caparazón de los cangrejos hembra tipo herradura, se realizó un experimento con 8 cangrejos hembra a los que se midió:</li>
+</ol>
+<ul>
+<li><p>La anchura de los caparazones (x), medida en cm.</p></li>
+<li><p>El número total de cangrejos macho que se utilizaron en el experimento para cada hembra (n)</p></li>
+<li><p>El número de satélites o cangrejos macho que se situaron alrededor de cada hembra.</p></li>
+</ul>
+<p>El objetivo es modelizar la proporción de satélites en función de la anchura del caparazón, para averiguar si el número de satélites depende de la anchura del caparazón.</p>
+<p>Los datos se recogen en la siguiente tabla:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Anchura</strong>(x)</th>
+<th style="text-align: center;">Satélites</th>
+<th style="text-align: center;"><strong>Total (n)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">23.25</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">23.75</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">24.75</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">25.75</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">26.75</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">27.75</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">28.75</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">29.25</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">14</td>
+</tr>
+</tbody>
+</table>
+<p>Introduce los datos en R en un <code>data.frame</code> con el nombre <code>cangrejos</code> y define una nueva variable llamada <code>prop</code> que indique la proporción de satélites para cada anchura.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Creamos el conjunto de datos</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> anchura<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">23.25</span>,<span class="fl">23.75</span>,<span class="fl">24.75</span>,<span class="fl">25.75</span>,<span class="fl">26.75</span>,<span class="fl">27.75</span>,<span class="fl">28.75</span>,<span class="fl">29.25</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> satelites<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">17</span>,<span class="dv">21</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">15</span>,<span class="dv">14</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> total<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">14</span>,<span class="dv">28</span>,<span class="dv">39</span>,<span class="dv">22</span>,<span class="dv">24</span>,<span class="dv">18</span>,<span class="dv">14</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> prop<span class="ot">&lt;-</span>satelites<span class="sc">/</span>total</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> cangrejos<span class="ot">&lt;-</span><span class="fu">data.frame</span>(anchura,satelites,total,prop)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> cangrejos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  anchura satelites total      prop
+1   23.25         5    14 0.3571429
+2   23.75         4    14 0.2857143
+3   24.75        17    28 0.6071429
+4   25.75        21    39 0.5384615
+5   26.75        15    22 0.6818182
+6   27.75        20    24 0.8333333
+7   28.75        15    18 0.8333333
+8   29.25        14    14 1.0000000</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><strong>Ajusta el modelo probabilístico lineal</strong></li>
+</ol>
+<p><span class="math display">\[\pi(x)=\alpha + \beta x\]</span></p>
+<p>donde la <code>y</code> corresponde a la variable <code>prop</code> y la <code>x</code> corresponde a la anchura del caparazón del cangrejo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Ajuste del modelo</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cangrejos.lm<span class="ot">&lt;-</span><span class="fu">lm</span>(prop<span class="sc">~</span>anchura,<span class="at">weights=</span>total,<span class="at">data=</span>cangrejos)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cangrejos.lm) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = prop ~ anchura, data = cangrejos, weights = total)
+
+Weighted Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.39848 -0.28671 -0.00139  0.18904  0.60386 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -2.00206    0.39604  -5.055  0.00232 ** 
+anchura      0.10081    0.01507   6.692  0.00054 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3641 on 6 degrees of freedom
+Multiple R-squared:  0.8818,    Adjusted R-squared:  0.8621 
+F-statistic: 44.78 on 1 and 6 DF,  p-value: 0.0005402</code></pre>
+</div>
+</div>
+<p>Responde a las siguientes preguntas</p>
+<ul>
+<li>¿Cuáles son las estimaciones de los coeficientes? ¿son estadísticamente significativos?</li>
+</ul>
+<p><span class="math inline">\(\alpha\)</span> =-2.00206 es estadísticamente significativo, dado que su p-valor es pequeño</p>
+<p><span class="math inline">\(\beta\)</span> =0.10081 es estadísticamente significativo, dado que su p-valor es también pequeño</p>
+<ul>
+<li>¿Cuál es el coeficiente de determinación y cuál es su significado?</li>
+</ul>
+<p><span class="math inline">\(R^2\)</span>= 0.8818. Significa que el 88,18% de la variabilidad total es explicada por el modelo de regresión</p>
+<p>¿El modelo ajustado es estadísticamente significativo?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cangrejos.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: prop
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+anchura    1 5.9365  5.9365  44.778 0.0005402 ***
+Residuals  6 0.7955  0.1326                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Sí, el modelo es estadísticamente significativo. La función <code>anova()</code> presenta el análisis de la varianza con la descomposición de la variabilidad total en sus fuentes de variación y nos indica que la variable <code>anchura</code> es estadísticamente significativa</p>
+<ul>
+<li>¿Cuáles son las predicciones de la proporción de satélites para cada valor de la anchura observada?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Predicciones </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">fitted</span>(cangrejos.lm),<span class="dv">3</span>)    <span class="do">### predicciones de proporciones redondeadas a 3 decimales</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    1     2     3     4     5     6     7     8 
+0.342 0.392 0.493 0.594 0.695 0.795 0.896 0.947 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(cangrejos.lm)<span class="sc">*</span>total       <span class="do">## predicciones del número  esperado de cangrejos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4        5        6        7        8 
+ 4.78529  5.49097 13.80466 23.15957 15.28222 19.09099 16.13285 13.25345 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(cangrejos,<span class="at">pred.prop=</span><span class="fu">fitted</span>(cangrejos.lm),<span class="at">pred.total.sat=</span><span class="fu">fitted</span>(cangrejos.lm)<span class="sc">*</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  anchura satelites total      prop pred.prop pred.total.sat
+1   23.25         5    14 0.3571429 0.3418064        4.78529
+2   23.75         4    14 0.2857143 0.3922122        5.49097
+3   24.75        17    28 0.6071429 0.4930236       13.80466
+4   25.75        21    39 0.5384615 0.5938350       23.15957
+5   26.75        15    22 0.6818182 0.6946465       15.28222
+6   27.75        20    24 0.8333333 0.7954579       19.09099
+7   28.75        15    18 0.8333333 0.8962694       16.13285
+8   29.25        14    14 1.0000000 0.9466751       13.25345</code></pre>
+</div>
+</div>
+<ul>
+<li>Cuál es el número esperado de satélites por hembra?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(<span class="fu">fitted</span>(cangrejos.lm)<span class="sc">*</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.875</code></pre>
+</div>
+</div>
+<p>El número esperado o medio de satélites por hembra es de 13.875.</p>
+<ul>
+<li>Representa gráficamente las proporciones observadas y las predicciones lineales de las proporciones de satélites por cada anchura del caparazón</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cangrejos<span class="sc">$</span>anchura, cangrejos<span class="sc">$</span>prop)     <span class="do">#### representación gráfica</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(cangrejos.lm, <span class="at">col=</span><span class="dv">3</span>,<span class="at">lwd=</span><span class="dv">2</span>)           <span class="do">### recta de regrésión</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica7_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<ol start="2" type="1">
+<li><strong>Ajusta el modelo logístico</strong></li>
+</ol>
+<p><span class="math display">\[
+\mbox{logit}\, [\pi(x)]=\mbox{log}\,
+\left(\frac{\pi(x)}{1-\pi(x)}\right)= \beta_0 + \beta_1 x
+\]</span></p>
+<p>donde la <span class="math inline">\(\pi\)</span> corresponde a la proporción de satélites por anchura de caparazón, y <code>x</code> corresponde a la anchura del cangrejo</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Ajuste del modelo logístico </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cangrejos.glm <span class="ot">&lt;-</span><span class="fu">glm</span>(prop<span class="sc">~</span>anchura,<span class="at">family=</span>binomial, <span class="at">weights=</span>total,<span class="at">data=</span>cangrejos)       </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cangrejos.glm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = prop ~ anchura, family = binomial, data = cangrejos, 
+    weights = total)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-0.95278  -0.56838  -0.08207   0.58057   1.70238  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -12.4421     2.7150  -4.583 4.59e-06 ***
+anchura       0.5011     0.1051   4.767 1.87e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 34.0340  on 7  degrees of freedom
+Residual deviance:  6.4542  on 6  degrees of freedom
+AIC: 33.636
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<ul>
+<li>¿Cuáles son las estimaciones de los coeficientes? ¿son estadísticamente significativos?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(cangrejos.glm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %     97.5 %
+(Intercept) -18.027915 -7.3310864
+anchura       0.303846  0.7180261</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cangrejos.glm,<span class="at">test=</span><span class="st">"Chi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model: binomial, link: logit
+
+Response: prop
+
+Terms added sequentially (first to last)
+
+        Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+NULL                        7     34.034              
+anchura  1    27.58         6      6.454 1.507e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Sí, tanto el intercept <span class="math inline">\(\alpha\)</span> como el <span class="math inline">\(\beta\)</span> son estadísticamente significativos</p>
+<ul>
+<li>¿Cuál es la tasa incremental de cambio a los 26 cms? ¿Qué significa?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"tasa.incremental.R"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tasa.incremental</span>(cangrejos.glm,<span class="dv">26</span>,<span class="dv">27</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1="         "26"          "x2="         "27"          "incremento="
+[6] "1"          
+[1] "pi.x1.1=probabilidad de éxito en x1"
+[1] "pi.x2.1=probabilidad de éxito en x2"
+[1] "odds.x1.1=odds en x1"
+[1] "odds.x2.1=odds en x2"
+[1] "tasa.inc.p=tasa incremental de cambio de probabilidad x1 a x2"
+[1] "tasa.inc.odds=tasa incremental de cambio de odds(x1) a odds(x2)"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           pi.x1.1 tasa.inc.p.anchura            pi.x2.1          odds.x1.1 
+             0.643              0.115              0.748              1.799 
+   tasa.inc.odds.1          odds.x2.1 
+             1.651              2.970 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## manual</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pigorro26<span class="ot">&lt;-</span><span class="fu">predict</span>(cangrejos.glm,<span class="fu">data.frame</span>(<span class="at">anchura=</span><span class="dv">26</span>),<span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>beta<span class="ot">&lt;-</span><span class="fu">coef</span>(cangrejos.glm)[<span class="dv">2</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>tasa26<span class="ot">&lt;-</span>beta<span class="sc">*</span>pigorro26<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>pigorro26)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>tasa26</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> anchura 
+0.115072 </code></pre>
+</div>
+</div>
+<p>Interpretación: Esto significa que cuando la anchura del caparazón aumenta de 26 a 27 cm, la proporción de satélites por hembra aumenta 0.001223.</p>
+<ul>
+<li>¿Cuál es la tasa incremental de cambio de probabilidad de que se acerquen cangrejos macho y la tasa de crecimiento en los odds para pasar de 23 a 24, de 24 a 25, de 25 a 26 y de 26 a 27 cm en la anchura del caparazón? ¿Qué significan?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tasa.incremental</span>(cangrejos.glm,<span class="dv">23</span>,<span class="dv">24</span>,<span class="at">decimales=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1="         "23"          "x2="         "24"          "incremento="
+[6] "1"          
+[1] "pi.x1.1=probabilidad de éxito en x1"
+[1] "pi.x2.1=probabilidad de éxito en x2"
+[1] "odds.x1.1=odds en x1"
+[1] "odds.x2.1=odds en x2"
+[1] "tasa.inc.p=tasa incremental de cambio de probabilidad x1 a x2"
+[1] "tasa.inc.odds=tasa incremental de cambio de odds(x1) a odds(x2)"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           pi.x1.1 tasa.inc.p.anchura            pi.x2.1          odds.x1.1 
+            0.2858             0.1023             0.3977             0.4001 
+   tasa.inc.odds.1          odds.x2.1 
+            1.6506             0.6604 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tasa.incremental</span>(cangrejos.glm,<span class="dv">24</span>,<span class="dv">25</span>,<span class="at">decimales=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1="         "24"          "x2="         "25"          "incremento="
+[6] "1"          
+[1] "pi.x1.1=probabilidad de éxito en x1"
+[1] "pi.x2.1=probabilidad de éxito en x2"
+[1] "odds.x1.1=odds en x1"
+[1] "odds.x2.1=odds en x2"
+[1] "tasa.inc.p=tasa incremental de cambio de probabilidad x1 a x2"
+[1] "tasa.inc.odds=tasa incremental de cambio de odds(x1) a odds(x2)"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           pi.x1.1 tasa.inc.p.anchura            pi.x2.1          odds.x1.1 
+            0.3977             0.1200             0.5215             0.6604 
+   tasa.inc.odds.1          odds.x2.1 
+            1.6506             1.0900 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tasa.incremental</span>(cangrejos.glm,<span class="dv">25</span>,<span class="dv">26</span>,<span class="at">decimales=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1="         "25"          "x2="         "26"          "incremento="
+[6] "1"          
+[1] "pi.x1.1=probabilidad de éxito en x1"
+[1] "pi.x2.1=probabilidad de éxito en x2"
+[1] "odds.x1.1=odds en x1"
+[1] "odds.x2.1=odds en x2"
+[1] "tasa.inc.p=tasa incremental de cambio de probabilidad x1 a x2"
+[1] "tasa.inc.odds=tasa incremental de cambio de odds(x1) a odds(x2)"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           pi.x1.1 tasa.inc.p.anchura            pi.x2.1          odds.x1.1 
+            0.5215             0.1251             0.6427             1.0900 
+   tasa.inc.odds.1          odds.x2.1 
+            1.6506             1.7991 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tasa.incremental</span>(cangrejos.glm,<span class="dv">26</span>,<span class="dv">27</span>,<span class="at">decimales=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x1="         "26"          "x2="         "27"          "incremento="
+[6] "1"          
+[1] "pi.x1.1=probabilidad de éxito en x1"
+[1] "pi.x2.1=probabilidad de éxito en x2"
+[1] "odds.x1.1=odds en x1"
+[1] "odds.x2.1=odds en x2"
+[1] "tasa.inc.p=tasa incremental de cambio de probabilidad x1 a x2"
+[1] "tasa.inc.odds=tasa incremental de cambio de odds(x1) a odds(x2)"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           pi.x1.1 tasa.inc.p.anchura            pi.x2.1          odds.x1.1 
+            0.6427             0.1151             0.7481             1.7991 
+   tasa.inc.odds.1          odds.x2.1 
+            1.6506             2.9695 </code></pre>
+</div>
+</div>
+<p>Interpretación (seguid el ejemplo anterior)</p>
+<ul>
+<li>¿Cuánto crece el odds estimado por cada cm de aumento del caparazón?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(beta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> anchura 
+1.650584 </code></pre>
+</div>
+</div>
+<p>Interpretación: Por cada incremento de una unidad (un cm) en la anchura del caparazón el odds estimado crece odds crece un 65%</p>
+<ul>
+<li>¿Cuáles son las predicciones de la proporción de satélites para cada valor de la anchura observada?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(cangrejos.glm) <span class="do">#### proporciones pronosticadas por el modelo de regresión logística</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6         7         8 
+0.3119907 0.3681261 0.4902175 0.6134872 0.7237468 0.8121823 0.8771142 0.9016724 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(cangrejos.glm)<span class="sc">*</span>total <span class="do">#### número esperado medio de satélites por el modelo de regresión logística</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6         7         8 
+ 4.367870  5.153766 13.726090 23.926000 15.922429 19.492375 15.788056 12.623414 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(cangrejos,<span class="at">pred.prop=</span><span class="fu">fitted</span>(cangrejos.glm),<span class="at">pred.total.sat=</span><span class="fu">fitted</span>(cangrejos.glm)<span class="sc">*</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  anchura satelites total      prop pred.prop pred.total.sat
+1   23.25         5    14 0.3571429 0.3119907       4.367870
+2   23.75         4    14 0.2857143 0.3681261       5.153766
+3   24.75        17    28 0.6071429 0.4902175      13.726090
+4   25.75        21    39 0.5384615 0.6134872      23.926000
+5   26.75        15    22 0.6818182 0.7237468      15.922429
+6   27.75        20    24 0.8333333 0.8121823      19.492375
+7   28.75        15    18 0.8333333 0.8771142      15.788056
+8   29.25        14    14 1.0000000 0.9016724      12.623414</code></pre>
+</div>
+</div>
+<ul>
+<li>Representa gráficamente las proporciones observadas y las predicciones lineales y logísticas de las proporciones de satélites por cada anchura del caparazón</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(anchura, prop)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(anchura, <span class="fu">fitted</span>(cangrejos.lm), <span class="at">col=</span><span class="dv">5</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(anchura, <span class="fu">fitted</span>(cangrejos.glm), <span class="at">col=</span><span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="fl">23.5</span>,<span class="fl">0.9</span>,<span class="fu">c</span>(<span class="st">"logit"</span>,<span class="st">"lineal"</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>),<span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Practica7_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
