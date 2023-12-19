@@ -2,13 +2,9 @@
 title: "Bioestadística. Máster Universitario en Investigación en Ciencias de la Salud"
 author: "Jaione Etxeberria y Aritz Adin"
 date: "Curso 2023-2024"
-output:
-  html_document:
-    df_print: paged
-  word_document: default
-editor_options:
-  markdown:
-    wrap: 72
+format:
+  html:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -17,53 +13,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Práctica 8 - Análisis de supervivencia
 
-En pruebas con anticonceptivos, un criterio evidente de aceptación de
-dicho anticonceptivo es la prevención de embarazos. Sin embargo, los
-anticonceptivos modernos muestran tasas de fallo muy bajas, y por tanto
-las alteraciones en ocurrencia de hemorragias, como amenorrea (una
-ausencia prolongada de hemorragia), hemorragias irregulares o
-prolongadas, son importantes a la hora de evaluar un método
-anticonceptivo.
+En pruebas con anticonceptivos, un criterio evidente de aceptación de dicho anticonceptivo es la prevención de embarazos. Sin embargo, los anticonceptivos modernos muestran tasas de fallo muy bajas, y por tanto las alteraciones en ocurrencia de hemorragias, como amenorrea (una ausencia prolongada de hemorragia), hemorragias irregulares o prolongadas, son importantes a la hora de evaluar un método anticonceptivo.
 
-Para promocionar la investigación en este tema la OMS (WHO) ha
-proporcionado datos de ensayos clínicos realizadas con distintos tipos
-de anticonceptivos. Una parte de este conjunto de datos tiene que ver
-con el tiempo que transcurre desde que una mujer comienza a usar un
-método particular hasta que suspende su uso.
+Para promocionar la investigación en este tema la OMS (WHO) ha proporcionado datos de ensayos clínicos realizadas con distintos tipos de anticonceptivos. Una parte de este conjunto de datos tiene que ver con el tiempo que transcurre desde que una mujer comienza a usar un método particular hasta que suspende su uso.
 
-Los datos que presentamos a continuación corresponden al número de
-semanas que transcurren desde el comienzo de uso de un dispositivo
-intrauterino particular (DIU) llamado Multiload 250, hasta que se
-suspende su uso por problemas de hemorragias. Los datos corresponden a
-18 mujeres entre 18 y 35 años que habían experimentado dos embarazos
-previos.
+Los datos que presentamos a continuación corresponden al número de semanas que transcurren desde el comienzo de uso de un dispositivo intrauterino particular (DIU) llamado Multiload 250, hasta que se suspende su uso por problemas de hemorragias. Los datos corresponden a 18 mujeres entre 18 y 35 años que habían experimentado dos embarazos previos.
 
-En este ejemplo el tiempo de origen en que se comienza el estudio es a
-partir del primer día de uso del DIU y el tiempo final es la suspensión
-debido a problemas hemorrágicos.
+En este ejemplo el tiempo de origen en que se comienza el estudio es a partir del primer día de uso del DIU y el tiempo final es la suspensión debido a problemas hemorrágicos.
 
-Algunas mujeres suspendieron el uso del DIU porque deseaban quedarse
-embarazadas mientras que otras simplemente se perdió su seguimiento. Por
-ello aparecen algunos datos censurados.
+Algunas mujeres suspendieron el uso del DIU porque deseaban quedarse embarazadas mientras que otras simplemente se perdió su seguimiento. Por ello aparecen algunos datos censurados.
 
-Un objetivo de este análisis es **resumir la distribución de los tiempos
-de suspensión del uso del dispositivo intrauterino**.
+Un objetivo de este análisis es **resumir la distribución de los tiempos de suspensión del uso del dispositivo intrauterino**.
 
 **Datos:** tiempo en semanas hasta la suspensión de uso del DIU
 
-10, 134+, 18+, 19, 23+, 30, 36, 38+, 54+, 56+, 59, 75, 93, 97, 104+,
-107, 107+, 107+
+10, 134+, 18+, 19, 23+, 30, 36, 38+, 54+, 56+, 59, 75, 93, 97, 104+, 107, 107+, 107+
 
-Puedes leer los datos del fichero `dispositivo.txt` o puedes
-introducirlos manualmente.
+Puedes leer los datos del fichero `dispositivo.txt` o puedes introducirlos manualmente.
 
 ```{r}
 library(survival)
 diu<-read.table("dispositivo.txt", header=T)
 ```
 
--   Estima la función de supervivencia $S(t)$ por Kaplan-Meier. Calcula
-    los errores estándar y proporciona un I.C. al 95% para $S(t)$.
+-   Estima la función de supervivencia $S(t)$ por Kaplan-Meier. Calcula los errores estándar y proporciona un I.C. al 95% para $S(t)$.
 
 ```{r}
 diu.surv1<-survfit(Surv(time,status)~1, diu)  
@@ -71,20 +44,15 @@ summary(diu.surv1)
 
 ```
 
--   ¿Cuál es la probabilidad de que el tiempo de uso del dispositivo
-    supere las 19 semanas?
+-   ¿Cuál es la probabilidad de que el tiempo de uso del dispositivo supere las 19 semanas?
 
--   Dibuja la función de supervivencia estimada con su correspondiente
-    intervalo de confianza.
+-   Dibuja la función de supervivencia estimada con su correspondiente intervalo de confianza.
 
 ```{r}
 plot(diu.surv1, lwd=3)
 ```
 
-**Problema 2. Considere el fichero "OvarianCancer.txt" para estudiar
-la** supervivencia en un ensayo aleatorio que compara dos tratamientos
-para el cáncer de ovario realizado por el Eastern Cooperative Oncology
-Group. El fichero incluye las siguientes variables
+**Problema 2. Considere el fichero "OvarianCancer.txt" para estudiar la** supervivencia en un ensayo aleatorio que compara dos tratamientos para el cáncer de ovario realizado por el Eastern Cooperative Oncology Group. El fichero incluye las siguientes variables
 
 -   futime: tiempo de supervivencia o de censura (días)
 
@@ -104,11 +72,8 @@ Leer los datos del fichero `OvarianCancer.txt`
 ovarian<-read.table("OvarianCancer.txt", header=T)
 ```
 
--   Ajusta la función de supervivencia $S(t)$ por Kaplan-Meier para los
-    dos grupos de tratamientoy calcula los errores estándar y
-    proporciona un I.C. al 95% para cada $S(t)$.
-    -   Indica con qué tratamiento es superior probabilidad de que una
-        paciente sobreviva más de un año. Justifica tus respuestas.
+-   Ajusta la función de supervivencia $S(t)$ por Kaplan-Meier para los dos grupos de tratamientoy calcula los errores estándar y proporciona un I.C. al 95% para cada $S(t)$.
+    -   Indica con qué tratamiento es superior probabilidad de que una paciente sobreviva más de un año. Justifica tus respuestas.
     -   ¿Cuál es el tratamiento más eficaz incialmente?
     -   ¿Cuál dirías que es el tratamiento más eficaz a largo plazo?
 
@@ -136,8 +101,7 @@ legend(1000,1,c("Rx=1","Rx=2"),lty=c(1,2),col=c(4,2),lwd=c(2,2))
 
 ```
 
--   Compara las curvas de supervivencia en ambios grupos e indica si hay
-    diferencias significativas.
+-   Compara las curvas de supervivencia en ambios grupos e indica si hay diferencias significativas.
 
 ```{r}
 survdiff(Surv(futime,fustat)~rx, ovarian)
